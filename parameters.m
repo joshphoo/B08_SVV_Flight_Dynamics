@@ -4,22 +4,22 @@
 
 % Stationary flight condition
 
-hp0    = ;      	  % pressure altitude in the stationary flight condition [m]
-V0     = ;            % true airspeed in the stationary flight condition [m/sec]
-alpha0 = ;       	  % angle of attack in the stationary flight condition [rad]
-th0    = ;       	  % pitch angle in the stationary flight condition [rad]
+hp0    = 1;      	  % pressure altitude in the stationary flight condition [m]
+V0     = 1;            % true airspeed in the stationary flight condition [m/sec]
+alpha0 = 1;       	  % angle of attack in the stationary flight condition [rad]
+th0    = 1;       	  % pitch angle in the stationary flight condition [rad]
 
 % Aircraft mass
-m      = ;         	  % mass [kg]
+m      = 1;         	  % mass [kg]
 
 % aerodynamic properties
-e      = ;            % Oswald factor [ ]
-CD0    = ;            % Zero lift drag coefficient [ ]
-CLa    = ;            % Slope of CL-alpha curve [ ]
+e      = 1;            % Oswald factor [ ]
+CD0    = 1;            % Zero lift drag coefficient [ ]
+CLa    = 1;            % Slope of CL-alpha curve [ ]
 
 % Longitudinal stability
-Cma    = ;            % longitudinal stabilty [ ]
-Cmde   = ;            % elevator effectiveness [ ]
+Cma    = 1;            % longitudinal stabilty [ ]
+Cmde   = 1;            % elevator effectiveness [ ]
 
 % Aircraft geometry
 
