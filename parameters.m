@@ -172,8 +172,10 @@ C3_asymmetric = [CYda,CYdr; 0, 0; Clda, Cldr; Cnda, Cndr];
 A1_asymmetric = -inv(C1_asymmetric)*C2_asymmetric;
 B1_asymmetric = -inv(C1_asymmetric)*C3_asymmetric;
 
-sys = ss(A1_symmetric,B1_symmetric,C,D)
-sys = ss(A1_asymmetric,B1_asymmetric,C,D)
+Ts = 0.1
+
+sys_s = ss(A1_symmetric,B1_symmetric,C,D,Ts)
+sys_a = ss(A1_asymmetric,B1_asymmetric,C,D)
 
 % symmetric_eq1 = [CXu-2*muc*c/V0*(ddt), CXa, CZ0, CXq; CZu, CZa+(CZadot-2*muc)*c/V0*(ddt), -CX0, CZq+2*muc; 0, 0, -c/V0*(ddt), 1; Cmu, Cma+Cmadot*c/V0*(ddt),0,Cmq-2*muc*KY2]
 % symmetric_eq2 = [ucirc;alpha;theta;q*c/V0]
