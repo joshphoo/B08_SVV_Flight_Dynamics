@@ -46,3 +46,4 @@ T3 = num3 + text3;
 excel_data_reader.T3 = T3;
 excel_data_reader.label3 = label3;
 
+clearvars -except 'excel_data_reader'
