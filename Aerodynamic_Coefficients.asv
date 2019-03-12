@@ -40,7 +40,7 @@ T3 = num3 + text3;
 
 %------------------ Stationary Measurement Series Aerodynamic Properties
 %mass passengers + pilots + luggage + block fuel
-T4 = readtable('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
+T4 = readtable('REFERENCE_Post_Flight_Datasheet_Flight.xlsx')
 
 %change later to the mass given by Rowan
 
@@ -48,22 +48,5 @@ T4 = readtable('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
 % m_F_Used = T1(:,9)
 % m_Block_Fuel = T4(17,4)
 
-% m = 8539
-% W = m*g
-% C_L = W/(0.5*)
-% 
-% a = [1.0,
-%     1.0,
-
-% mass balance
-
-m_BEM = 9165 ; % pounds
-   
-
-p0 = 101325 ;
-p = [
-    4.5,
-    4.5,
-    4.5,
-    4.0];
-a = p0./p
+m = 8539
+C_L = 

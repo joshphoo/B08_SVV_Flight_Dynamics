@@ -1,4 +1,5 @@
 %Stationa
+load(parameters
 
 m_payload = %mass passengers + pilots + luggage + block fuel
 m_BEM = 

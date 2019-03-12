@@ -65,10 +65,10 @@ CNwa   = CLa;   		        % Wing normal force slope [ ]
 CNha   = 2*pi*Ah/(Ah+2);        % Stabiliser normal force slope [ ]
 depsda = 4/(A+2);               % Downwash gradient [ ]
 
-% Lift and drag coefficient
-
-CL = 2*W/(rho*V0^2*S);               % Lift coefficient [ ]
-CD = CD0 + (CLa*alpha0)^2/(pi*A*e);  % Drag coefficient [ ]
+% % Lift and drag coefficient
+ 
+ CL = 2*W/(rho*V0^2*S);               % Lift coefficient [ ]
+ CD = CD0 + (CLa*alpha0)^2/(pi*A*e);  % Drag coefficient [ ]
 
 % Stabiblity derivatives
 
