@@ -22,9 +22,7 @@ T1(:,10) = T1(:,10) + 273.15;
 %Convert Celcius to Kelvin
 T1(:,10) = T1(:,10)-((273.15+15)+(T1(:,4).*(-0.0065)));
 disp('Check which temperature you have to subtract the Tisa from, total or static or a corrected thing?')
-%Convert pounds per hour to kg/s
-T1(:,7) = T1(:,7).*0.000125998
-T1(:,8) = T1(:,8).*0.000125998
+T1(:,
 
 
 INPUT1 = T1(:,[4,5,10,7,8]);
@@ -36,7 +34,7 @@ INPUT1 = T1(:,[4,5,10,7,8]);
 INPUT = INPUT1;
 dlmwrite('matlab.dat',INPUT,'delimiter',' ')
 system('thrust.exe')
-%gives thust for left and right engine
+
 clearvars -except 'Input'
 
 
