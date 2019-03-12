@@ -93,28 +93,29 @@ rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air
 W      = m*g;				                        % [N]       (aircraft weight)
 
 
-% Pressure calculations
-p = p0*(1.0 + lambda*hp1/Temp0).^(-g/(lambda*R)); %pressure [Pa]
+% % Pressure calculations
+% p = p0*(1.0 + lambda*hp1/Temp0).^(-g/(lambda*R)); %pressure [Pa]
+% 
+% % Density calulations 
+% rho    = rho0*((1+(lambda*hp1/Temp0))).^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
+% 
+% 
+% % Mach number
+% A = (p0./p);
+% M = sqrt(2.0/(gamma-1.0)*((1.0+A.*((1.0 + (gamma-1.0)/(2.0*gamma)*(rho0/p0*Vc.^2.0)).^(gamma/(gamma-1.0))-1.0)).^((gamma-1.0)/gamma)-1.0));
+% 
+% %Static Temperature
+% T = T_m./(1.0+((gamma-1.0)/2.0)*M.^2.0)
+% 
+% %Speed of Sound
+% a = sqrt(gamma*R*T)
+% 
+% %True Airspeed
+% V_t = a.*M
+% 
+% %Equivalent Airspeed
+% V_e = V_t.*sqrt(rho./rho0)
 
-% Density calulations 
-rho    = rho0*((1+(lambda*hp1/Temp0))).^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
-
-
-% Mach number
-A = (p0./p);
-M = sqrt(2.0/(gamma-1.0)*((1.0+A.*((1.0 + (gamma-1.0)/(2.0*gamma)*(rho0/p0*Vc.^2.0)).^(gamma/(gamma-1.0))-1.0)).^((gamma-1.0)/gamma)-1.0));
-
-%Static Temperature
-T = T_m./(1.0+((gamma-1.0)/2.0)*M.^2.0)
-
-%Speed of Sound
-a = sqrt(gamma*R*T)
-
-%True Airspeed
-V_t = a.*M
-
-%Equivalent Airspeed
-V_e = V_t.*sqrt(rho./rho0)
 
 % % Constant values concerning aircraft inertia
 % 

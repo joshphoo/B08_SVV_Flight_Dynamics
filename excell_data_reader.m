@@ -28,7 +28,7 @@ num2 = [num2 zeros(size(num2,1),1)];
 text2 = str2double(text2);
 text2(isnan(text2))=0;
 text2 = [zeros(size(text2,1),1) text2];
-format shortG
+format shortG;
 T2 = num2 + text2;
 excel_data_reader.T2 = T2;
 excel_data_reader.label2 = label2;
@@ -41,7 +41,7 @@ num3 = [num3 zeros(size(num3,1),1)];
 text3 = str2double(text3);
 text3(isnan(text3))=0;
 text3 = [zeros(size(text3,1),1) text3];
-format shortG
+format shortG;
 T3 = num3 + text3;
 excel_data_reader.T3 = T3;
 excel_data_reader.label3 = label3;
