@@ -104,18 +104,7 @@ rho    = rho0*((1+(lambda*hp1/Temp0))).^(-((g/(lambda*R))+1));   % [kg/m^3]  (ai
 A = (p0./p);
 M = sqrt(2.0/(gamma-1.0)*((1.0+A.*((1.0 + (gamma-1.0)/(2.0*gamma)*(rho0/p0*Vc.^2.0)).^(gamma/(gamma-1.0))-1.0)).^((gamma-1.0)/gamma)-1.0));
 
-%Static Temperature
-T = T_m./(1.0+((gamma-1.0)/2.0)*M.^2.0)
-
-%Speed of Sound
-a = sqrt(gamma*R*T)
-
-%True Airspeed
-V_t = a.*M
-
-%Equivalent Airspeed
-V_e = V_t.*sqrt(rho./rho0)
-
+T
 % % Constant values concerning aircraft inertia
 % 
 % muc    = m/(rho*S*c);
