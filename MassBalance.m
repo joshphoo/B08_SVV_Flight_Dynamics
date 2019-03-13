@@ -19,8 +19,7 @@ fuelmom = [];
 for i = 1:length(Fweight)
     for j = 1:46
         if (Fweight(i) >=fuelmoments(j,1) ) && (Fweight(i) <=(fuelmoments(j,1)+100))
-            dudu = (Fweight-fuelmoments(j,1))*((fuelmoments((j+1),2)-fuelmoments(j,2))/100)+fuelmoments(j,2);
-            fuelmom = [fuelmom,(0.011521246229174*dudu)];
+            fuelmom = ((Fweight-fuelmoments(j,1))*((fuelmoments((j+1),2)-fuelmoments(j,2))/100)+fuelmoments(j,2))*0.0254*0.45359237;
         end
     end
 end 
