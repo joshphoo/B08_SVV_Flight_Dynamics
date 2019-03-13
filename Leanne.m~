@@ -5,22 +5,22 @@
 
 % Stationary flight condition
 
-hp0    = 1500;      	  % pressure altitude in the stationary flight condition [m]
+hp0    = 1;      	  % pressure altitude in the stationary flight condition [m]
 V0     = 75;          % true airspeed in the stationary flight condition [m/sec]
 alpha0 = 5/180*pi;    % angle of attack in the stationary flight condition [rad]
 th0    = 0;       	  % pitch angle in the stationary flight condition [rad]
 
 % Aircraft mass
-m      = 6000;           % mass [kg]
+m      = ;           % mass [kg]
 
 % aerodynamic properties
 e      = 0.8;           % Oswald factor [ ]
-CD0    = 0.04;          % Zero lift drag coefficient [ ]
-CLa    = 5.084;         % Slope of CL-alpha curve [ ]
+CD0    = 0.04;           % Zero lift drag coefficient [ ]
+CLa    = 5.084;           % Slope of CL-alpha curve [ ]
 
 % Longitudinal stability
-Cma    = -0.5626;           % longitudinal stabilty [ ]
-Cmde   = -1.1642;           % elevator effectiveness [ ]
+Cma    = 1;           % longitudinal stabilty [ ]
+Cmde   = 1;           % elevator effectiveness [ ]
 
 % Aircraft geometry
 
@@ -137,16 +137,14 @@ B1_asymmetric = -inv(C1_asymmetric)*C3_asymmetric;
 
 T = 5;
 
-sys_s = ss(A1_symmetric,B1_symmetric,C,D,'StateName',{'Velocity' 'Angle of attack' 'Pitch angle' 'Pitch rate'}, 'StateUnit', {'m/s' 'rad' 'rad' 'rad/s'}, 'OutputName',{'Velocity' 'Angle of attack' 'Pitch angle' 'Pitch rate'}, 'OutputUnit', {'m/s' 'rad' 'rad' 'rad/s'});
+sys_s = ss(A1_symmetric,B1_symmetric,C,D);
 sys_a = ss(A1_asymmetric,B1_asymmetric,C,D);
-size(sys_s)
 
-t = 0:.1:10;
-u = [0; zeros(length(t)-1,1)];
-x0 = [V0; 0; th0; 0]
-lsim(sys_s,u,t,x0)
+t = 0:0.1:5;
+u = 
+
+step(sys_a)
 isstable(sys_a)
-%impulse(sys_s, 10)
 
 % Mean0 = [V0; alpha0; th0; 0] 
 % sys_s2 = ssm(A1_symmetric,B1_symmetric,C,D, 'Mean0', Mean0)
