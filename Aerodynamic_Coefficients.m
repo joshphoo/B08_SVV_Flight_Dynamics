@@ -68,21 +68,32 @@ Thrust = [
 C_D = Thrust./(0.5*rho.*V_t.^2*S);
 C_D = C_D.';
 C_L2 = C_L.^2; %CL^2
-f = polyfit(C_L2,C_D,1)
+Fit_CL2_CD = polyfit(C_L2,C_D,1)
 
 %Oswaldo factor
-e = 1/(pi*A*f(1))
+e = 1/(pi*A*Fit_CL2_CD(1))
 % Zero lift drag coefficient
-CD0 = f(2)
+CD0 = Fit_CL2_CD(2)
+
+% Corrected C_D with input: CD0 & e
+C_D_corr = CD0 + (C_L2)/(pi*A*e)
 
 %---------------------------------- Plot graphs
 % C_L - Alpha Curve
-%plot(alpha_array,C_L,'b',alpha_array_ex,C_L_ex,'g',alpha_array,C_D,'r',x,yfit)
+plot(alpha_array,C_L,'b',x,yfit,'g')
 ax = gca;
 ax.XAxisLocation = 'origin';
 ax.YAxisLocation = 'origin';
-legend('CL-Alpha','CL-Alpha Extrapolated','CD-Alpha')
+legend('CL-Alpha','CL-Alpha Extrapolated')
+figure
 
+% CL^2-CD Curve
+plot(C_L2,C_D)
+legend('C_L^2-C_D')
+figure
+
+% C_D - Alpha Curve
+plot(alpha_array,C_D,'b',alpha_array,C_D_corr,'r')
 % C_L - C_D Curve
-%plot(C_D,C_L)
-
+plot(C_D,C_L,'b',C_D_corr,C_L,'r')
+legend('C_D-C_L','C_D_corr-C_L')
