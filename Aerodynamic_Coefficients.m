@@ -21,6 +21,7 @@ m_payload = 695; %REFERENCE DATA MASS
 m_block_fuel = 4050*0.453592;
 % Mass Fuel Used [kg]
 m_fuel_used = T1(:,9)*0.453592;
+%m_test = m_BEM+m_payload+m_block_fuel-m_fuel_used;
 % gravitational acceleration
 g = 9.81;
 % Weight dependant on 
