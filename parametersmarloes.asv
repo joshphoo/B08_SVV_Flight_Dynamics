@@ -2,9 +2,9 @@
 
 % xcg = 0.25*c
 %Obtain inputs
-T1 = excel_data_reader.T1;
-T2 = excel_data_reader.T2;
-T3 = excel_data_reader.T3;
+T1 = excel_data_reader.T1
+T2 = excel_data_reader.T2
+T3 = excel_data_reader.T3
 
 % Stationary flight condition
 hp0    = 1; 
@@ -61,7 +61,7 @@ T_m3    = T3(:,10)+273.15;
 rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
 W      = m*g;				                        % [N]       (aircraft weight)
 
-Ws     = 60500; % [N]
+Ws     = 60500 % [N]
 
 
 % Pressure calculations
@@ -108,7 +108,4 @@ run('MassBalance.m');
 %Reduced equivalent airspeed 
 parameter.V_re1 = V_e1.*sqrt(Weight./Ws); 
 
-clearvars T1 T2 T3 hp0 hp1 hp2 hp3 V0 alpha0 th0 Vc1 Vc2 Vc3 m e CD0 CLa ...
-          Cma Cmde S Sh Sh_S lh c lh_c b bh A Ah Vh_V ih rho0 lambda ...
-          Temp0 R g gamma p0 T_m1 T_m2 T_m3 rho W Ws p1 p2 p3 rho1 ...
-          rho2 rho3 A1 A2 A3 a1 a2 a3 V_t1 V_t2 V_t3 V_e1 V_e2 V_e3
+clearvars T1 T2 T3 hp0 hp1 hp2 hp3 V0 alpha0 th0 Vc1 Vc2 Vc3 m e CD0 CLa Cma Cmde S Sh Sh_S lh c lh_c b bh A Ah Vh_V ih 
