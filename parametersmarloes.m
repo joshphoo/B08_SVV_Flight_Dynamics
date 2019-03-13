@@ -1,46 +1,10 @@
 % Citation 550 - Linear simulation
 
 % xcg = 0.25*c
-
-
-%-------------------Reading Stationary Data--------------------------------
-filename = fullfile('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
-xlrange = 'A28:J33';
-x2range = 'A59:M65';
-x3range = 'A75:M76';
-%-------------------Put The Data In array----------------------------------
-%-------------------Dataset 1
-[num1, text1, raw1] = xlsread(filename,xlrange);
-num1(isnan(num1))=0;
-text1 = str2double(text1);
-text1(isnan(text1))=0;
-text1 = [zeros(size(text1,1),1) text1];
-format shortG
-T1 = num1 + text1;
-
-%-------------------Dataset 2
-[num2, text2, raw2] = xlsread(filename,x2range);
-num2(isnan(num2))=0;
-num2 = [num2 zeros(size(num2,1),1)]
-text2 = str2double(text2);
-text2(isnan(text2))=0;
-text2 = [zeros(size(text2,1),1) text2];
-format shortG
-num2
-text2
-T2 = num2 + text2;
-%-------------------Dataset 3
-[num3, text3, raw3] = xlsread(filename,x3range);
-num3(isnan(num3))=0;
-num3 = [num3 zeros(size(num3,1),1)]
-text3 = str2double(text3);
-text3(isnan(text3))=0;
-text3 = [zeros(size(text3,1),1) text3];
-format shortG
-num3
-text3
-T3 = num3 + text3;
-
+%Obtain inputs
+T1 = excel_data_reader.T1;
+T2 = excel_data_reader.T2;
+T3 = excel_data_reader.T3;
 
 % Stationary flight condition
 hp0    = 1; 
@@ -97,7 +61,7 @@ T_m3    = T3(:,10)+273.15;
 rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
 W      = m*g;				                        % [N]       (aircraft weight)
 
-Ws     = 60500 % [N]
+Ws     = 60500; % [N]
 
 
 % Pressure calculations
@@ -144,4 +108,7 @@ run('MassBalance.m');
 %Reduced equivalent airspeed 
 parameter.V_re1 = V_e1.*sqrt(Weight./Ws); 
 
-clearvars -except 'parameter'
+clearvars T1 T2 T3 hp0 hp1 hp2 hp3 V0 alpha0 th0 Vc1 Vc2 Vc3 m e CD0 CLa ...
+          Cma Cmde S Sh Sh_S lh c lh_c b bh A Ah Vh_V ih rho0 lambda ...
+          Temp0 R g gamma p0 T_m1 T_m2 T_m3 rho W Ws p1 p2 p3 rho1 ...
+          rho2 rho3 A1 A2 A3 a1 a2 a3 V_t1 V_t2 V_t3 V_e1 V_e2 V_e3
