@@ -9,5 +9,4 @@ run('excell_data_reader.m')
 
 %----------------------------Run Engine Part-------------------------------
 run('Engine_part.m')
-%----------------------------Run Flightdata Graphmaker---------------------
-run('flightdata_graphmaker.m')
+%----------------------------Run Flightdata Graphmaker-----------
