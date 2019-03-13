@@ -3,6 +3,7 @@ run('excell_data_reader.m');
 T1 = excel_data_reader.T1;
 run('parametersmarloes.m');
 Thrustdata = importdata('thrust.dat');
+run('MassBalance.m');
 %--------------------------------- Calculate Parameters
 % Pressure altitude in the stationary flight condition [m]
 hp0    = T1(:,4)*0.3048; 
@@ -23,7 +24,7 @@ m_fuel_used = T1(:,9)*0.453592;
 % gravitational acceleration
 g = 9.81;
 % Weight dependant on 
-W = (9165*0.453592)*g; % CHANGE TO THE MASS GIVEN BY ROWAN
+W = (Weight)*g; % CHANGE TO THE MASS GIVEN BY ROWAN
 
 % Pressure Calculation
 p = p0*(1.0 + lambda*hp1/Temp0).^(-g/(lambda*R)); %pressure [Pa]
