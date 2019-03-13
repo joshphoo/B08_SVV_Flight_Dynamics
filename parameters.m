@@ -1,42 +1,3 @@
-%-------------------Reading Stationary Data--------------------------------
-filename = fullfile('Post_Flight_Datasheet_03_06_V4.xlsx');
-xlrange = 'A28:J33';
-x2range = 'A59:M65';
-x3range = 'A75:M76';
-%-------------------Put The Data In array----------------------------------
-%-------------------Dataset 1
-[num1, text1, raw1] = xlsread(filename,xlrange);
-num1(isnan(num1))=0;
-text1 = str2double(text1);
-text1(isnan(text1))=0;
-text1 = [zeros(size(text1,1),1) text1];
-format shortG
-T1 = num1 + text1;
-
-%-------------------Dataset 2
-[num2, text2, raw2] = xlsread(filename,x2range);
-num2(isnan(num2))=0;
-num2 = [num2 zeros(size(num2,1),1)]
-text2 = str2double(text2);
-text2(isnan(text2))=0;
-text2 = [zeros(size(text2,1),1) text2];
-format shortG
-num2
-text2
-T2 = num2 + text2;
-%-------------------Dataset 3
-[num3, text3, raw3] = xlsread(filename,x3range);
-num3(isnan(num3))=0;
-num3 = [num3 zeros(size(num3,1),1)]
-text3 = str2double(text3);
-text3(isnan(text3))=0;
-text3 = [zeros(size(text3,1),1) text3];
-format shortG
-num3
-text3
-T3 = num3 + text3;
-
-
 % Citation 550 - Linear simulation
 
 % xcg = 0.25*c
@@ -85,8 +46,8 @@ g      = 9.81;            % [m/sec^2] (gravity constant)
 gamma  = 1.4;             % air ratio specific heats 
 p0     = 101325;          % sea level pressure [Pa]
 
-rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
-W      = m*g;				                        % [N]       (aircraft weight)
+%rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
+%W      = m*g;				                        % [N]       (aircraft weight)
 
 % Constant values concerning aircraft inertia
 
@@ -104,10 +65,10 @@ CNwa   = CLa;   		        % Wing normal force slope [ ]
 CNha   = 2*pi*Ah/(Ah+2);        % Stabiliser normal force slope [ ]
 depsda = 4/(A+2);               % Downwash gradient [ ]
 
-% Lift and drag coefficient
-
-CL = 2*W/(rho*V0^2*S);               % Lift coefficient [ ]
-CD = CD0 + (CLa*alpha0)^2/(pi*A*e);  % Drag coefficient [ ]
+% % Lift and drag coefficient
+ 
+ CL = 2*W/(rho*V0^2*S);               % Lift coefficient [ ]
+ CD = CD0 + (CLa*alpha0)^2/(pi*A*e);  % Drag coefficient [ ]
 
 % Stabiblity derivatives
 
