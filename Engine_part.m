@@ -1,9 +1,5 @@
 %-------------------Engine part--------------------------------------------
 %-------------------Bring Data to correct values---------------------------
-%Inputs:
-gamma = 1.4;
-%rho0 =
-%p0 =
 %Calculations
 %-------------------Dataset 1
 T1 = excel_data_reader.T1;
@@ -67,7 +63,7 @@ INPUT3 = T3(:,[4,5,13,10,11]);
 %---------COMBINE ALL INPUT TABLES INTO ONE AND SAVE TO MATLAB.DAT---------
 INPUT = [INPUT1;INPUT2;INPUT3];
 dlmwrite('matlab.dat',INPUT,'delimiter',' ')
-system('thrust.exe')
+system('thrust.exe');
 %gives thust for left and right engine
 
-clearvars -except 'Input'
+clearvars T1 T2 T3 INPUT1 INPUT2 INPUT3 INPUT
