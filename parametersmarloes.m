@@ -97,6 +97,7 @@ T_m3    = T3(:,10)+273.15;
 rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
 W      = m*g;				                        % [N]       (aircraft weight)
 
+Ws     = 60500 % [N]
 
 
 % Pressure calculations
@@ -138,5 +139,9 @@ V_t3 = a3.*parameter.M3;
 V_e1 = V_t1.*sqrt(rho1./rho0);
 V_e2 = V_t2.*sqrt(rho2./rho0);
 V_e3 = V_t3.*sqrt(rho3./rho0);
+
+run('MassBalance.m'); 
+%Reduced equivalent airspeed 
+parameter.V_re1 = V_e1.*sqrt(Weight./Ws); 
 
 clearvars -except 'parameter'
