@@ -139,4 +139,4 @@ V_e1 = V_t1.*sqrt(rho1./rho0);
 V_e2 = V_t2.*sqrt(rho2./rho0);
 V_e3 = V_t3.*sqrt(rho3./rho0);
 
-clearvars -except 'parameter'
+clearvars -except 'parameter' 'excel_data_reader'

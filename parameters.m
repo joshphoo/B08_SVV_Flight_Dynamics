@@ -46,8 +46,8 @@ g      = 9.81;            % [m/sec^2] (gravity constant)
 gamma  = 1.4;             % air ratio specific heats 
 p0     = 101325;          % sea level pressure [Pa]
 
-%rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
-%W      = m*g;				                        % [N]       (aircraft weight)
+rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
+W      = m*g;				                        % [N]       (aircraft weight)
 
 % Constant values concerning aircraft inertia
 
