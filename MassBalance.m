@@ -34,9 +34,9 @@ end
 xcg1 = [];
 for i = 1:length(Fweight1)
     massbalance.Weight1 = OEW + sum(weights) + Fweight1.*0.45359237; %kg
-    massbalance.xcg1 = [xcg1,-(((xcgdatummom + fuelmom1(i))/Weight1(i))-6.643624)]; %m, - teken betekent ... meter achter de MAC zodat x positief naar voren wijst vanaf mac
+    xcg1 = [xcg1,-(((xcgdatummom + fuelmom1(i))/massbalance.Weight1(i))-6.643624)]; %m, - teken betekent ... meter achter de MAC zodat x positief naar voren wijst vanaf mac
 end
-
+massbalance.xcg1 = xcg1;
 %xcg2
 for i = 1:length(Fweight2)
     for j = 1:46
@@ -48,9 +48,9 @@ end
 xcg2 = [];
 for i = 1:length(Fweight2)
     massbalance.Weight2 = OEW + sum(weights) + Fweight2.*0.45359237; 
-    massbalance.xcg2 = [xcg2,-(((xcgdatummom + fuelmom2(i))/Weight2(i))-6.643624)];
+    xcg2 = [xcg2,-(((xcgdatummom + fuelmom2(i))/massbalance.Weight2(i))-6.643624)];
 end
-
+massbalance.xcg2 = xcg2
 %xcg3
 for i = 1:length(Fweight3)
     for j = 1:46
@@ -60,8 +60,8 @@ for i = 1:length(Fweight3)
     end
 end 
 massbalance.Weight3 = OEW + sum(weights) + Fweight3.*0.45359237;
-xcg3 = [-(((xcgdatummom + fuelmom3(1))/Weight3(1))-6.643624)];
-massbalance.xcg3 = [xcg3, -((((xcgdatummom - weights(9)*(154*0.0254)) + fuelmom3(2))/Weight3(2))-6.643624)];
+xcg3 = [-(((xcgdatummom + fuelmom3(1))/massbalance.Weight3(1))-6.643624)];
+massbalance.xcg3 = [xcg3, -((((xcgdatummom - weights(9)*(154*0.0254)) + fuelmom3(2))/massbalance.Weight3(2))-6.643624)];
 
 
         
