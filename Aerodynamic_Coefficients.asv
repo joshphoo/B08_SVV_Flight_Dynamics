@@ -137,6 +137,7 @@ ax.YAxisLocation = 'origin';
 legend('C_L^2-C_D')
 xlabel('C_L^2')
 ylabel('C_D')
+plot('C_L^2-C_D plot')
 
 % C_D - Alpha Curve
 plot(alpha_array,C_D,'b',alpha_array,C_D_corr,'r')
