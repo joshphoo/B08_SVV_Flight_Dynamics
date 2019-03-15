@@ -63,12 +63,10 @@ INPUT3 = T3(:,[4,5,13,10,11]);
 %---------COMBINE ALL INPUT TABLES INTO ONE AND SAVE TO MATLAB.DAT---------
 INPUT = [INPUT1;INPUT2;INPUT3];
 %-------------Standardized Mass Flow
-INPUTM = INPUT;
-INPUTM(:,4) = ones(size(INPUTM,1),1).*0.048;
-INPUTM(:,5) = ones(size(INPUTM,1),1).*0.048;
+INPUTM(:,4) = INPUT(:,4
 
-INPUTTOT = [INPUT;INPUTM]
-dlmwrite('matlab.dat',INPUTTOT,'delimiter',' ')
+
+dlmwrite('matlab.dat',INPUT,'delimiter',' ')
 system('thrust.exe');
 %gives thust for left and right engine
 
