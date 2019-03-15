@@ -105,8 +105,21 @@ V_e2 = V_t2.*sqrt(rho2./rho0);
 V_e3 = V_t3.*sqrt(rho3./rho0);
 
 run('MassBalance.m'); 
-%Reduced equivalent airspeed 
-parameter.V_re1 = V_e1.*sqrt(Weight./Ws); 
+%Reduced equivalent airspeed  
+V_re1 = V_e1.*sqrt(massbalance.Weight1./Ws); 
+V_re1 = V_e2.*sqrt(massbalance.Weight2./Ws); 
+V_re1 = V_e3.*sqrt(massbalance.Weight3./Ws); 
+
+R = 34.29/100   
+%Dimensionless thrust coefficient
+Tc1 = T1/(0.5*rho1*Vt_1.^*pi*R^2)
+Tc2 = T2/(0.5*rho2*Vt_2.^*pi*R^2)
+Tc3 = T3/(0.5*rho3*Vt_3.^*pi*R^2)
+
+%Dimensionless standard thrust coefficient
+Tcs1 = Ts1/(0.5*rho1*Vt_1.^*pi*R^2)
+Tcs2 = Ts2/(0.5*rho2*Vt_2.^*pi*R^2)
+Tcs3 = Ts3/(0.5*rho3*Vt_3.^*pi*R^2)
 
 clearvars T1 T2 T3 hp0 hp1 hp2 hp3 V0 alpha0 th0 Vc1 Vc2 Vc3 m e CD0 CLa ...
           Cma Cmde S Sh Sh_S lh c lh_c b bh A Ah Vh_V ih rho0 lambda ...
