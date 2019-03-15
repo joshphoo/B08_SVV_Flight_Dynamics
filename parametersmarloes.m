@@ -107,21 +107,21 @@ V_e3 = V_t3.*sqrt(rho3./rho0);
 run('MassBalance.m'); 
 %Reduced equivalent airspeed  
 V_re1 = V_e1.*sqrt(massbalance.Weight1./Ws); 
-V_re1 = V_e2.*sqrt(massbalance.Weight2./Ws); 
-V_re1 = V_e3.*sqrt(massbalance.Weight3./Ws); 
+V_re2 = V_e2.*sqrt(massbalance.Weight2./Ws); 
+V_re3 = V_e3.*sqrt(massbalance.Weight3./Ws); 
 
 R = 34.29/100;
 
 Thrustdata = importdata('thrust.dat');
 
-T1 = [sum(Thrustdata(1,:)),
+Tt1 = [sum(Thrustdata(1,:)),
     sum(Thrustdata(2,:)),
     sum(Thrustdata(3,:)),
     sum(Thrustdata(4,:)),
     sum(Thrustdata(5,:)),
     sum(Thrustdata(6,:))];
 
-T2 = [sum(Thrustdata(7,:)),
+Tt2 = [sum(Thrustdata(7,:)),
     sum(Thrustdata(8,:)),
     sum(Thrustdata(9,:)),
     sum(Thrustdata(10,:)),
@@ -129,7 +129,7 @@ T2 = [sum(Thrustdata(7,:)),
     sum(Thrustdata(12,:)),
     sum(Thrustdata(13,:))];
 
-T3 = [sum(Thrustdata(14,:)),
+Tt3 = [sum(Thrustdata(14,:)),
     sum(Thrustdata(15,:))];
 
 Ts1 = [Thrustdata(16),
@@ -151,15 +151,28 @@ Ts3 = [Thrustdata(29),
     Thrustdata(30)];
 
 %Dimensionless thrust coefficient
-Tc1 = T1./(0.5*rho1.*V_t1.^2*pi*R^2);
-Tc2 = T2./(0.5*rho2.*V_t2.^2*pi*R^2);
-Tc3 = T3./(0.5*rho3.*V_t3.^2*pi*R^2);
+Tc1 = Tt1./(0.5*rho1.*V_t1.^2*pi*R^2);
+Tc2 = Tt2./(0.5*rho2.*V_t2.^2*pi*R^2);
+Tc3 = Tt3./(0.5*rho3.*V_t3.^2*pi*R^2);
 
 %Dimensionless standard thrust coefficient
 Tcs1 = 2*Ts1./(0.5*rho1.*V_t1.^2*pi*R^2);
 Tcs2 = 2*Ts2./(0.5*rho2.*V_t2.^2*pi*R^2);
 Tcs3 = 2*Ts3./(0.5*rho3.*V_t3.^2*pi*R^2);
 
+Cmdelta = -1.1642;
+CmTc = - 0.0064
+Tabel1 = excel_data_reader.T1;
+Tabel2 = excel_data_reader.T2;
+Tabel3 = excel_data_reader.T3;
+deltaeeqmeas2 = Tabel2(:,7);
+deltaeeqmeas3 = Tabel3(:,7);
+%reduced elevator deflection 
+%deltaeeq1 = deltaeeqmeas - 1/Cmdelta*CmTc*(Tcs1-Tc1);
+deltaeeq2 = 0.0174533*deltaeeqmeas2 - 1/Cmdelta*CmTc*(Tcs2-Tc2);
+deltaeeq3 = 0.0174533*deltaeeqmeas3 - 1/Cmdelta*CmTc*(Tcs3-Tc3);
+
+plot(deltaeeq2,V_re2)
 %clearvars T1 T2 T3 hp0 hp1 hp2 hp3 V0 alpha0 th0 Vc1 Vc2 Vc3 m e CD0 CLa ...
          % Cma Cmde S Sh Sh_S lh c lh_c b bh A Ah Vh_V ih rho0 lambda ...
           %Temp0 R g gamma p0 T_m1 T_m2 T_m3 rho W Ws p1 p2 p3 rho1 ...
