@@ -79,8 +79,8 @@ plot(xa,ya4)
 hold off
 
 %Motion 4
-idx4 = find(flightdata.time.data==3900);               % Starting time
-figure(4)
+idx4 = find(flightdata.time.data==9);               % Starting time
+figure(3)
 subplot(2,2,1)
 xa = flightdata.time.data(idx4:end);
 ya1 = flightdata.Ahrs1_Roll.data(idx4:end);
@@ -101,8 +101,8 @@ plot(xa,ya4)
 hold off
 
 %Motion 5
-idx5 = find(flightdata.time.data==4000);               % Starting time
-figure(5)
+idx5 = find(flightdata.time.data==9);               % Starting time
+figure(3)
 subplot(2,2,1)
 xa = flightdata.time.data(idx5:end);
 ya1 = flightdata.Ahrs1_Roll.data(idx5:end);
