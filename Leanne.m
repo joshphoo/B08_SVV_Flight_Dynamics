@@ -93,6 +93,8 @@ Cndr   =  -0.0939;
 
 syms u alpha theta q udot alphadot thetadot qdot de
 C = eye(4);
+C(1,1) = C(1,1)*V0;
+C(4,4) = C(4,4)*V0/c;
 D = 0;
 
 %symmetric
@@ -102,6 +104,13 @@ D = 0;
 % A2 = [V0*CXu/(2*muc*c), V0^2*CXa/(2*muc*c), V0^2*CZ0/(2*muc*c), V0*CXq/(2*muc); -CZu/((CZadot-2*muc)*c), -V0*CZa/((CZadot-2*muc)*c), V0*CX0/((CZadot-2*muc)*c), -(CZq+2*muc)/(CZadot-2*muc); 0, 0, 0, 1; V0/(2*muc*KY2*c^2)*(Cmu-Cmadot*CZu/(CZadot-2*muc)),V0^2/(2*muc*KY2*c^2)*(Cma-Cmadot*CZa/(CZadot-2*muc)),V0^2/(2*muc*KY2*c^2)*(Cmadot*CX0/(CZadot-2*muc)),V0/(2*muc*KY2*c)*(Cmq-Cmadot*(CZq+2*muc)/(CZadot-2*muc))];
 % B2 = [V0^2*CXde/(2*muc*c);-V0^2*CZde/((CZadot-2*muc)*c);0;V0^2/(2*muc*KY2*c^2)*(Cmde-(Cmadot*CZde)/(CZadot-2*muc))];
 
+C1_symmetric = [-2*muc*c/V0, 0, 0, 0; 0, (CZadot - 2*muc)*c/V0, 0, 0; 0, 0, -c/V0, 0; 0, Cmadot*c/V0, 0, -2*muc*KY2*(c/V0)];
+C2_symmetric = [CXu, CXa, CZ0, CXq; CZu, CZa, -CX0, (CZq+2*muc); 0, 0, 0, 1; Cmu Cma 0 Cmq];
+C3_symmetric = [CXde; CZde;0;Cmde];
+A1_symmetric = -inv(C1_symmetric)*C2_symmetric;
+B1_symmetric = -inv(C1_symmetric)*C3_symmetric;
+A2 = [V0*CXu/(2*muc*c), V0^2*CXa/(2*muc*c), V0^2*CZ0/(2*muc*c), V0*CXq/(2*muc); -CZu/((CZadot-2*muc)*c), -V0*CZa/((CZadot-2*muc)*c), V0*CX0/((CZadot-2*muc)*c), -(CZq+2*muc)/(CZadot-2*muc); 0, 0, 0, 1; V0/(2*muc*KY2*c^2)*(Cmu-Cmadot*CZu/(CZadot-2*muc)),V0^2/(2*muc*KY2*c^2)*(Cma-Cmadot*CZa/(CZadot-2*muc)),V0^2/(2*muc*KY2*c^2)*(Cmadot*CX0/(CZadot-2*muc)),V0/(2*muc*KY2*c)*(Cmq-Cmadot*(CZq+2*muc)/(CZadot-2*muc))];
+B2 = [V0^2*CXde/(2*muc*c);-V0^2*CZde/((CZadot-2*muc)*c);0;V0^2/(2*muc*KY2*c^2)*(Cmde-(Cmadot*CZde)/(CZadot-2*muc))];
 dt = 0.01;
 
 % Short period
@@ -135,6 +144,13 @@ m      = 6000;           % mass [kg]
 de_input = 5/180*pi;
 de_time = 1;
 t = 200;
+t = 0:.1:10;
+de = 0/180*pi;
+u2 = de(ones(length(t),1));
+x0 = [1; alpha0; th0; 0];
+lsim(sys_s,u2,t,x0);
+isstable(sys_a);
+%impulse(sys_s, 10)
 
 symmetric = @ss_s;
 sys_s2 = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu,CXa,CZ0,CXq,CZu,CZa,CX0,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D);
