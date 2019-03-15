@@ -108,10 +108,10 @@ dt = 0.01;
 % get all of these from flight data measured
 hp0    = 1500;      	  % pressure altitude in the stationary flight condition [m]
 V0     = 60;          % true airspeed in the stationary flight condition [m/sec]
-alpha0 = 3/180*pi;    % angle of attack in the stationary flight condition [rad]
+alpha0 = 0/180*pi;    % angle of attack in the stationary flight condition [rad]
 th0    = 0;       	  % pitch angle in the stationary flight condition [rad]
 m      = 6000;           % mass [kg]
-de_input = 5/180*pi;
+de_input = 0/180*pi;
 de_time = 1;
 t = 10;
 
@@ -119,10 +119,10 @@ symmetric = @ss_s;
 sys_s1 = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu,CXa,CZ0,CXq,CZu,CZa,CX0,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D);
 
 t1 = 0:dt:t;
-u1 = de_input(ones(length(t1),1));
+u1 = de_input(ones(t/dt,1)
 %u1 = de_input(ones(de_time/dt,1));
 %u1 = [u1; zeros(t/dt-length(u1)+1,1)];
-x0 = [V0; 0.01; th0; 0];
+x0 = [V0; alpha0; th0; 0];
 figure(1);
 lsim(sys_s1,u1,t1,x0)
 
@@ -132,7 +132,7 @@ V0     = 60;          % true airspeed in the stationary flight condition [m/sec]
 alpha0 = 0/180*pi;    % angle of attack in the stationary flight condition [rad]
 th0    = 0;       	  % pitch angle in the stationary flight condition [rad]
 m      = 6000;           % mass [kg]
-de_input = 5/180*pi;
+de_input = 0/180*pi;
 de_time = 1;
 t = 200;
 
@@ -140,10 +140,9 @@ symmetric = @ss_s;
 sys_s2 = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu,CXa,CZ0,CXq,CZu,CZa,CX0,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D);
 
 t2 = 0:dt:t;
-u2 = de_input(ones(length(t2),1));
-% u2 = de_input(ones(de_time/dt,1));
-% u2 = [u2; zeros(t/dt-length(u2)+1,1)];
-x0 = [0; 0/180*pi; 0; 0];
+u2 = de_input(ones(de_time/dt,1));
+u2 = [u2; zeros(t/dt-length(u2)+1,1)];
+x0 = [V0; 0/180*pi; th0; 0];
 figure(2);
 lsim(sys_s2,u2,t2,x0)
 
