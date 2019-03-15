@@ -109,12 +109,12 @@ D = 0;
 
 % Short period
 % get all of these from flight data measured
-hp0    = 2500;      	  % pressure altitude in the stationary flight condition [m]
+hp0    = 1500;      	  % pressure altitude in the stationary flight condition [m]
 V0     = 59.9;          % true airspeed in the stationary flight condition [m/sec]
 alpha0 = 0/180*pi;    % angle of attack in the stationary flight condition [rad]
 th0    = 0/180*pi;       	  % pitch angle in the stationary flight condition [rad]
 m      = 6000;           % mass [kg]
-de_input = 4/180*pi;
+de_input = -1/180*pi;
 de_time = 1;
 t = 10;
 dt = 0.01;
@@ -136,18 +136,18 @@ V0     = 59;          % true airspeed in the stationary flight condition [m/sec]
 alpha0 = 0/180*pi;    % angle of attack in the stationary flight condition [rad]
 th0    = 0;       	  % pitch angle in the stationary flight condition [rad]
 m      = 6000;           % mass [kg]
-de_input = 4/180*pi;
-de_time = 200;
+de_input = 1/180*pi;
+de_time = 1;
 t = 200;
 
 %impulse(sys_s, 10)
 
 symmetric = @ss_s;
 sys_s2 = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu,CXa,CZ0,CXq,CZu,CZa,CX0,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D);
-det2 = [1:de_time/dt];
+det2 = 0:dt:de_time;
 t2 = 0:dt:t;
 u2 = zeros(length(t2),1);
-u2(det2) = de_input;
+u2(det2) = de_input(ones(length(det2),1));
 % u2 = de_input(ones(de_time/dt,1));
 % u2 = [u2; zeros(t/dt-length(u2)+1,1)];
 x0 = [1; 0/180*pi; 0; 0];
