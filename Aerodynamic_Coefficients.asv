@@ -190,8 +190,8 @@ a_SCG = sqrt(gamma*R*T_SCG);
 %True Airspeed
 V_t_SCG = a_SCG.*M_SCG;
 %Normal Coefficient C_N. delta C_N is neglected
-C_N = W_SCG(2)/(0.5*rho_SCG(2)*V_t_SCG(2)^2*S);
-C_m_delta = -(1.0 /((delta_e_SCG(2)-delta_e_SCG(1))*0.0174533))*C_N*(((massbalance.xcg3(1)-massbalance.xcg3(2)))/c)
+C_N = W_SCG(1)/(0.5*rho_SCG(1)*V_t_SCG(1)^2*S);
+C_m_delta = -(1/((delta_e_SCG(2)-delta_e_SCG(1)*0.0174533)))*C_N*((massbalance.xcg3(2)-massbalance.xcg3(1))/c)
 
 %---------------------------------- Reduced Elevator Control Force Curve
 %Reduced elevator control force
