@@ -2,7 +2,6 @@
 run('excell_data_reader.m');
 T1 = excel_data_reader.T1;
 T2 = excel_data_reader.T2;
-T3 = excel_data_reader.T3;
 Thrustdata = importdata('thrust.dat');
 run('MassBalance.m');
 
@@ -53,8 +52,8 @@ m_fuel_used = T1(:,9)*0.453592;
 m_test = m_BEM+m_payload+m_block_fuel-m_fuel_used;
 % Weight dependent on time
 W = (massbalance.Weight1)*g; % CHANGE TO THE MASS GIVEN BY ROWAN
-% Stick Force [N]
-F_e = T2(:,9);
+
+
 
 
 
@@ -162,46 +161,13 @@ V_e_ET = V_t_ET.*sqrt(rho_ET./rho0);
 V_e_red = V_e_ET.*sqrt(W_s./W_ET);
 %Calculate reduced elevator deflection
 
-%---------------------------------- Shift in center of gravity (SCG), OUTPUTS: Cm_delta &
-%Cm_alpha
-% Pressure altitude in the stationary flight condition [m]
-hp0_SCG    = T3(:,4)*0.3048;
-% Calibrated airspeed in stationary flight conidition [m/s]
-Vc_SCG     = (T3(:,5)-2)*0.514444; 
-% Total Temperature [K]
-T_m_SCG    = T3(:,10)+273.15;
-% Angle of Attack [deg]
-alpha_array_SCG = T3(:,6); 
-% Weight dependent on time
-W_SCG = (massbalance.Weight3)*g; % CHANGE TO THE MASS GIVEN BY ROWAN
-% Measured elevator deflection
-delta_e_SCG = T3(:,7);
 
-% Pressure Calculation
-p_SCG = p0*(1.0 + lambda*hp0_SCG/Temp0).^(-g/(lambda*R)); %pressure [Pa]
-% Density Calculation
-rho_SCG    = rho0*((1+(lambda*hp0_SCG/Temp0))).^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
-% Mach number
-M_SCG = sqrt(2.0/(gamma-1.0)*((1.0+(p0./p_SCG).*((1.0 + (gamma-1.0)/(2.0*gamma)*(rho0/p0*Vc_SCG.^2.0)).^(gamma/(gamma-1.0))-1.0)).^((gamma-1.0)/gamma)-1.0));
-%Static Temperature
-T_SCG = T_m_SCG./(1.0+((gamma-1.0)/2.0)*M_SCG.^2.0);
-%Speed of Sound
-a_SCG = sqrt(gamma*R*T_SCG);
-%True Airspeed
-V_t_SCG = a_SCG.*M_SCG;
-%Normal Coefficient C_N. delta C_N is neglected
-C_N = W_SCG(2)/(0.5*rho_SCG(2)*V_t_SCG(2)^2*S);
-C_m_delta = -(1.0 /((delta_e_SCG(2)-delta_e_SCG(1))*0.0174533))*C_N*(((massbalance.xcg3(1)-massbalance.xcg3(2)))/c)
 
-%---------------------------------- Reduced Elevator Control Force Curve
-%Reduced elevator control force
-F_e_red = F_e.*(W_s./(W_ET))
+
+
 
 %---------------------------------- Plot graphs
 % C_L - Alpha Curve
-figure
-hold on
-
 subplot(2,2,1)
 plot(alpha_array,C_L,'b',x,yfit,'g')
 ax = gca;
@@ -210,6 +176,7 @@ ax.YAxisLocation = 'origin';
 legend('C_L-\alpha','C_L-\alpha extrapolated')
 xlabel('\alpha [deg]')
 ylabel('C_L [-]')
+t = 2
 title(['C_L-\alpha plot, Mach range: ',num2str(M_Range(1)),'-',num2str(M_Range(2)),' Reynolds nr. range:'])
 
 % C_L - C_D Curve
@@ -244,16 +211,3 @@ legend('C_D-\alpha','C_D_{corr}-\alpha')
 xlabel('\alpha [deg]')
 ylabel('C_D [-]')
 title('C_D-\alpha plot')
-
-
-% Reduced Elevator Control Force Curve
-figure
-plot(V_e_red,F_e_red)
-ax = gca;
-ax.YDir = 'reverse';
-ax.XAxisLocation = 'origin';
-ax.YAxisLocation = 'origin';
-legend('V_{e_{red}}-F_{e_{red}}')
-xlabel('V_{e_{red}} [m/s]')
-ylabel('F_{e_{red}} [N]')
-title('Reduced Elevator Control Force Plot')
