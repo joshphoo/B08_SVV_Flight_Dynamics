@@ -54,7 +54,7 @@ subplot(2,2,1);
 xs = flightdata.time.data(motion.idx2:motion.idxe2);
 ys1 = 0.514444.*flightdata.Dadc1_tas.data(motion.idx2:motion.idxe2);
 plot(xs,ys1)                                        % Mach against time
-title('TAS')
+title('TAS(m/s)')
 
 subplot(2,2,2); 
 ys2 = flightdata.vane_AOA.data(motion.idx2:motion.idxe2);
@@ -77,7 +77,7 @@ hold on
 %Assymetric
 %Motion 3
 motion.idx3 = find(flightdata.time.data==motion.t3);               % Starting time
-motion.idxe3 = find(flightdata.time.data==motion.t3+120);              %temporary end time
+motion.idxe3 = find(flightdata.time.data==motion.t3+45);              %temporary end time
 figure(3)
 title('Dutch roll')
 subplot(2,2,1)
@@ -105,7 +105,7 @@ hold off
 
 %Motion 4
 motion.idx4 = find(flightdata.time.data==motion.t4);               % Starting time
-motion.idxe4 = find(flightdata.time.data==motion.t4+120);              %temporary end time
+motion.idxe4 = find(flightdata.time.data==motion.t4+45);              %temporary end time
 figure(4)
 title('Yaw damped Dutch roll')
 subplot(2,2,1)
@@ -139,17 +139,17 @@ title('Aperiodic Roll')
 subplot(2,2,1)
 xa = flightdata.time.data(motion.idx5:motion.idxe5);
 ya1 = flightdata.Ahrs1_Roll.data(motion.idx5:motion.idxe5);
-plot(xa,ya1)                                        % Roll against time
+plot(xa-xa(1),ya1)                                        % Roll against time
 title('Roll')
 
 subplot(2,2,2)
 ya2 = flightdata.Ahrs1_bRollRate.data(motion.idx5:motion.idxe5);
-plot(xa,ya2)                                        % Roll rate against time
+plot(xa-xa(1),ya2)                                        % Roll rate against time
 title('Roll rate')
 
 subplot(2,2,3)
 ya3 = flightdata.Ahrs1_bYawRate.data(motion.idx5:motion.idxe5);             
-plot(xa,ya3)                                        % Yaw against time
+plot(xa-xa,ya3)                                        % Yaw against time
 title('Yaw rate')
 
 subplot(2,2,4)

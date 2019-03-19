@@ -123,7 +123,7 @@ D = 0;
 % get all of these from flight data measured
 hp0    = flightdata.Dadc1_alt.data(motion.idx1)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx1)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
-%flightdata.vane_AOA.data(motion.idx1)/180*pi();    % angle of attack in the stationary flight condition [rad]
+alpha0 = flightdata.vane_AOA.data(motion.idx1)/180*pi();    % angle of attack in the stationary flight condition [rad]
 th0    = flightdata.Ahrs1_Pitch.data(motion.idx1)/180*pi();       	  % pitch angle in the stationary flight condition [rad]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx1)+flightdata.lh_engine_FU.data(motion.idx1))*0.453592;           % mass [kg]
 
@@ -156,6 +156,7 @@ symmetric = @ss_s;
 
 figure(2);
 lsim(sys_s2,de,t,x0)
+
 
 
 %% Dutch Roll
@@ -281,6 +282,6 @@ function [sys_a,eig_asymmetric] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot
     A1_asymmetric = -inv(C1_asymmetric)*C2_asymmetric;
     B1_asymmetric = -inv(C1_asymmetric)*C3_asymmetric;
     eig_asymmetric = eig(A1_asymmetric);
-    sys_a = ss(A1_asymmetric,B1_asymmetric,C,D,'StateName',{'Sideslip angle' 'Roll angle' 'Roll rate' 'Yaw rate'}, 'StateUnit', {'rad' 'rad' 'rad/s' 'rad/s'}, 'OutputName',{'Sideslip angle' 'Roll angle' 'Roll rate' 'Yaw rate'}, 'OutputUnit', {'rad' 'rad' 'rad/s' 'rad/s'});
+    sys_a = ss(A1_asymmetric,B1_asymmetric,C,D);
 end
 

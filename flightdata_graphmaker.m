@@ -1,6 +1,6 @@
 %-----------------------FLIGHT DATA READER---------------------------------
 %-----------------------Load the flightdata--------------------------------
-clf
+%clf
 load('matlab.mat', 'flightdata')
 % T = table(flightdata.Dadc1_alt.data, flightdata.Dadc1_mach.data, flightdata.Dadc1_tat.data - flightdata.Dadc1_sat.data, flightdata.lh_engine_FMF.data, flightdata.rh_engine_FMF.data) ;
 %-----------------Assign variables to necessary data-----------------------
@@ -20,10 +20,10 @@ motion.t6 = 1*3600 + 5*60 + 20;
 %Motion 1
 motion.idx1 = find(flightdata.time.data==motion.t1);               % Starting time
 motion.idxe1 = find(flightdata.time.data==motion.t1+220);              %temporary end time
-figure(1);
+figure(7);
 title('Short period')
 subplot(2,2,1);
-xs = flightdata.time.data(motion.idx1:motion.idxe1);
+xs = flightdata.time.data(motion.idx1:motion.idxe1)-flightdata.time.data(motion.idx1);;
 ys1 = 0.514444.*flightdata.Dadc1_tas.data(motion.idx1:motion.idxe1);
 plot(xs,ys1)                                        % Mach against time
 title('TAS(m/s)')
@@ -48,10 +48,10 @@ hold on
 %Motion 2
 motion.idx2 = find(flightdata.time.data==motion.t2);            % Starting time
 motion.idxe2 = find(flightdata.time.data==motion.t2+50);              %temporary end time
-figure(2);
+figure(8);
 title('Phugoid')
 subplot(2,2,1);
-xs = flightdata.time.data(motion.idx2:motion.idxe2);
+xs = flightdata.time.data(motion.idx2:motion.idxe2)-flightdata.time.data(motion.idx2);
 ys1 = 0.514444.*flightdata.Dadc1_tas.data(motion.idx2:motion.idxe2);
 plot(xs,ys1)                                        % Mach against time
 title('TAS(m/s)')
@@ -78,10 +78,10 @@ hold on
 %Motion 3
 motion.idx3 = find(flightdata.time.data==motion.t3);               % Starting time
 motion.idxe3 = find(flightdata.time.data==motion.t3+45);              %temporary end time
-figure(3)
+figure(9)
 title('Dutch roll')
 subplot(2,2,1)
-xa = flightdata.time.data(motion.idx3:motion.idxe3);
+xa = flightdata.time.data(motion.idx3:motion.idxe3)-flightdata.time.data(motion.idx3);
 ya1 = flightdata.Ahrs1_Roll.data(motion.idx3:motion.idxe3);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
@@ -106,10 +106,10 @@ hold off
 %Motion 4
 motion.idx4 = find(flightdata.time.data==motion.t4);               % Starting time
 motion.idxe4 = find(flightdata.time.data==motion.t4+45);              %temporary end time
-figure(4)
+figure(10)
 title('Yaw damped Dutch roll')
 subplot(2,2,1)
-xa = flightdata.time.data(motion.idx4:motion.idxe4);
+xa = flightdata.time.data(motion.idx4:motion.idxe4)-flightdata.time.data(motion.idx4);
 ya1 = flightdata.Ahrs1_Roll.data(motion.idx4:motion.idxe4);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
@@ -134,10 +134,10 @@ hold off
 %Motion 5
 motion.idx5 = find(flightdata.time.data==motion.t5);               % Starting time
 motion.idxe5 = find(flightdata.time.data==motion.t5+50);              %temporary end time
-figure(5)
+figure(11)
 title('Aperiodic Roll')
 subplot(2,2,1)
-xa = flightdata.time.data(motion.idx5:motion.idxe5);
+xa = flightdata.time.data(motion.idx5:motion.idxe5)-flightdata.time.data(motion.idx5);
 ya1 = flightdata.Ahrs1_Roll.data(motion.idx5:motion.idxe5);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
@@ -163,10 +163,10 @@ hold off
 %Motion 6
 motion.idx6 = find(flightdata.time.data==motion.t6);               % Starting time
 motion.idxe6 = find(flightdata.time.data==motion.t6+220);              %temporary end time
-figure(6)
+figure(12)
 title('Spiral')
 subplot(2,2,1)
-xa = flightdata.time.data(motion.idx6:motion.idxe6);
+xa = flightdata.time.data(motion.idx6:motion.idxe6)-flightdata.time.data(motion.idx6);
 ya1 = flightdata.Ahrs1_Roll.data(motion.idx6:motion.idxe6);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
