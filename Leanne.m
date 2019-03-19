@@ -173,12 +173,60 @@ x0 = [beta0; phi0; 0; 0];
 figure(3);
 lsim(sys_a1,u3,t3,x0)
 %% Spiral
+% input
+hp0    = 2500;      	  % pressure altitude in the stationary flight condition [m]
+V0     = 97;          % true airspeed in the stationary flight condition [m/sec]
+beta0 = 0.1;
+phi0 = 0.1;
+th0    = 0.0;       	  % pitch angle in the stationary flight condition [rad]
+m      = 6000;           % mass [kg]
+da_input = 0.1/180*pi;
+dr_input = 0.1/180*pi;
+d_time = 200;
+t = 200;
+
+% calc
 asymmetric = @ss_a;
 [sys_a2,eig_a2] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D,th0);
 
+dt4 = [1:d_time/dt];
+t4 = 0:dt:t;
+u4 = da_input(ones(length(t4),2));
+u4(dt4,1) = da_input;
+u4(dt4,2) = dr_input;
+% u2 = de_input(ones(de_time/dt,1));
+% u2 = [u2; zeros(t/dt-length(u2)+1,1)];
+x0 = [beta0; phi0; 0; 0];
+figure(4);
+lsim(sys_a2,u4,t4,x0)
+
 %% Dutch Roll
+% input
+hp0    = 2500;      	  % pressure altitude in the stationary flight condition [m]
+V0     = 97;          % true airspeed in the stationary flight condition [m/sec]
+beta0 = 0.1;
+phi0 = 0.1;
+th0    = 0.0;       	  % pitch angle in the stationary flight condition [rad]
+m      = 6000;           % mass [kg]
+da_input = 0.1/180*pi;
+dr_input = 0.1/180*pi;
+d_time = 200;
+t = 200;
+
+% calc
 asymmetric = @ss_a;
 [sys_a3,eig_a3] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D,th0);
+
+dt5 = [1:d_time/dt];
+t5 = 0:dt:t;
+u5 = da_input(ones(length(t5),2));
+u5(dt5,1) = da_input;
+u5(dt5,2) = dr_input;
+% u2 = de_input(ones(de_time/dt,1));
+% u2 = [u2; zeros(t/dt-length(u2)+1,1)];
+x0 = [beta0; phi0; 0; 0];
+figure(5);
+lsim(sys_a3,u5,t5,x0)
 
 %% Functions
 function [sys_s,eig_symmetric] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
