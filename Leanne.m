@@ -93,6 +93,8 @@ Cndr   =  -0.0939;
 
 syms u alpha theta q udot alphadot thetadot qdot de
 C = eye(4);
+C(1,1) = C(1,1)*V0;
+C(4,4) = C(4,4)*V0/c;
 D = 0;
 
 %symmetric
@@ -102,18 +104,20 @@ D = 0;
 % A2 = [V0*CXu/(2*muc*c), V0^2*CXa/(2*muc*c), V0^2*CZ0/(2*muc*c), V0*CXq/(2*muc); -CZu/((CZadot-2*muc)*c), -V0*CZa/((CZadot-2*muc)*c), V0*CX0/((CZadot-2*muc)*c), -(CZq+2*muc)/(CZadot-2*muc); 0, 0, 0, 1; V0/(2*muc*KY2*c^2)*(Cmu-Cmadot*CZu/(CZadot-2*muc)),V0^2/(2*muc*KY2*c^2)*(Cma-Cmadot*CZa/(CZadot-2*muc)),V0^2/(2*muc*KY2*c^2)*(Cmadot*CX0/(CZadot-2*muc)),V0/(2*muc*KY2*c)*(Cmq-Cmadot*(CZq+2*muc)/(CZadot-2*muc))];
 % B2 = [V0^2*CXde/(2*muc*c);-V0^2*CZde/((CZadot-2*muc)*c);0;V0^2/(2*muc*KY2*c^2)*(Cmde-(Cmadot*CZde)/(CZadot-2*muc))];
 
-dt = 0.01;
+
+
 
 % Short period
 % get all of these from flight data measured
-hp0    = 1500;      	  % pressure altitude in the stationary flight condition [m]
-V0     = 60;          % true airspeed in the stationary flight condition [m/sec]
-alpha0 = 3/180*pi;    % angle of attack in the stationary flight condition [rad]
-th0    = 0;       	  % pitch angle in the stationary flight condition [rad]
+hp0    = 2500;      	  % pressure altitude in the stationary flight condition [m]
+V0     = 59.9;          % true airspeed in the stationary flight condition [m/sec]
+alpha0 = 0/180*pi;    % angle of attack in the stationary flight condition [rad]
+th0    = 0/180*pi;       	  % pitch angle in the stationary flight condition [rad]
 m      = 6000;           % mass [kg]
-de_input = 5/180*pi;
+de_input = 4/180*pi;
 de_time = 1;
 t = 10;
+dt = 0.01;
 
 symmetric = @ss_s;
 sys_s1 = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu,CXa,CZ0,CXq,CZu,CZa,CX0,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D);
@@ -122,28 +126,31 @@ t1 = 0:dt:t;
 u1 = de_input(ones(length(t1),1));
 %u1 = de_input(ones(de_time/dt,1));
 %u1 = [u1; zeros(t/dt-length(u1)+1,1)];
-x0 = [V0; 0.01; th0; 0];
+x0 = [1; alpha0; th0; 0];
 figure(1);
 lsim(sys_s1,u1,t1,x0)
 
 % Phugoid
-hp0    = 1500;      	  % pressure altitude in the stationary flight condition [m]
-V0     = 60;          % true airspeed in the stationary flight condition [m/sec]
+hp0    = 2500;      	  % pressure altitude in the stationary flight condition [m]
+V0     = 59;          % true airspeed in the stationary flight condition [m/sec]
 alpha0 = 0/180*pi;    % angle of attack in the stationary flight condition [rad]
 th0    = 0;       	  % pitch angle in the stationary flight condition [rad]
 m      = 6000;           % mass [kg]
-de_input = 5/180*pi;
-de_time = 1;
+de_input = 4/180*pi;
+de_time = 200;
 t = 200;
+
+%impulse(sys_s, 10)
 
 symmetric = @ss_s;
 sys_s2 = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu,CXa,CZ0,CXq,CZu,CZa,CX0,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D);
-
+det2 = [1:de_time/dt];
 t2 = 0:dt:t;
-u2 = de_input(ones(length(t2),1));
+u2 = zeros(length(t2),1);
+u2(det2) = de_input;
 % u2 = de_input(ones(de_time/dt,1));
 % u2 = [u2; zeros(t/dt-length(u2)+1,1)];
-x0 = [0; 0/180*pi; 0; 0];
+x0 = [1; 0/180*pi; 0; 0];
 figure(2);
 lsim(sys_s2,u2,t2,x0)
 
@@ -155,8 +162,8 @@ function sys_s = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,b,CZadot,Cmadot,KY2,CXu
     mub = m/(rho*S*b);
     CL = 2*W/(rho*V0^2*S);
     
-    C1_symmetric = [-2*muc*c/V0^2, 0, 0, 0; 0, (CZadot - 2*muc)*c/V0, 0, 0; 0, 0, -c/V0, 0; 0, Cmadot*c/V0, 0, -2*muc*KY2*(c/V0)^2];
-    C2_symmetric = [CXu/V0, CXa, CZ0, CXq*c/V0; CZu/V0, CZa, -CX0, (CZq+2*muc)*c/V0; 0, 0, 0, c/V0; Cmu/V0 Cma 0 Cmq*c/V0];
+    C1_symmetric = [-2*muc*c/V0, 0, 0, 0; 0, (CZadot - 2*muc)*c/V0, 0, 0; 0, 0, -c/V0, 0; 0, Cmadot*c/V0, 0, -2*muc*KY2*(c/V0)];
+    C2_symmetric = [CXu, CXa, CZ0, CXq; CZu, CZa, -CX0, (CZq+2*muc); 0, 0, 0, 1; Cmu Cma 0 Cmq];
     C3_symmetric = [CXde; CZde;0;Cmde];
     A1_symmetric = inv(-C1_symmetric)*C2_symmetric;
     B1_symmetric = inv(-C1_symmetric)*C3_symmetric;
@@ -177,7 +184,8 @@ function sys_a = ss_a(V0,hp0,m)
     A1_asymmetric = -inv(C1_asymmetric)*C2_asymmetric;
     B1_asymmetric = -inv(C1_asymmetric)*C3_asymmetric;
 
-    sys_a = ss(A1_asymmetric,B1_asymmetric,C,D);end
+    sys_a = ss(A1_asymmetric,B1_asymmetric,C,D);
+end
 
 % % Short period
 % figure(1);
