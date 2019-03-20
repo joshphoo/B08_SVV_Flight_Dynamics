@@ -123,7 +123,7 @@ CD0 = Fit_CL2_CD(2);
 C_D_corr = CD0 + (CL_alpha*(alpha_array-alpha0)).^2/(pi*A*e);
 
 %----------------------- Range
-M_Range = [M(end) M(1)]
+M_Range = [M(end) M(1)];
 
 
 
@@ -192,13 +192,13 @@ a_SCG = sqrt(gamma*R*T_SCG);
 %True Airspeed
 V_t_SCG = a_SCG.*M_SCG;
 %Normal Coefficient C_N. delta C_N is neglected
-C_N = W_SCG(2)/(0.5*rho_SCG(2)*V_t_SCG(2)^2*S);
-C_m_delta = -(1.0 /((delta_e_SCG(2)-delta_e_SCG(1))*0.0174533))*C_N*(((massbalance.xcg3(1)-massbalance.xcg3(2)))/c)
+C_N = W_SCG(1)/(0.5*rho_SCG(1)*V_t_SCG(1)^2*S);
+C_m_delta = -(1.0 /((delta_e_SCG(2)-delta_e_SCG(1))*0.0174533))*C_N*(((massbalance.xcg3(1)-massbalance.xcg3(2)))/c);
 
 
 %---------------------------------- Reduced Elevator Control Force Curve
 %Reduced elevator control force
-F_e_red = F_e.*(W_s./(W_ET))
+F_e_red = F_e.*(W_s./(W_ET));
 
 %---------------------------------- Elevator Trime Curve CONTINUED
 T_ET = [sum(Thrustdata(7,:)),
@@ -227,8 +227,7 @@ delta_e_red = delta_e*0.0174533 - (1/C_m_delta)*CmTc*(Tcs2-Tc2);
 %naar hoge snelheid, DEZE AANPASSEN ALS JE DE FLIGHT DATA INPUT
 
 % Eerst een table maken die bestaat uit de volgende parameters:
-% | V_e_red [m/s] | delta_e_red [rad] | F_e_red [N] | alpha_array_ET [deg] |Cm_delta | Cm_alpha < DEZE TWEE NOG
-% TOEVOEGEN!!!!
+% | V_e_red [m/s] | delta_e_red [rad] | F_e_red [N] | alpha_array_ET [deg]
 
 Variables_Aero_Coeff = [V_e_red delta_e_red F_e_red alpha_array_ET*0.0174533];
 Final_Variables_Aero_Coeff = [
@@ -243,8 +242,9 @@ Final_Variables_Aero_Coeff = [
 
 %---------------------------------- Longitudinal Stability, C_m_alpha
 % Assumption: Lineaire functie 
-Fit_C_m_alpha = polyfit(Final_Variables_Aero_Coeff(:,4),,1);
+Fit_C_m_alpha = polyfit(Final_Variables_Aero_Coeff(:,4),Final_Variables_Aero_Coeff(:,2),1);
 
+C_m_alpha = Fit_C_m_alpha(1)*-C_m_delta;
 
 %---------------------------------- Plot graphs
 % C_L - Alpha Curve
