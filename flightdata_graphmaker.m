@@ -26,21 +26,21 @@ title('Phugoid')
 subplot(2,2,1);
 xs = flightdata.time.data(motion.idx1:motion.idxe1)-flightdata.time.data(motion.idx1);;
 ys1 = 0.514444.*flightdata.Dadc1_tas.data(motion.idx1:motion.idxe1);
-plot(xs,ys1)                                        % Mach against time
+plot(xs,ys1)                                        % TAS against time
 title('TAS(m/s)')
 
 subplot(2,2,2); 
-ys2 = flightdata.vane_AOA.data(motion.idx1:motion.idxe1);
+ys2 = (pi/180).*flightdata.vane_AOA.data(motion.idx1:motion.idxe1);
 plot(xs,ys2)                                        % AOA against time
 title('AOA')
 
 subplot(2,2,3)
-ys3 = flightdata.Ahrs1_Pitch.data(motion.idx1:motion.idxe1);
+ys3 = (pi/180).*flightdata.Ahrs1_Pitch.data(motion.idx1:motion.idxe1);
 plot(xs,ys3)                                        % Pitch against time
 title('Pitch')
 
 subplot(2,2,4)
-ys4 = flightdata.Ahrs1_bPitchRate.data(motion.idx1:motion.idxe1);
+ys4 = (pi/180).*flightdata.Ahrs1_bPitchRate.data(motion.idx1:motion.idxe1);
 plot(xs,ys4)                                        % Pitch rate against time
 title('Pitch rate')
 
@@ -54,21 +54,21 @@ title('Short period')
 subplot(2,2,1);
 xs = flightdata.time.data(motion.idx2:motion.idxe2)-flightdata.time.data(motion.idx2);
 ys1 = 0.514444.*flightdata.Dadc1_tas.data(motion.idx2:motion.idxe2);
-plot(xs,ys1)                                        % Mach against time
+plot(xs,ys1)                                        % TAS against time
 title('TAS(m/s)')
 
 subplot(2,2,2); 
-ys2 = flightdata.vane_AOA.data(motion.idx2:motion.idxe2);
+ys2 = (pi/180).*flightdata.vane_AOA.data(motion.idx2:motion.idxe2);
 plot(xs,ys2)                                        % AOA against time
 title('AOA')
 
 subplot(2,2,3)
-ys3 = flightdata.Ahrs1_Pitch.data(motion.idx2:motion.idxe2);
+ys3 = (pi/180).*flightdata.Ahrs1_Pitch.data(motion.idx2:motion.idxe2);
 plot(xs,ys3)                                        % Pitch against time
 title('Pitch')
 
 subplot(2,2,4)
-ys4 = flightdata.Ahrs1_bPitchRate.data(motion.idx2:motion.idxe2);
+ys4 = (pi/180).*flightdata.Ahrs1_bPitchRate.data(motion.idx2:motion.idxe2);
 plot(xs,ys4)                                        % Pitch rate against time
 title('Pitch rate')
 

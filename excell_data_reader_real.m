@@ -29,19 +29,17 @@ text2 = str2double(text2);
 text2(isnan(text2))=0;
 text2 = [zeros(size(text2,1),1) text2];
 format shortG;
-T2 = num2 + text2
+T2 = num2 + text2;
 excel_data_reader_real.T2 = T2;
 excel_data_reader_real.label2 = label2;
 
 %-------------------Dataset 3
 [num3, text3, raw3] = xlsread(filename,x3range);
 [num,label3] = xlsread(filename,x1label);
-raw35
 num3(isnan(num3))=0;
-num3 = [num3 zeros(size(num3,1),1)];
 text3 = str2double(text3);
 text3(isnan(text3))=0;
-text3 = [zeros(size(text3,1),1) text3];
+text3 = [zeros(size(text3,1),1) text3 zeros(size(text3,1),5)];
 format shortG;
 T3 = num3 + text3;
 excel_data_reader_real.T3 = T3;
