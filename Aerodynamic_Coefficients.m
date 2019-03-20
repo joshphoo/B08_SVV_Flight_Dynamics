@@ -1,5 +1,5 @@
 % -------------------------------- Run Matlab Files
-run('excell_data_reader.m');
+run('excell_data_reader_ref.m');
 T1 = excel_data_reader.T1;
 T2 = excel_data_reader.T2;
 T3 = excel_data_reader.T3;
