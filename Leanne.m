@@ -1,7 +1,7 @@
 %close all;
 %clear;
 load('matlab.mat', 'flightdata')
-
+tes
 motion.t1 = 0*3600 + 53*60 + 37;
 motion.t2 = 1*3600 + 0*60 + 35;
 motion.t3 = 1*3600 + 1*60 + 57;
