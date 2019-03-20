@@ -130,13 +130,14 @@ m      = m_max-(flightdata.rh_engine_FU.data(motion.idx1)+flightdata.lh_engine_F
 t = flightdata.time.data(motion.idx1:motion.idxe1);
 t = t-t(1);
 de = flightdata.delta_e.data(motion.idx1:motion.idxe1)/180*pi();
-x0 = [0; alpha0; th0; 0];
+x0 = [1; alpha0; th0; 0];
 
 symmetric = @ss_s;
 [sys_s1,eig_s1] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys1,ts1,xs1] = lsim(sys_s1,de,t,x0);
-ys1(:,1) = ys1(:,1) + V0;
+ys1(:,2:4) = ys1(:,2:4)*180/pi;
+
 
 
 
@@ -151,12 +152,13 @@ m      = m_max-(flightdata.rh_engine_FU.data(motion.idx2)+flightdata.lh_engine_F
 t = flightdata.time.data(motion.idx2:motion.idxe2);
 t = t-t(1);
 de = flightdata.delta_e.data(motion.idx2:motion.idxe2)/180*pi();
-x0 = [0; alpha0; th0; 0];
+x0 = [1; alpha0; th0; 0];
 
 symmetric = @ss_s;
 [sys_s2,eig_s2] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys2,ts2,xs2] = lsim(sys_s2,de,t,x0);
+ys2(:,2:4) = ys2(:,2:4)*180/pi;
 
 
 %% Dutch Roll
@@ -179,6 +181,7 @@ asymmetric = @ss_a;
 [sys_a1,eig_a1] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya1,ta1,xa1] = lsim(sys_a1,dar,t,x0)
+ya1(:,2:4) = ya1(:,2:4)*180/pi;
 
 %% Dutch Roll Damped
 % input
@@ -200,6 +203,7 @@ asymmetric = @ss_a;
 [sys_a2,eig_a2] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya2,ta2,xa2] = lsim(sys_a2,dar,t,x0)
+ya2(:,2:4) = ya2(:,2:4)*180/pi;
 
 %% Aperiodic Roll
 % input
@@ -221,6 +225,7 @@ asymmetric = @ss_a;
 [sys_a3,eig_a3] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya3,ta3,xa3] = lsim(sys_a3,dar,t,x0)
+ya3(:,2:4) = ya3(:,2:4)*180/pi;
 
 %% Spiral
 % input
@@ -242,6 +247,7 @@ asymmetric = @ss_a;
 [sys_a4,eig_a4] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya4,ta4,xa4] = lsim(sys_a4,dar,t,x0)
+ya4(:,2:4) = ya4(:,2:4)*180/pi;
 
 
 figure(1)
@@ -282,6 +288,9 @@ plot(ta1,ya1(:,2));
 subplot(2,2,3)
 hold on;
 plot(ta1,ya1(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta1,ya1(:,4));
 
 figure(4)
 subplot(2,2,1);
@@ -293,6 +302,9 @@ plot(ta2,ya2(:,2));
 subplot(2,2,3)
 hold on;
 plot(ta2,ya2(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta2,ya2(:,4));
 
 figure(5)
 subplot(2,2,1);
@@ -304,6 +316,9 @@ plot(ta3,ya3(:,2));
 subplot(2,2,3)
 hold on;
 plot(ta3,ya3(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta3,ya3(:,4));
 
 figure(6)
 subplot(2,2,1);
@@ -315,6 +330,9 @@ plot(ta4,ya4(:,2));
 subplot(2,2,3)
 hold on;
 plot(ta4,ya4(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta4,ya4(:,4));
 hold off;
 %% Functions
 function [sys_s,eig_symmetric] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)

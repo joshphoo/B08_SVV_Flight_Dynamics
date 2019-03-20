@@ -1,6 +1,7 @@
 %-----------------------FLIGHT DATA READER---------------------------------
 %-----------------------Load the flightdata--------------------------------
 clf
+close all;
 load('matlab.mat', 'flightdata')
 % T = table(flightdata.Dadc1_alt.data, flightdata.Dadc1_mach.data, flightdata.Dadc1_tat.data - flightdata.Dadc1_sat.data, flightdata.lh_engine_FMF.data, flightdata.rh_engine_FMF.data) ;
 %-----------------Assign variables to necessary data-----------------------
