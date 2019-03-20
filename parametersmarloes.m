@@ -150,12 +150,12 @@ Ts2 = [Thrustdata(22),
 Ts3 = [Thrustdata(29),
     Thrustdata(30)];
 
-%Dimensionless thrust coefficient
+%Dimensionless thrust coefficient T_c
 Tc1 = Tt1./(0.5*rho1.*V_t1.^2*pi*R^2);
 Tc2 = Tt2./(0.5*rho2.*V_t2.^2*pi*R^2);
 Tc3 = Tt3./(0.5*rho3.*V_t3.^2*pi*R^2);
 
-%Dimensionless standard thrust coefficient
+%Dimensionless standard thrust coefficient T_cs
 Tcs1 = 2*Ts1./(0.5*rho1.*V_t1.^2*pi*R^2);
 Tcs2 = 2*Ts2./(0.5*rho2.*V_t2.^2*pi*R^2);
 Tcs3 = 2*Ts3./(0.5*rho3.*V_t3.^2*pi*R^2);
