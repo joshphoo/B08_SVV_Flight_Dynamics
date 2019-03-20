@@ -1,8 +1,8 @@
-% close all;
-% clear;
+%close all;
+%clear;
 load('matlab.mat', 'flightdata')
 
-motion.t1 = 0*3600 + 53*60 + 57;
+motion.t1 = 0*3600 + 53*60 + 37;
 motion.t2 = 1*3600 + 0*60 + 35;
 motion.t3 = 1*3600 + 1*60 + 57;
 motion.t4 = 1*3600 + 2*60 + 47;
@@ -119,7 +119,7 @@ C = eye(4);
 D = 0;
 
 
-%% Short period
+%% Phugoid
 % get all of these from flight data measured
 hp0    = flightdata.Dadc1_alt.data(motion.idx1)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx1)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
@@ -135,10 +135,13 @@ x0 = [1; alpha0; th0; 0];
 symmetric = @ss_s;
 [sys_s1,eig_s1] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
-figure(1);
-lsim(sys_s1,de,t,x0)
+[ys1,ts1,xs1] = lsim(sys_s1,de,t,x0);
+ys1(:,2:4) = ys1(:,2:4)*180/pi;
 
-%% Phugoid
+
+
+
+%% Short Period
 % input
 hp0    = flightdata.Dadc1_alt.data(motion.idx2);      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx2);          % true airspeed in the stationary flight condition [m/sec]
@@ -154,8 +157,8 @@ x0 = [1; alpha0; th0; 0];
 symmetric = @ss_s;
 [sys_s2,eig_s2] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
-figure(2);
-lsim(sys_s2,de,t,x0)
+[ys2,ts2,xs2] = lsim(sys_s2,de,t,x0);
+ys2(:,2:4) = ys2(:,2:4)*180/pi;
 
 
 %% Dutch Roll
@@ -177,8 +180,8 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a1,eig_a1] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-figure(3);
-lsim(sys_a1,dar,t,x0)
+[ya1,ta1,xa1] = lsim(sys_a1,dar,t,x0)
+ya1(:,2:4) = ya1(:,2:4)*180/pi;
 
 %% Dutch Roll Damped
 % input
@@ -199,8 +202,8 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a2,eig_a2] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-figure(4);
-lsim(sys_a2,dar,t,x0)
+[ya2,ta2,xa2] = lsim(sys_a2,dar,t,x0)
+ya2(:,2:4) = ya2(:,2:4)*180/pi;
 
 %% Aperiodic Roll
 % input
@@ -221,8 +224,8 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a3,eig_a3] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-figure(5);
-lsim(sys_a3,dar,t,x0)
+[ya3,ta3,xa3] = lsim(sys_a3,dar,t,x0)
+ya3(:,2:4) = ya3(:,2:4)*180/pi;
 
 %% Spiral
 % input
@@ -243,10 +246,93 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a4,eig_a4] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-figure(6);
-lsim(sys_a4,dar,t,x0)
+[ya4,ta4,xa4] = lsim(sys_a4,dar,t,x0)
+ya4(:,2:4) = ya4(:,2:4)*180/pi;
 
 
+figure(1)
+subplot(2,2,1);
+hold on;
+plot(ts1,ys1(:,1));
+subplot(2,2,2);
+hold on;
+plot(ts1,ys1(:,2));
+subplot(2,2,3)
+hold on;
+plot(ts1,ys1(:,3));
+subplot(2,2,4)
+hold on;
+plot(ts1,ys1(:,4));
+
+figure(2)
+subplot(2,2,1);
+hold on;
+plot(ts2,ys2(:,1));
+subplot(2,2,2);
+hold on;
+plot(ts2,ys2(:,2));
+subplot(2,2,3)
+hold on;
+plot(ts2,ys2(:,3));
+subplot(2,2,4)
+hold on;
+plot(ts2,ys2(:,4));
+
+figure(3)
+subplot(2,2,1);
+hold on;
+plot(ta1,ya1(:,1));
+subplot(2,2,2);
+hold on;
+plot(ta1,ya1(:,2));
+subplot(2,2,3)
+hold on;
+plot(ta1,ya1(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta1,ya1(:,4));
+
+figure(4)
+subplot(2,2,1);
+hold on;
+plot(ta2,ya2(:,1));
+subplot(2,2,2);
+hold on;
+plot(ta2,ya2(:,2));
+subplot(2,2,3)
+hold on;
+plot(ta2,ya2(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta2,ya2(:,4));
+
+figure(5)
+subplot(2,2,1);
+hold on;
+plot(ta3,ya3(:,1));
+subplot(2,2,2);
+hold on;
+plot(ta3,ya3(:,2));
+subplot(2,2,3)
+hold on;
+plot(ta3,ya3(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta3,ya3(:,4));
+
+figure(6)
+subplot(2,2,1);
+hold on;
+plot(ta4,ya4(:,1));
+subplot(2,2,2);
+hold on;
+plot(ta4,ya4(:,2));
+subplot(2,2,3)
+hold on;
+plot(ta4,ya4(:,3));
+subplot(2,2,4)
+hold on;
+plot(ta4,ya4(:,4));
 %% Functions
 function [sys_s,eig_symmetric] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
     rho = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   
