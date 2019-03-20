@@ -123,7 +123,7 @@ D = 0;
 % get all of these from flight data measured
 hp0    = flightdata.Dadc1_alt.data(motion.idx1)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx1)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
-%flightdata.vane_AOA.data(motion.idx1)/180*pi();    % angle of attack in the stationary flight condition [rad]
+alpha0 = flightdata.vane_AOA.data(motion.idx1)/180*pi();    % angle of attack in the stationary flight condition [rad]
 th0    = flightdata.Ahrs1_Pitch.data(motion.idx1)/180*pi();       	  % pitch angle in the stationary flight condition [rad]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx1)+flightdata.lh_engine_FU.data(motion.idx1))*0.453592;           % mass [kg]
 
