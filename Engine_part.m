@@ -6,7 +6,7 @@ T1 = excel_data_reader.T1;
 T1(:,4) = T1(:,4).*0.3048;
 %This converts ft to m
 
-T1(:,5) = parameter.M1;
+T1(:,5) = Mach.M1;
 %obtains mach number from marloes parameters
 
 T1(:,10) = T1(:,10) + 273.15;
@@ -26,7 +26,7 @@ T2 = excel_data_reader.T2;
 T2(:,4) = T2(:,4).*0.3048;
 %This converts ft to m
 
-T2(:,5) = parameter.M2;
+T2(:,5) = Mach.M2;
 %obtains mach number from marloes parameters
 
 T2(:,13) = T2(:,13) + 273.15;
@@ -46,7 +46,7 @@ T3 = excel_data_reader.T3;
 T3(:,4) = T3(:,4).*0.3048;
 %This converts ft to m
 
-T3(:,5) = parameter.M3;
+T3(:,5) = Mach.M3;
 %obtains mach number from marloes parameters
 
 T3(:,13) = T3(:,13) + 273.15;
@@ -67,9 +67,9 @@ INPUTM = INPUT;
 INPUTM(:,4) = ones(size(INPUTM,1),1).*0.048;
 INPUTM(:,5) = ones(size(INPUTM,1),1).*0.048;
 
-INPUTTOT = [INPUT;INPUTM]
+INPUTTOT = [INPUT;INPUTM];
 dlmwrite('matlab.dat',INPUTTOT,'delimiter',' ')
 system('thrust.exe');
 %gives thust for left and right engine
 
-clearvars T1 T2 T3 INPUT1 INPUT2 INPUT3 INPUT
+clearvars T1 T2 T3 INPUT1 INPUT2 INPUT3 INPUT INPUTM INPUTTOT
