@@ -1,7 +1,7 @@
 %-------------------EXCELL DATA READER-------------------------------------
 %-------------------Reading Stationary Data--------------------------------
 filename = fullfile('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
-xlrange = 'A28:J33';
+x1range = 'A28:J33';
 x1label = 'A25:J26';
 x2range = 'A59:M65';
 x2label = 'A56:M57';
@@ -9,7 +9,7 @@ x3range = 'A75:M76';
 x3label = 'A72:M73';
 %-------------------Put The Data In array----------------------------------
 %-------------------Dataset 1
-[num1, text1, raw1] = xlsread(filename,xlrange);
+[num1, text1, raw1] = xlsread(filename,x1range);
 [num,label1] = xlsread(filename,x1label);
 num1(isnan(num1))=0;
 text1 = str2double(text1);
@@ -47,4 +47,5 @@ excel_data_reader.T3 = T3;
 excel_data_reader.label3 = label3;
 
 clearvars filename x1range x2range x3range x1label x2label x3label num1 ...
-        ` num2 num3 text1 text2 text3 raw 1 raw2 raw3 T1 T2 T3
+        ` num2 num3 text1 text2 text3 raw1 raw2 raw3 T1 T2 T3 num ...
+          label1 label2 label3
