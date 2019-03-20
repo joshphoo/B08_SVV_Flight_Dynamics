@@ -67,4 +67,4 @@ end
 massbalance.Weight3 = OEW + sum(weights) + Fweight3.*0.45359237;
 
 xcg3 = [-(((xcgdatummom + fuelmom3(1))/massbalance.Weight3(1))-6.643624)];
-massbalance.xcg3 = [xcg3, -((((xcgdatummom - weights(8)*(154*0.0254)) + fuelmom3(2))/massbalance.Weight3(2))-6.643624)];
+massbalance.xcg3 = [xcg3, -((((xcgdatummom - weights(9)*(154*0.0254)) + fuelmom3(2))/massbalance.Weight3(2))-6.643624)];
