@@ -1,5 +1,5 @@
 % -------------------------------- Run Matlab Files
-run('excell_data_reader.m');
+run('excell_data_reader_ref.m');
 T1 = excel_data_reader.T1;
 T2 = excel_data_reader.T2;
 T3 = excel_data_reader.T3;
@@ -138,7 +138,7 @@ hp0_ET    = T2(:,4)*0.3048;
 % Calibrated airspeed in stationary flight conidition [m/s]
 Vc_ET     = (T2(:,5)-2)*0.514444; 
 % Total Temperature [K]
-T_m_ET    = T2(:,10)+273.15; 
+T_m_ET    = T2(:,13)+273.15; 
 % Angle of Attack [deg]
 alpha_array_ET = T2(:,6); 
 % Weight dependent on time
@@ -171,7 +171,7 @@ hp0_SCG    = T3(:,4)*0.3048;
 % Calibrated airspeed in stationary flight conidition [m/s]
 Vc_SCG     = (T3(:,5)-2)*0.514444; 
 % Total Temperature [K]
-T_m_SCG    = T3(:,10)+273.15;
+T_m_SCG    = T3(:,13)+273.15;
 % Angle of Attack [deg]
 alpha_array_SCG = T3(:,6); 
 % Weight dependent on time
@@ -192,7 +192,7 @@ a_SCG = sqrt(gamma*R*T_SCG);
 %True Airspeed
 V_t_SCG = a_SCG.*M_SCG;
 %Normal Coefficient C_N. delta C_N is neglected
-C_N = W_SCG(2)/(0.5*rho_SCG(2)*V_t_SCG(2)^2*S);
+C_N = W_SCG(1)/(0.5*rho_SCG(1)*V_t_SCG(1)^2*S);
 C_m_delta = -(1.0 /((delta_e_SCG(2)-delta_e_SCG(1))*0.0174533))*C_N*(((massbalance.xcg3(1)-massbalance.xcg3(2)))/c);
 
 
