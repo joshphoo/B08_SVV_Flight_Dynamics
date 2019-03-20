@@ -219,7 +219,7 @@ hold off
 % r = flightdata.Ahrs1_bYawRate.data;                 % Yaw rate(deg/s)
 
 
-clearvars xa xs ya1 ya2 ya3 ya4 ys1 ys2 ys3 ys4 t1 t2 t3 t4 t5 idx1 idxe1 idx2 idxe2 idx3 idxe3 idx4 idxe4 idx5 idxe5
+clearvars xa xs ya1 ya2 ya3 ya4 ya5 ys1 ys2 ys3 ys4 t1 t2 t3 t4 t5 idx1 idxe1 idx2 idxe2 idx3 idxe3 idx4 idxe4 idx5 idxe5
 
 
 
