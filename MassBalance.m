@@ -3,8 +3,8 @@ OEWarm = 292.18*0.0254; %m
 Fmax = 4050; % block fuel
 %-------------------Reading Stationary Data--------------------------------
 filename = fullfile('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
-xlrange1 = 'H8:H16';
-weights = xlsread(filename,xlrange1);
+x1range1 = 'H8:H16';
+weights = xlsread(filename,x1range1);
 x2range2 = 'I28:I33';
 Fused1 = xlsread(filename,x2range2);
 x3range3 = 'L59:L65';
@@ -68,3 +68,7 @@ massbalance.Weight3 = OEW + sum(weights) + Fweight3.*0.45359237;
 
 xcg3 = [-(((xcgdatummom + fuelmom3(1))/massbalance.Weight3(1))-6.643624)];
 massbalance.xcg3 = [xcg3, -((((xcgdatummom - weights(9)*(154*0.0254)) + fuelmom3(2))/massbalance.Weight3(2))-6.643624)];
+clearvars filename Fmax fuelmom1 fuelmom2 fuelmom3 fuelmoments Fused1 ...
+          Fused2 Fused3 Fweight1 Fweight2 Fweight3 i j OEW OEWarm ...
+          weights x1range1 x2range2 x3range3 x4range4 xcg1 xcg2 xcg3 xcgdat ...
+          xcgdatummom
