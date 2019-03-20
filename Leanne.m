@@ -133,11 +133,20 @@ de = flightdata.delta_e.data(motion.idx1:motion.idxe1)/180*pi();
 x0 = [0; alpha0; th0; 0];
 
 symmetric = @ss_s;
-[sys_s1,eig_s1] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
+[sys_s1,eig_s1,muc] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys1,ts1,xs1] = lsim(sys_s1,de,t,x0);
 ys1(:,1) = ys1(:,1) + V0;
 
+A_eig = 2*muc*KY2*(2*muc-CZadot)
+B_eig = -2*muc*KY2*CZa - (2*muc+CZq)*Cmadot - (2*muc-CZadot)*Cmq
+C_eig = CZa*Cmq - (2*muc+CZq)*Cma
+eig_value_1 = (-B_eig+sqrt(4*A_eig*C_eig-B_eig^2)*i)/(2*A_eig)
+eig_value_2 = (-B_eig-sqrt(4*A_eig*C_eig-B_eig^2)*i)/(2*A_eig)
+
+figure(1);
+lsim(sys_s1,de,t,x0)
+title('Phugoid')
 
 
 %% Short Period
@@ -154,9 +163,13 @@ de = flightdata.delta_e.data(motion.idx2:motion.idxe2)/180*pi();
 x0 = [0; alpha0; th0; 0];
 
 symmetric = @ss_s;
-[sys_s2,eig_s2] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
+[sys_s2,eig_s2,muc] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys2,ts2,xs2] = lsim(sys_s2,de,t,x0);
+
+figure(2);
+lsim(sys_s2,de,t,x0)
+title('Short Period')
 
 
 %% Dutch Roll
@@ -178,7 +191,11 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a1,eig_a1] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya1,ta1,xa1] = lsim(sys_a1,dar,t,x0)
+[ya1,ta1,xa1] = lsim(sys_a1,dar,t,x0);
+
+figure(3);
+lsim(sys_a1,dar,t,x0)
+title('Dutch Roll')
 
 %% Dutch Roll Damped
 % input
@@ -199,7 +216,11 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a2,eig_a2] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya2,ta2,xa2] = lsim(sys_a2,dar,t,x0)
+[ya2,ta2,xa2] = lsim(sys_a2,dar,t,x0);
+
+figure(4);
+lsim(sys_a2,dar,t,x0)
+title('Dutch Roll Damped')
 
 %% Aperiodic Roll
 % input
@@ -220,7 +241,11 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a3,eig_a3] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya3,ta3,xa3] = lsim(sys_a3,dar,t,x0)
+[ya3,ta3,xa3] = lsim(sys_a3,dar,t,x0);
+
+figure(5);
+lsim(sys_a3,dar,t,x0)
+title('Aperiodic Roll')
 
 %% Spiral
 % input
@@ -241,7 +266,7 @@ x0 = [beta0; phi0; 0; 0];
 asymmetric = @ss_a;
 [sys_a4,eig_a4] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya4,ta4,xa4] = lsim(sys_a4,dar,t,x0)
+[ya4,ta4,xa4] = lsim(sys_a4,dar,t,x0);
 
 
 figure(1)
@@ -316,8 +341,14 @@ subplot(2,2,3)
 hold on;
 plot(ta4,ya4(:,3));
 hold off;
+
+figure(6);
+lsim(sys_a4,dar,t,x0)
+title('Spiral')
+
+
 %% Functions
-function [sys_s,eig_symmetric] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
+function [sys_s,eig_symmetric,muc] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
     rho = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   
     W = m*g;                                                
     muc = m/(rho*S*c);
