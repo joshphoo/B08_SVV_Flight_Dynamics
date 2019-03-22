@@ -20,7 +20,7 @@ motion.idx5 = find(flightdata.time.data==motion.t5);               % Starting ti
 motion.idxe5 = find(flightdata.time.data==motion.t5+50);
 motion.idx6 = find(flightdata.time.data==motion.t6);               % Starting time
 motion.idxe6 = find(flightdata.time.data==motion.t6+220);    
-m_max = (9165+4050)*0.453592+95+92+74+66+61+75+78+86+68;
+
 
 
 % aerodynamic properties
@@ -115,9 +115,15 @@ Cnr    =  -0.2061;
 Cnda   =  -0.0120;
 Cndr   =  -0.0939;
 
+
+
+
+%% New!!!!!!!!!!
+
+m_max = (9165+4050)*0.453592+95+92+74+66+61+75+78+86+68;
+
 C = eye(4);
 D = 0;
-
 
 %% Phugoid
 % get all of these from flight data measured
