@@ -116,13 +116,12 @@ m      = m_max-(flightdata.rh_engine_FU.data(motion.idx1)+flightdata.lh_engine_F
 
 t = flightdata.time.data(motion.idx1:motion.idxe1);
 t = t-t(1);
-de = flightdata.delta_e.data(motion.idx1:motion.idxe1)/180*pi();
-x0 = [0; 0; 0; 0];
+de = (flightdata.delta_e.data(motion.idx1:motion.idxe1)-(flightdata.delta_e.data(motion.idx1)))/180*pi();
 
 symmetric = @ss_s;
 [sys_s1,eig_s1,muc] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
-[ys1,ts1,xs1] = lsim(sys_s1,de,t,x0);
+[ys1,ts1,xs1] = lsim(sys_s1,de,t);
 ys1(:,1) = ys1(:,1) + V0;
 ys1(:,2) = ys1(:,2) + alpha0;
 ys1(:,3) = ys1(:,3) + th0;
@@ -146,13 +145,12 @@ m      = m_max-(flightdata.rh_engine_FU.data(motion.idx2)+flightdata.lh_engine_F
 
 t = flightdata.time.data(motion.idx2:motion.idxe2);
 t = t-t(1);
-de = flightdata.delta_e.data(motion.idx2:motion.idxe2)/180*pi();
-x0 = [0; 0; 0; 0];
+de = (flightdata.delta_e.data(motion.idx2:motion.idxe2)-(flightdata.delta_e.data(motion.idx2)))/180*pi();
 
 symmetric = @ss_s;
 [sys_s2,eig_s2] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
-[ys2,ts2,xs2] = lsim(sys_s2,de,t,x0);
+[ys2,ts2,xs2] = lsim(sys_s2,de,t);
 ys2(:,1) = ys2(:,1) + V0;
 ys2(:,2) = ys2(:,2) + alpha0;
 ys2(:,3) = ys2(:,3) + th0;
@@ -163,22 +161,21 @@ ys2(:,3) = ys2(:,3) + th0;
 hp0    = flightdata.Dadc1_alt.data(motion.idx3)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx3)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx3)+flightdata.lh_engine_FU.data(motion.idx3))*0.453592;           % mass [kg]
-phi0   = 0.1%flightdata.Ahrs1_Roll.data(motion.idx3)/180*pi();
-p      = (pi/180)*flightdata.Ahrs1_bRollRate.data(motion.idx3);
-r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx3);
+phi0   = flightdata.Ahrs1_Roll.data(motion.idx3)/180*pi();
+p      = (pi()/180)*flightdata.Ahrs1_bRollRate.data(motion.idx3);
+r      = (pi()/180)*flightdata.Ahrs1_bYawRate.data(motion.idx3);
 
 t = flightdata.time.data(motion.idx3:motion.idxe3);
 t = t-t(1);
 dar = [];
-dar(:,1) = flightdata.delta_a.data(motion.idx3:motion.idxe3)/180*pi();
-dar(:,2) = -flightdata.delta_r.data(motion.idx3:motion.idxe3)/180*pi();
-x0 = [0; 0; 0; 0];
+dar(:,1) = (flightdata.delta_a.data(motion.idx3:motion.idxe3)-(flightdata.delta_a.data(motion.idx3)))/180*pi();
+dar(:,2) = -(flightdata.delta_r.data(motion.idx3:motion.idxe3)-(flightdata.delta_r.data(motion.idx3)))/180*pi();
 
 % calc
 asymmetric = @ss_a;
 [sys_a1,eig_a1] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya1,ta1,xa1] = lsim(sys_a1,dar,t,x0);
+[ya1,ta1,xa1] = lsim(sys_a1,dar,t);
 ya1(:,2) = ya1(:,2) + phi0;
 ya1(:,3) = ya1(:,3) + p;
 ya1(:,4) = ya1(:,4) + r;
@@ -197,15 +194,14 @@ r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx4);
 t = flightdata.time.data(motion.idx4:motion.idxe4);
 t = t-t(1);
 dar = [];
-dar(:,1) = flightdata.delta_a.data(motion.idx4:motion.idxe4)/180*pi();
-dar(:,2) = -flightdata.delta_r.data(motion.idx4:motion.idxe4)/180*pi();
-x0 = [0; 0; 0; 0];
+dar(:,1) = (flightdata.delta_a.data(motion.idx4:motion.idxe4)-(flightdata.delta_a.data(motion.idx6)))/180*pi();
+dar(:,2) = -(flightdata.delta_r.data(motion.idx4:motion.idxe4)-(flightdata.delta_r.data(motion.idx6)))/180*pi();
 
 % calc
 asymmetric = @ss_a;
 [sys_a2,eig_a2] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya2,ta2,xa2] = lsim(sys_a2,dar,t,x0);
+[ya2,ta2,xa2] = lsim(sys_a2,dar,t);
 ya2(:,2) = ya2(:,2) + phi0;
 ya2(:,3) = ya2(:,3) + p;
 ya2(:,4) = ya2(:,4) + r;
@@ -223,15 +219,14 @@ r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx5);
 t = flightdata.time.data(motion.idx5:motion.idxe5);
 t = t-t(1);
 dar = [];
-dar(:,1) = flightdata.delta_a.data(motion.idx5:motion.idxe5)/180*pi();
-dar(:,2) = -flightdata.delta_r.data(motion.idx5:motion.idxe5)/180*pi();
-x0 = [0; 0; 0; 0];
+dar(:,1) = (flightdata.delta_a.data(motion.idx5:motion.idxe5)-flightdata.delta_a.data(motion.idx5))/180*pi();
+dar(:,2) = -(flightdata.delta_r.data(motion.idx5:motion.idxe5)-flightdata.delta_r.data(motion.idx5))/180*pi();
 
 % calc
 asymmetric = @ss_a;
 [sys_a3,eig_a3] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya3,ta3,xa3] = lsim(sys_a3,dar,t,x0);
+[ya3,ta3,xa3] = lsim(sys_a3,dar,t);
 ya3(:,2) = ya3(:,2) + phi0;
 ya3(:,3) = ya3(:,3) + p;
 ya3(:,4) = ya3(:,4) + r;
@@ -241,23 +236,22 @@ ya3(:,4) = ya3(:,4) + r;
 hp0    = flightdata.Dadc1_alt.data(motion.idx6)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx6)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx6)+flightdata.lh_engine_FU.data(motion.idx6))*0.453592;           % mass [kg]
-phi0   = flightdata.Ahrs1_Roll.data(motion.idx6)/180*pi(); 
-p      = flightdata.Ahrs1_bRollRate.data(motion.idx6)/180*pi();
-r      = flightdata.Ahrs1_bYawRate.data(motion.idx6)/180*pi();
+phi0   = flightdata.Ahrs1_Roll.data(motion.idx6)/180*pi();          % mass [kg]
+p      = (pi/180)*(flightdata.Ahrs1_bRollRate.data(motion.idx6));
+r      = (pi/180)*(flightdata.Ahrs1_bYawRate.data(motion.idx6));
 
 
 t = flightdata.time.data(motion.idx6:motion.idxe6);
 t = t-t(1);
 dar = [];
-dar(1,:) = flightdata.delta_a.data(motion.idx6:motion.idxe6)/180*pi();
-dar(2,:) = flightdata.delta_r.data(motion.idx6:motion.idxe6)/180*pi();
-x0 = [0; 0; 0; 0];
+dar(1,:) = (flightdata.delta_a.data(motion.idx6:motion.idxe6)-(flightdata.delta_a.data(motion.idx6)))/180*pi();
+dar(2,:) = -(flightdata.delta_r.data(motion.idx6:motion.idxe6)-(flightdata.delta_r.data(motion.idx6)))/180*pi();
 
 % calc
 asymmetric = @ss_a;
 [sys_a4,eig_a4] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
-[ya4,ta4,xa4] = lsim(sys_a4,dar,t,x0);
+[ya4,ta4,xa4] = lsim(sys_a4,dar,t);
 ya4(:,2) = ya4(:,2) + phi0;
 ya4(:,3) = ya4(:,3) + p;
 ya4(:,4) = ya4(:,4) + r;

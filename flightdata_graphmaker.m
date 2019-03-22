@@ -11,12 +11,12 @@ load('matlab.mat', 'flightdata')
 % t = flightdata.time.data;                           % time(s)
 % 
 % M = flightdata.Dadc1_mach.data;                     % Mach number(-)
-motion.t1 = 0*3600 + 53*60 + 57;
-motion.t2 = 1*3600 + 0*60 + 35;
+motion.t1 = 0*3600 + 53*60 + 56;
+motion.t2 = 1*3600 + 0*60 + 33;
 motion.t3 = 1*3600 + 1*60 + 57;
 motion.t4 = 1*3600 + 2*60 + 47;
 motion.t5 = 0*3600 + 59*60 + 10;
-motion.t6 = 1*3600 + 5*60 + 20;
+motion.t6 = 1*3600 + 5*60 + 39;
 %Symmetric
 %Motion 1
 motion.idx1 = find(flightdata.time.data==motion.t1-10);               % Starting time
@@ -178,7 +178,7 @@ hold off
 
 %Motion 6
 motion.idx6 = find(flightdata.time.data==motion.t6);               % Starting time
-motion.idxe6 = find(flightdata.time.data==motion.t6+220);              %temporary end time
+motion.idxe6 = find(flightdata.time.data==motion.t6+160);              %temporary end time
 refmotion(6) = figure(6);
 title('Spiral')
 subplot(2,2,1)
