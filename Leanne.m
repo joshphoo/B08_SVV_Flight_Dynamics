@@ -1,25 +1,6 @@
 %close all;
 %clear;
-load('matlab.mat', 'flightdata')
-
-motion.t1 = 0*3600 + 53*60 + 37;
-motion.t2 = 1*3600 + 0*60 + 35;
-motion.t3 = 1*3600 + 1*60 + 57;
-motion.t4 = 1*3600 + 2*60 + 47;
-motion.t5 = 0*3600 + 59*60 + 10;
-motion.t6 = 1*3600 + 5*60 + 20;
-motion.idx1 = find(flightdata.time.data==motion.t1);               % Starting time
-motion.idxe1 = find(flightdata.time.data==motion.t1+220); 
-motion.idx2 = find(flightdata.time.data==motion.t2);            % Starting time
-motion.idxe2 = find(flightdata.time.data==motion.t2+50);  
-motion.idx3 = find(flightdata.time.data==motion.t3);               % Starting time
-motion.idxe3 = find(flightdata.time.data==motion.t3+45);
-motion.idx4 = find(flightdata.time.data==motion.t4);               % Starting time
-motion.idxe4 = find(flightdata.time.data==motion.t4+45);
-motion.idx5 = find(flightdata.time.data==motion.t5);               % Starting time
-motion.idxe5 = find(flightdata.time.data==motion.t5+50);
-motion.idx6 = find(flightdata.time.data==motion.t6);               % Starting time
-motion.idxe6 = find(flightdata.time.data==motion.t6+220);    
+    
 
 
 
@@ -136,7 +117,7 @@ m      = m_max-(flightdata.rh_engine_FU.data(motion.idx1)+flightdata.lh_engine_F
 t = flightdata.time.data(motion.idx1:motion.idxe1);
 t = t-t(1);
 de = flightdata.delta_e.data(motion.idx1:motion.idxe1)/180*pi();
-x0 = [0; alpha0; th0; 0];
+x0 = [0; 0; 0; 0];
 
 symmetric = @ss_s;
 [sys_s1,eig_s1,muc] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
@@ -182,7 +163,7 @@ ys2(:,3) = ys2(:,3) + th0;
 hp0    = flightdata.Dadc1_alt.data(motion.idx3)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx3)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx3)+flightdata.lh_engine_FU.data(motion.idx3))*0.453592;           % mass [kg]
-phi0   = flightdata.Ahrs1_Roll.data(motion.idx3)/180*pi();
+phi0   = 0.1%flightdata.Ahrs1_Roll.data(motion.idx3)/180*pi();
 p      = (pi/180)*flightdata.Ahrs1_bRollRate.data(motion.idx3);
 r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx3);
 
@@ -261,15 +242,15 @@ hp0    = flightdata.Dadc1_alt.data(motion.idx6)*0.3048;      	  % pressure altit
 V0     = flightdata.Dadc1_tas.data(motion.idx6)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx6)+flightdata.lh_engine_FU.data(motion.idx6))*0.453592;           % mass [kg]
 phi0   = flightdata.Ahrs1_Roll.data(motion.idx6)/180*pi(); 
-p      = (pi/180)*flightdata.Ahrs1_bRollRate.data(motion.idx6);
-r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx6);
+p      = flightdata.Ahrs1_bRollRate.data(motion.idx6)/180*pi();
+r      = flightdata.Ahrs1_bYawRate.data(motion.idx6)/180*pi();
 
 
 t = flightdata.time.data(motion.idx6:motion.idxe6);
 t = t-t(1);
 dar = [];
-dar(:,1) = flightdata.delta_a.data(motion.idx6:motion.idxe6)/180*pi();
-dar(:,2) = -flightdata.delta_r.data(motion.idx6:motion.idxe6)/180*pi();
+dar(1,:) = flightdata.delta_a.data(motion.idx6:motion.idxe6)/180*pi();
+dar(2,:) = flightdata.delta_r.data(motion.idx6:motion.idxe6)/180*pi();
 x0 = [0; 0; 0; 0];
 
 % calc

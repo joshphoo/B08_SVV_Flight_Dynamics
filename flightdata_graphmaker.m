@@ -19,8 +19,8 @@ motion.t5 = 0*3600 + 59*60 + 10;
 motion.t6 = 1*3600 + 5*60 + 20;
 %Symmetric
 %Motion 1
-motion.idx1 = find(flightdata.time.data==motion.t1-20);               % Starting time
-motion.idxe1 = find(flightdata.time.data==motion.t1+220);              %temporary end time
+motion.idx1 = find(flightdata.time.data==motion.t1-10);               % Starting time
+motion.idxe1 = find(flightdata.time.data==motion.t1+210);              %temporary end time
 refmotion(1) = figure(1);
 title('Phugoid')
 subplot(2,2,1);
@@ -78,7 +78,7 @@ hold on
 %Assymetric
 %Motion 3
 motion.idx3 = find(flightdata.time.data==motion.t3);               % Starting time
-motion.idxe3 = find(flightdata.time.data==motion.t3+45);              %temporary end time
+motion.idxe3 = find(flightdata.time.data==motion.t3+19);              %temporary end time
 refmotion(3) = figure(3);
 title('Dutch roll')
 subplot(2,2,1)
