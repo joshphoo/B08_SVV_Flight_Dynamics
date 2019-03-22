@@ -139,7 +139,7 @@ de = flightdata.delta_e.data(motion.idx1:motion.idxe1)/180*pi();
 x0 = [0; alpha0; th0; 0];
 
 symmetric = @ss_s;
-[sys_s1,eig_s1,muc_s1,CZ0] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
+[sys_s1,eig_s1,muc_s1] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys1,ts1,xs1] = lsim(sys_s1,de,t,x0);
 ys1(:,1) = ys1(:,1) + V0;
@@ -148,8 +148,9 @@ ys1(:,3) = ys1(:,3) + th0;
 
 A_eig_s1 = 2*muc_s1*(CZa*Cmq-2*muc_s1*Cma);
 B_eig_s1 = 2*muc_s1*(CXu*Cma-Cmu*CXa)+Cmq*(CZu*CXa-CXu*CZa);
-C_eig_s1 = CZ0*(Cmu*CZa-CZu*Cma);
-eig_value_1_s1 = (-B_eig_s1+sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)
+C_eig_s1 = CZ
+
+
 
 %% Short Period
 % input
@@ -165,7 +166,7 @@ de = flightdata.delta_e.data(motion.idx2:motion.idxe2)/180*pi();
 x0 = [0; 0; 0; 0];
 
 symmetric = @ss_s;
-[sys_s2,eig_s2,muc_s2,CZ0] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
+[sys_s2,eig_s2,muc_s2] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys2,ts2,xs2] = lsim(sys_s2,de,t,x0);
 ys2(:,1) = ys2(:,1) + V0;
@@ -375,7 +376,7 @@ function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c
     C3_symmetric = [CXde; CZde;0;Cmde];
     A1_symmetric = inv(-C1_symmetric)*C2_symmetric;
     B1_symmetric = inv(-C1_symmetric)*C3_symmetric;
-    eig_symmetric = eig(A1_symmetric)
+    eig_symmetric = eig(A1_symmetric);
     sys_s = ss(A1_symmetric,B1_symmetric,C,D,'StateName',{'Velocity' 'Angle of attack' 'Pitch angle' 'Pitch rate'}, 'StateUnit', {'m/s' 'rad' 'rad' 'rad/s'}, 'OutputName',{'Velocity' 'Angle of attack' 'Pitch angle' 'Pitch rate'}, 'OutputUnit', {'m/s' 'rad' 'rad' 'rad/s'});
 end
 
