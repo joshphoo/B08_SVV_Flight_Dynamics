@@ -1,9 +1,6 @@
 %close all;
 %clear;
     
-
-
-
 % aerodynamic properties
 e      = 0.8;           % Oswald factor [ ]
 CD0    = 0.04;          % Zero lift drag coefficient [ ]
@@ -119,21 +116,18 @@ t = t-t(1);
 de = (flightdata.delta_e.data(motion.idx1:motion.idxe1)-(flightdata.delta_e.data(motion.idx1)))/180*pi();
 
 symmetric = @ss_s;
-[sys_s1,eig_s1,muc] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
+[sys_s1,eig_s1,muc_s1,CZ0] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys1,ts1,xs1] = lsim(sys_s1,de,t);
 ys1(:,1) = ys1(:,1) + V0;
 ys1(:,2) = ys1(:,2) + alpha0;
 ys1(:,3) = ys1(:,3) + th0;
 
-A_eig = 2*muc*KY2*(2*muc-CZadot)
-B_eig = -2*muc*KY2*CZa - (2*muc+CZq)*Cmadot - (2*muc-CZadot)*Cmq
-C_eig = CZa*Cmq - (2*muc+CZq)*Cma
-eig_value_1 = (-B_eig+sqrt(4*A_eig*C_eig-B_eig^2)*i)/(2*A_eig)
-eig_value_2 = (-B_eig-sqrt(4*A_eig*C_eig-B_eig^2)*i)/(2*A_eig)
-
-
-
+A_eig_s1 = 2*muc_s1*(CZa*Cmq-2*muc_s1*Cma);
+B_eig_s1 = 2*muc_s1*(CXu*Cma-Cmu*CXa)+Cmq*(CZu*CXa-CXu*CZa);
+C_eig_s1 = CZ0*(Cmu*CZa-CZu*Cma);
+eig_value_1_s1 = (-B_eig_s1+sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)*V0/c;
+eig_value_2_s1 = (-B_eig_s1-sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)*V0/c;
 
 %% Short Period
 % input
@@ -148,13 +142,20 @@ t = t-t(1);
 de = (flightdata.delta_e.data(motion.idx2:motion.idxe2)-(flightdata.delta_e.data(motion.idx2)))/180*pi();
 
 symmetric = @ss_s;
-[sys_s2,eig_s2] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
+[sys_s2,eig_s2,muc_s2,CZ0] = symmetric(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0);
 
 [ys2,ts2,xs2] = lsim(sys_s2,de,t);
 ys2(:,1) = ys2(:,1) + V0;
 ys2(:,2) = ys2(:,2) + alpha0;
 ys2(:,3) = ys2(:,3) + th0;
 
+A_eig = 2*muc_s2*KY2*(2*muc_s2-CZadot);
+B_eig = -2*muc_s2*KY2*CZa - (2*muc_s2+CZq)*Cmadot - (2*muc_s2-CZadot)*Cmq;
+C_eig = CZa*Cmq - (2*muc_s2+CZq)*Cma;
+eig_value_1 = (-B_eig+sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c
+eig_value_2 = (-B_eig-sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c
+T_half_ampl = log(0.5)*c/real(eig_value_1);
+damp_ratio = -real(eig_value_1)/sqrt(real(eig_value_1)^2-imag(eig_value_1)^2);
 
 %% Dutch Roll
 % input
@@ -173,13 +174,14 @@ dar(:,2) = -(flightdata.delta_r.data(motion.idx3:motion.idxe3)-(flightdata.delta
 
 % calc
 asymmetric = @ss_a;
-[sys_a1,eig_a1] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
+[sys_a1,eig_a1,mub] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya1,ta1,xa1] = lsim(sys_a1,dar,t);
 ya1(:,2) = ya1(:,2) + phi0;
 ya1(:,3) = ya1(:,3) + p;
 ya1(:,4) = ya1(:,4) + r;
 
+eig_value_a1_1 = (2*(Cnr+2*KZ2*CYb)+sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b
 
 %% Dutch Roll Damped
 % input
@@ -190,7 +192,6 @@ phi0   = flightdata.Ahrs1_Roll.data(motion.idx4)/180*pi();
 p      = (pi/180)*flightdata.Ahrs1_bRollRate.data(motion.idx4);
 r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx4);
 
-
 t = flightdata.time.data(motion.idx4:motion.idxe4);
 t = t-t(1);
 dar = [];
@@ -199,7 +200,7 @@ dar(:,2) = -(flightdata.delta_r.data(motion.idx4:motion.idxe4)-(flightdata.delta
 
 % calc
 asymmetric = @ss_a;
-[sys_a2,eig_a2] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
+[sys_a2,eig_a2,mub] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya2,ta2,xa2] = lsim(sys_a2,dar,t);
 ya2(:,2) = ya2(:,2) + phi0;
@@ -224,12 +225,14 @@ dar(:,2) = -(flightdata.delta_r.data(motion.idx5:motion.idxe5)-flightdata.delta_
 
 % calc
 asymmetric = @ss_a;
-[sys_a3,eig_a3] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
+[sys_a3,eig_a3,mub] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya3,ta3,xa3] = lsim(sys_a3,dar,t);
 ya3(:,2) = ya3(:,2) + phi0;
 ya3(:,3) = ya3(:,3) + p;
 ya3(:,4) = ya3(:,4) + r;
+
+eig_value_a3_1 = Clp/(4*mub*KX2)*V0/b
 
 %% Spiral
 % input
@@ -249,12 +252,14 @@ dar(2,:) = -(flightdata.delta_r.data(motion.idx6:motion.idxe6)-(flightdata.delta
 
 % calc
 asymmetric = @ss_a;
-[sys_a4,eig_a4] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
+[sys_a4,eig_a4,mub,CL] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D);
 
 [ya4,ta4,xa4] = lsim(sys_a4,dar,t);
 ya4(:,2) = ya4(:,2) + phi0;
 ya4(:,3) = ya4(:,3) + p;
 ya4(:,4) = ya4(:,4) + r;
+
+eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b
 
 %% Plotten
 figure(1)
@@ -332,7 +337,7 @@ hold off;
 
 
 %% Functions
-function [sys_s,eig_symmetric,muc] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
+function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
     rho = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   
     W = m*g;                                                
     muc = m/(rho*S*c);
@@ -351,9 +356,9 @@ function [sys_s,eig_symmetric,muc] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZa
     sys_s = ss(A1_symmetric,B1_symmetric,C,D,'StateName',{'Velocity' 'Angle of attack' 'Pitch angle' 'Pitch rate'}, 'StateUnit', {'m/s' 'rad' 'rad' 'rad/s'}, 'OutputName',{'Velocity' 'Angle of attack' 'Pitch angle' 'Pitch rate'}, 'OutputUnit', {'m/s' 'rad' 'rad' 'rad/s'});
 end
 
-function [sys_a,eig_asymmetric] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D)
+function [sys_a,eig_asymmetric,mub,CL] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot,KX2,KXZ,KZ2,Cnbdot,CYb,CYp,CYr,Clb,Clp,Clr,Cnb,Cnp,Cnr,CYda,CYdr,Clda,Cldr,Cnda,Cndr,C,D)
     rho = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   
-    W = m*g;                                                
+    W = m*g;                                     
     mub = m/(rho*S*b);
     CL = 2*W/(rho*V0^2*S);
     C(3,3) = C(3,3)*2*V0/b;
@@ -362,9 +367,8 @@ function [sys_a,eig_asymmetric] = ss_a(V0,hp0,m,rho0,lambda,Temp0,g,R,S,b,CYbdot
     C1_asymmetric = [(CYbdot-2*mub)*b/V0, 0, 0 ,0; 0, -b/(2*V0), 0, 0; 0, 0, -4*mub*KX2*b/V0, 4*mub*KXZ*b/V0; Cnbdot*b/V0, 0, 4*mub*KXZ*b/V0, -4*mub*KZ2*b/V0];
     C2_asymmetric = [CYb, CL, CYp, (CYr-4*mub);0, 0, 1, 0; Clb, 0, Clp, Clr; Cnb, 0 , Cnp, Cnr];
     C3_asymmetric = [CYda,CYdr; 0, 0; Clda, Cldr; Cnda, Cndr];
-    A1_asymmetric = -inv(C1_asymmetric)*C2_asymmetric;
-    B1_asymmetric = -inv(C1_asymmetric)*C3_asymmetric;
+    A1_asymmetric = inv(-C1_asymmetric)*C2_asymmetric;
+    B1_asymmetric = inv(-C1_asymmetric)*C3_asymmetric;
     eig_asymmetric = eig(A1_asymmetric);
     sys_a = ss(A1_asymmetric,B1_asymmetric,C,D,'StateName',{'Sideslip angle' 'Roll angle' 'Roll rate' 'Yaw rate'}, 'StateUnit', {'rad' 'rad' 'rad/s' 'rad/s'}, 'OutputName',{'Sideslip angle' 'Roll angle' 'Roll rate' 'Yaw rate'}, 'OutputUnit', {'rad' 'rad' 'rad/s' 'rad/s'});
 end
-
