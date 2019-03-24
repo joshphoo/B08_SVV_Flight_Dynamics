@@ -1,13 +1,13 @@
 OEW = 9165.0*0.45359237; %kg
 OEWarm = 292.18*0.0254; %m
-Fmax = 4050; % block fuel
+blockfuel = 2750; % block fuel veranderen bij real data
 %-------------------Reading Stationary Data--------------------------------
-filename = fullfile('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
+filename = fullfile('Post_Flight_Datasheet_03_06_V4.xlsx');
 xlrange1 = 'H8:H16';
 weights = xlsread(filename,xlrange1);
 x2range2 = 'I28:I33';
 Fused1 = xlsread(filename,x2range2);
-x3range3 = 'L59:L65';
+x3range3 = 'L59:L64'; % naar flight data -> verander naar L64
 Fused2 = xlsread(filename,x3range3);
 x4range4 = 'L75:L76';
 Fused3 = xlsread(filename,x4range4);
@@ -23,9 +23,9 @@ fuelmoments = [100,298.16;200,591.18;300,879.08;400,1165.42;500,1448.40;600,1732
 
 xcgdatummom = OEW*OEWarm + sum(weights.*xcgdat*0.0254);
 
-Fweight1 = 4050 - Fused1; %lbs
-Fweight2 = 4050 - Fused2;
-Fweight3 = 4050 - Fused3;
+Fweight1 = blockfuel - Fused1; %lbs
+Fweight2 = blockfuel - Fused2;
+Fweight3 = blockfuel - Fused3;
 
 %xcg1
 for i = 1:length(Fweight1)

@@ -1,8 +1,8 @@
 % -------------------------------- Run Matlab Files
-run('excell_data_reader_ref.m');
-T1 = excel_data_reader.T1;
-T2 = excel_data_reader.T2;
-T3 = excel_data_reader.T3;
+run('excell_data_reader_real.m');
+T1 = excel_data_reader_real.T1;
+T2 = excel_data_reader_real.T2;
+T3 = excel_data_reader_real.T3;
 Thrustdata = importdata('thrust.dat');
 run('MassBalance.m');
 
@@ -42,15 +42,15 @@ Vc     = (T1(:,5)-2)*0.514444;
 T_m    = T1(:,10)+273.15; 
 % Angle of Attack [deg]
 alpha_array = T1(:,6); 
-% Basic Empty Weight [kg]
-m_BEM = 9165.0*0.453592; 
-% Payload Weight [kg]
-m_payload = 695; %REFERENCE DATA MASS
-% Block Fuel [kg]
-m_block_fuel = 4050*0.453592;
-% Mass Fuel Used [kg]
-m_fuel_used = T1(:,9)*0.453592;
-m_test = m_BEM+m_payload+m_block_fuel-m_fuel_used;
+% % Basic Empty Weight [kg]
+% m_BEM = 9165.0*0.453592; 
+% % Payload Weight [kg]
+% m_payload = 695; %REFERENCE DATA MASS
+% % Block Fuel [kg]
+% m_block_fuel = 4050*0.453592;
+% % Mass Fuel Used [kg]
+% m_fuel_used = T1(:,9)*0.453592;
+% m_test = m_BEM+m_payload+m_block_fuel-m_fuel_used;
 % Weight dependent on time
 W = (massbalance.Weight1)*g; % CHANGE TO THE MASS GIVEN BY ROWAN
 % Stick Force [N]
@@ -94,8 +94,8 @@ C_L = C_L.';
 Fit_CL_alpha = polyfit(alpha_array,C_L,1);
 x = -5:0.01:10;
 yfit = Fit_CL_alpha(1)*x+Fit_CL_alpha(2);
-CL_alpha = Fit_CL_alpha(1); % [1/deg]
-alpha0 = -Fit_CL_alpha(2)/CL_alpha; % [deg]
+CL_alpha = (Fit_CL_alpha(1))*(180/pi); % [1/rad]
+alpha0 = -Fit_CL_alpha(2)/(Fit_CL_alpha(1)); % [deg]
 
 %---------------------------------- CD-alpha curve
 Thrust = [
@@ -123,12 +123,21 @@ CD0 = Fit_CL2_CD(2);
 C_D_corr = CD0 + (CL_alpha*(alpha_array-alpha0)).^2/(pi*A*e);
 
 %----------------------- Range
-M_Range = [M(end) M(1)];
+M_end = round(M(end),2,'significant');
+M_first = round(M(1),2,'significant');
+M_Range = [M_end M_first];
 
+mu_ref = 1.716*10^-5 
+S_suther = 110.4
+C1 = 1.458*10^-6
 
+mu = (C1*T.^(1.5))./(T+S_suther)
+Re = (rho.*V_t*c)./mu
 
+Re_end = Re(end)
+Re_first = Re(1)
 
-
+Re_Range = [Re_end Re_first]
 
 %------------------------ Stationary Measurements Elevator Trim Curve
 %Everything that ends on _ET = Elevator Trim
@@ -206,15 +215,18 @@ T_ET = [sum(Thrustdata(7,:)),
     sum(Thrustdata(9,:)),
     sum(Thrustdata(10,:)),
     sum(Thrustdata(11,:)),
-    sum(Thrustdata(12,:)),
-    sum(Thrustdata(13,:))];
+    sum(Thrustdata(12,:))];
+%,sum(Thrustdata(13,:)) eruit gehaald, omdat de lengte bij elevator trim
+%een lengte heeft van 6
+
 Ts2 = [Thrustdata(22),
     Thrustdata(23),
     Thrustdata(24),
     Thrustdata(25),
     Thrustdata(26),
-    Thrustdata(27),
-    Thrustdata(28)];
+    Thrustdata(27)];
+%,Thrustdata(28) eruit gehaald, omdat de lengte bij elevator trim
+%een lengte heeft van 6
 
 %Dimensionless thrust coefficient T_c
 Tc2 = T_ET./(0.5*rho_ET.*V_t_ET.^2*pi*Radius_Engine^2);
@@ -230,15 +242,16 @@ delta_e_red = delta_e*0.0174533 - (1/C_m_delta)*CmTc*(Tcs2-Tc2);
 % | V_e_red [m/s] | delta_e_red [rad] | F_e_red [N] | alpha_array_ET [deg]
 
 Variables_Aero_Coeff = [V_e_red delta_e_red F_e_red alpha_array_ET*0.0174533];
+
 Final_Variables_Aero_Coeff = [
     Variables_Aero_Coeff(4,:),
     Variables_Aero_Coeff(3,:),
     Variables_Aero_Coeff(2,:),
     Variables_Aero_Coeff(1,:),
     Variables_Aero_Coeff(5,:),
-    Variables_Aero_Coeff(6,:),
-    Variables_Aero_Coeff(7,:)
+    Variables_Aero_Coeff(6,:)
     ];
+%,Variables_Aero_Coeff(7,:)
 
 %---------------------------------- Longitudinal Stability, C_m_alpha
 % Assumption: Lineaire functie 
@@ -247,52 +260,52 @@ Fit_C_m_alpha = polyfit(Final_Variables_Aero_Coeff(:,4),Final_Variables_Aero_Coe
 C_m_alpha = Fit_C_m_alpha(1)*-C_m_delta;
 
 %---------------------------------- Plot graphs
-% C_L - Alpha Curve
-figure
-hold on
-
-subplot(2,2,1)
-plot(alpha_array,C_L,'b',x,yfit,'g')
-ax = gca;
-ax.XAxisLocation = 'origin';
-ax.YAxisLocation = 'origin';
-legend('C_L-\alpha','C_L-\alpha extrapolated')
-xlabel('\alpha [deg]')
-ylabel('C_L [-]')
-title(['C_L-\alpha plot, Mach range: ',num2str(M_Range(1)),'-',num2str(M_Range(2)),' Reynolds nr. range:'])
-
-% C_L - C_D Curve
-subplot(2,2,2)
-plot(C_D,C_L,'b',C_D_corr,C_L,'r')
-ax = gca;
-ax.XAxisLocation = 'origin';
-ax.YAxisLocation = 'origin';
-legend('C_L-C_D','C_L-C_D_{corr}')
-xlabel('C_D [-]')
-ylabel('C_L [-]')
-title('C_L-C_D plot') 
-
-% CL^2-CD Curve
-subplot(2,2,3)
-plot(C_L2,C_D,'b',x2,yfit2,'g')
-ax = gca;
-ax.XAxisLocation = 'origin';
-ax.YAxisLocation = 'origin';
-legend('C_L^2-C_D','C_L^2-C_D extrapolated')
-xlabel('C_L^2 [-]')
-ylabel('C_D [-]')
-title('C_D-C_L^2 plot')
-
-% C_D - Alpha Curve
-subplot(2,2,4)
-plot(alpha_array,C_D,'b',alpha_array,C_D_corr,'r')
-ax = gca;
-ax.XAxisLocation = 'origin';
-ax.YAxisLocation = 'origin';
-legend('C_D-\alpha','C_D_{corr}-\alpha')
-xlabel('\alpha [deg]')
-ylabel('C_D [-]')
-title('C_D-\alpha plot')
+% % C_L - Alpha Curve
+% figure
+% hold on
+% 
+% subplot(2,2,1)
+% plot(alpha_array,C_L,'b',x,yfit,'g')
+% ax = gca;
+% ax.XAxisLocation = 'origin';
+% ax.YAxisLocation = 'origin';
+% legend('C_L-\alpha','C_L-\alpha extrapolated')
+% xlabel('\alpha [deg]')
+% ylabel('C_L [-]')
+% title(['C_L-\alpha, M = ',num2str(M_Range(1)),' - ',num2str(M_Range(2)),' Re = ',num2str(Re_Range(1)),'-',])
+% 
+% % C_L - C_D Curve
+% subplot(2,2,2)
+% plot(C_D,C_L,'b',C_D_corr,C_L,'r')
+% ax = gca;
+% ax.XAxisLocation = 'origin';
+% ax.YAxisLocation = 'origin';
+% legend('C_L-C_D','C_L-C_D_{corr}')
+% xlabel('C_D [-]')
+% ylabel('C_L [-]')
+% title(['C_L-C_D, M = ',num2str(M_Range(1)),'-',num2str(M_Range(end)),' Re = ',num2str(Re_Range(1)),'-',num2str(Re_Range(end))]) 
+% 
+% % CL^2-CD Curve
+% subplot(2,2,3)
+% plot(C_L2,C_D,'b',x2,yfit2,'g')
+% ax = gca;
+% ax.XAxisLocation = 'origin';
+% ax.YAxisLocation = 'origin';
+% legend('C_L^2-C_D','C_L^2-C_D extrapolated')
+% xlabel('C_L^2 [-]')
+% ylabel('C_D [-]')
+% title('C_D-C_L^2 plot')
+% 
+% % C_D - Alpha Curve
+% subplot(2,2,4)
+% plot(alpha_array,C_D,'b',alpha_array,C_D_corr,'r')
+% ax = gca;
+% ax.XAxisLocation = 'origin';
+% ax.YAxisLocation = 'origin';
+% legend('C_D-\alpha','C_D_{corr}-\alpha')
+% xlabel('\alpha [deg]')
+% ylabel('C_D [-]')
+% title('C_D-\alpha plot')
 
 % Reduced Elevator Control Force Curve, V_e_red vs. F_e_red
 figure
@@ -317,10 +330,10 @@ ax.YAxisLocation = 'origin';
 legend('\delta_{e_{red}}-V_{e_{red}}')
 xlabel('V_{e_{red}} [m/s]')
 ylabel('\delta_{e_{red}} (-) [rad]')
-title('Reduced Elevator Trime Curve')
+%title('Reduced Elevator Trime Curve')
 
-% Reduced Elevator Trim Curve, alpha_array_ET vs. delta_e_red
 figure
+% Reduced Elevator, alpha vs. delta_e_red
 plot(Final_Variables_Aero_Coeff(:,4),Final_Variables_Aero_Coeff(:,2))
 ax = gca;
 ax.YDir = 'reverse';
@@ -329,4 +342,26 @@ ax.YAxisLocation = 'origin';
 legend('\delta_{e_{red}}-\alpha')
 xlabel('\alpha [rad]')
 ylabel('\delta_{e_{red}} (-) [rad]')
-title('Reduced Elevator Trime Curve')
+%title('Reduced Elevator Trime Curve alpha vs delta e red')
+
+%CL alpha
+figure 
+plot(alpha_array,C_L,'b',x,yfit,'r')
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+legend('C_L-\alpha','C_L-\alpha extrapolated')
+xlabel('\alpha [deg]')
+ylabel('C_L [-]')
+
+%CL CD
+figure
+plot(C_D,C_L,'b',C_D_corr,C_L,'r')
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+legend('C_L-C_D','C_L-C_D_{corr}')
+xlabel('C_D [-]')
+ylabel('C_L [-]')
+
+%clearvars -except alpha0 C_m_alpha C_m_delta CL_alpha e

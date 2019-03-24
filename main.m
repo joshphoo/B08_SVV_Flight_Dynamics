@@ -5,7 +5,7 @@
 %----------------------------PROGRAM---------------------------------------
 
 %----------------------Read Excell Data------------------------------------
-run('excell_data_reader_ref.m')
+%run('excell_data_reader_ref.m')
 run('excell_data_reader_real.m')
 %----------------------Obtain parameters from Marloes----------------------
 run('parametersmarloes.m')
