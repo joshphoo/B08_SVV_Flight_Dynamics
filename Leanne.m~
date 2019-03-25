@@ -329,8 +329,7 @@ ya1(:,2) = ya1(:,2) + phi0;
 ya1(:,3) = ya1(:,3) + p;
 ya1(:,4) = ya1(:,4) + r;
 
-eig_value_a1_1 = (2*(Cnr+2*KZ2*CYb)+sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
-eig_value_a1_2 = (2*(Cnr+2*KZ2*CYb)-sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
+eig_value_a1_1 = (2*(Cnr+2*KZ2*CYb)+sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b
 
 %% Dutch Roll Damped
 % input
@@ -408,7 +407,7 @@ ya4(:,2) = ya4(:,2) + phi0;
 ya4(:,3) = ya4(:,3) + p;
 ya4(:,4) = ya4(:,4) + r;
 
-eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
+eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b
 
 %% Plotten
 figure(1)
@@ -492,10 +491,10 @@ fprintf( 'Eigenvalue Phugoid'), disp(eig_value_2_s1);
 fprintf( 'Symmetric: Numerical Eigenvalues'), disp(eig_s1);
 
 fprintf( 'Asymmetric: Analytical Eigenvalues'), disp(0);
-fprintf( 'Eigenvalue Aperiodic Roll'), disp(eig_value_a3_1);
-fprintf( 'Eigenvalue Dutch Roll'), disp(eig_value_a1_1);
-fprintf( 'Eigenvalue Dutch Roll'), disp(eig_value_a1_2);
-fprintf( 'Eigenvalue Spiral'), disp(eig_value_a4_1);
+fprintf( 'Eigenvalue Aperiodic Roll'), disp(eig_value_1_a2);
+fprintf( 'Eigenvalue Dutch Roll'), disp(eig_value_1_a1);
+fprintf( 'Eigenvalue Dutch Roll'), disp(eig_value_2_a1);
+fprintf( 'Eigenvalue Spiral'), disp(eig_value_1_a3);
 fprintf( 'Asymmetric: Numerical Eigenvalues'), disp(eig_a1);
 %% Functions
 function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
