@@ -364,79 +364,79 @@ ya4(:,4) = ya4(:,4) + r;
 
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
 
-% %% Plotten
-% figure(1)
-% subplot(2,2,1);
-% hold on;
-% plot(ts1,ys1(:,1));
-% subplot(2,2,2);
-% hold on;
-% plot(ts1,ys1(:,2));
-% subplot(2,2,3)
-% hold on;
-% plot(ts1,ys1(:,3));
-% subplot(2,2,4)
-% hold on;
-% plot(ts1,ys1(:,4));
-% 
-% figure(2)
-% subplot(2,2,1);
-% hold on;
-% plot(ts2,ys2(:,1));
-% subplot(2,2,2);
-% hold on;
-% plot(ts2,ys2(:,2));
-% subplot(2,2,3)
-% hold on;
-% plot(ts2,ys2(:,3));
-% subplot(2,2,4)
-% hold on;
-% plot(ts2,ys2(:,4));
-% 
-% figure(3)
-% subplot(2,2,1);
-% hold on;
-% plot(ta1,ya1(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta1,ya1(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta1,ya1(:,4));
-% 
-% figure(4)
-% subplot(2,2,1);
-% hold on;
-% plot(ta2,ya2(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta2,ya2(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta2,ya2(:,4));
-% 
-% figure(5)
-% subplot(2,2,1);
-% hold on;
-% plot(ta3,ya3(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta3,ya3(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta3,ya3(:,4));
-% 
-% figure(6)
-% subplot(2,2,1);
-% hold on;
-% plot(ta4,ya4(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta4,ya4(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta4,ya4(:,4));
-% hold off;
+%% Plotten
+figure(1)
+subplot(2,2,1);
+hold on;
+plot(ts1,ys1(:,1));
+subplot(2,2,2);
+hold on;
+plot(ts1,ys1(:,2));
+subplot(2,2,3)
+hold on;
+plot(ts1,ys1(:,3));
+subplot(2,2,4)
+hold on;
+plot(ts1,ys1(:,4));
+
+figure(2)
+subplot(2,2,1);
+hold on;
+plot(ts2,ys2(:,1));
+subplot(2,2,2);
+hold on;
+plot(ts2,ys2(:,2));
+subplot(2,2,3)
+hold on;
+plot(ts2,ys2(:,3));
+subplot(2,2,4)
+hold on;
+plot(ts2,ys2(:,4));
+
+figure(3)
+subplot(2,2,1);
+hold on;
+plot(ta1,ya1(:,2));
+subplot(2,2,2);
+hold on;
+plot(ta1,ya1(:,3));
+subplot(2,2,3)
+hold on;
+plot(ta1,ya1(:,4));
+
+figure(4)
+subplot(2,2,1);
+hold on;
+plot(ta2,ya2(:,2));
+subplot(2,2,2);
+hold on;
+plot(ta2,ya2(:,3));
+subplot(2,2,3)
+hold on;
+plot(ta2,ya2(:,4));
+
+figure(5)
+subplot(2,2,1);
+hold on;
+plot(ta3,ya3(:,2));
+subplot(2,2,2);
+hold on;
+plot(ta3,ya3(:,3));
+subplot(2,2,3)
+hold on;
+plot(ta3,ya3(:,4));
+
+figure(6)
+subplot(2,2,1);
+hold on;
+plot(ta4,ya4(:,2));
+subplot(2,2,2);
+hold on;
+plot(ta4,ya4(:,3));
+subplot(2,2,3)
+hold on;
+plot(ta4,ya4(:,4));
+hold off;
 
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);
 fprintf( 'Eigenvalue Short Period'), disp(eig_value_1_s2);
@@ -454,27 +454,31 @@ fprintf( 'Eigenvalue Spiral'), disp(eig_value_a4_1);
 fprintf( 'Asymmetric: Numerical Eigenvalues'), disp(eig_a1);
 
 
-vmax = [];
-vmin = [];
-for i = 1:length(ys1(:,1))
-    if i ~= 1 & i~= length(ys1(:,1))
-        if ys1(i,1) > ys1(i+1,1) & ys1(i,1) > ys1(i-1,1)
-        vmax = [vmax;find(ys1(:,1) == ys1(i,1))];
-        elseif ys1(i,1) < ys1(i+1,1) & ys1(i,1) < ys1(i-1,1)
-        vmin = [vmin;find(ys1(:,1) == ys1(i,1))];
-        end  
-    end
-end
-vmaxi = vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end);
-vmax = ys1(vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end),1);
-vmini = vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end);
-vmin = ys1(vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end),1);
-vn = ys1(vmini(1):vmaxi(end),1);
-vmax = vmax-median(vn);
-vmin = vmin-median(vn);
-plot(1:length(vn),vn)
-vmaxc = vmax/vmax(1);
-
+% vmax = [];
+% vmin = [];
+% for i = 1:length(ys1(:,1))
+%     if i ~= 1 & i~= length(ys1(:,1))
+%         if ys1(i,1) > ys1(i+1,1) & ys1(i,1) > ys1(i-1,1)
+%         vmax = [vmax;find(ys1(:,1) == ys1(i,1))];
+%         elseif ys1(i,1) < ys1(i+1,1) & ys1(i,1) < ys1(i-1,1)
+%         vmin = [vmin;find(ys1(:,1) == ys1(i,1))];
+%         end  
+%     end
+% end
+% vmaxi = vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end);
+% vmax = ys1(vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end),1);
+% vmini = vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end);
+% vmin = ys1(vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end),1);
+% vn = ys1(vmini(1):vmaxi(end),1);
+% vmax = vmax-median(vn);
+% vmin = vmin-median(vn);
+% plot(1:length(vn),vn)
+% vmaxc = vmax/vmax(1);
+% for i = 1:length(vmaxc)
+% if vmaxc(i) < 0.5
+%     thalf = ((0.5-vmaxc(i))*vmini(i-1)+(vmaxc(i-1)-0.5)*vmini(i))/(vmaxc(i-1)-vmaxc(i))
+% end
+% end
 %% Functions
 function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
     rho = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   
