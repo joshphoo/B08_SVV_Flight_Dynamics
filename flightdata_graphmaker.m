@@ -16,7 +16,7 @@ motion.t2 = 1*3600 + 0*60 + 33;
 motion.t3 = 1*3600 + 1*60 + 57;
 motion.t4 = 1*3600 + 2*60 + 47;
 motion.t5 = 0*3600 + 59*60 + 10;
-motion.t6 = 1*3600 + 5*60 + 39;
+motion.t6 = 1*3600 + 5*60 + 38;
 %Symmetric
 %Motion 1
 motion.idx1 = find(flightdata.time.data==motion.t1-10);               % Starting time
