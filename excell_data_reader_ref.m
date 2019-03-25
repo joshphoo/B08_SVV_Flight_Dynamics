@@ -46,6 +46,17 @@ T3 = num3 + text3;
 excel_data_reader.T3 = T3;
 excel_data_reader.label3 = label3;
 
+%-------------------FOR MASS BALANCE
+filename = fullfile('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
+excel_data_reader.xlrange1 = 'H8:H16';
+excel_data_reader.weights = xlsread(filename,xlrange1);
+excel_data_reader.x2range2 = 'I28:I33';
+excel_data_reader.Fused1 = xlsread(filename,x2range2);
+excel_data_reader.x3range3 = 'L59:L65'; % naar flight data -> verander naar L64
+excel_data_reader.Fused2 = xlsread(filename,x3range3);
+excel_data_reader.x4range4 = 'L75:L76';
+excel_data_reader.Fused3 = xlsread(filename,x4range4);
+
 clearvars filename x1range x2range x3range x1label x2label x3label num1 ...
         ` num2 num3 text1 text2 text3 raw1 raw2 raw3 T1 T2 T3 num ...
           label1 label2 label3

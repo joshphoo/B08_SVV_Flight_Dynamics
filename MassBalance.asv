@@ -4,11 +4,11 @@ blockfuel = 2750; % block fuel veranderen bij real data
 %-------------------Reading Stationary Data--------------------------------
 excel_data_reader.weights = xlsread(filename,excel_data_reader.x1range1);
 excel_data_reader.x2range2 = 'I28:I33';
-excel_data_reader.Fused1 = xlsread(filename,excel_data_reader.x2range2);
+Fused1 = xlsread(filename,excel_data_reader.x2range2);
 excel_data_reader.x3range3 = 'L59:L64'; % naar flight data -> verander naar L64
-excel_data_reader.Fused2 = xlsread(filename,excel_data_reader.x3range3);
+Fused2 = xlsread(filename,excel_data_reader.x3range3);
 excel_data_reader.x4range4 = 'L75:L76';
-excel_data_reader.Fused3 = xlsread(filename,excel_data_reader.x4range4);
+Fused3 = xlsread(filename,excel_data_reader.x4range4);
 %-------------------Put The Data In array----------------------------------
 
 xcgdat = [131, 131, 170, 214, 214, 251, 251, 288, 288]'; %inch
@@ -21,9 +21,9 @@ fuelmoments = [100,298.16;200,591.18;300,879.08;400,1165.42;500,1448.40;600,1732
 
 xcgdatummom = OEW*OEWarm + sum(excel_data_reader.weights.*xcgdat*0.0254);
 
-Fweight1 = blockfuel - excel_data_reader.Fused1; %lbs
-Fweight2 = blockfuel - excel_data_reader.Fused2;
-Fweight3 = blockfuel - excel_data_reader.Fused3;
+Fweight1 = blockfuel - Fused1; %lbs
+Fweight2 = blockfuel - Fused2;
+Fweight3 = blockfuel - Fused3;
 
 %xcg1
 for i = 1:length(Fweight1)
@@ -66,7 +66,7 @@ massbalance.Weight3 = OEW + sum(excel_data_reader.weights) + Fweight3.*0.4535923
 
 xcg3 = [-(((xcgdatummom + fuelmom3(1))/massbalance.Weight3(1))-6.643624)];
 massbalance.xcg3 = [xcg3, -((((xcgdatummom - excel_data_reader.weights(9)*(154*0.0254)) + fuelmom3(2))/massbalance.Weight3(2))-6.643624)];
-clearvars filename Fmax fuelmom1 fuelmom2 fuelmom3 fuelmoments excel_data_reader.Fused1 ...
-          excel_data_reader.Fused2 excel_data_reader.Fused3 Fweight1 Fweight2 Fweight3 i j OEW OEWarm ...
+clearvars filename Fmax fuelmom1 fuelmom2 fuelmom3 fuelmoments Fused1 ...
+          Fused2 Fused3 Fweight1 Fweight2 Fweight3 i j OEW OEWarm ...
           excel_data_reader.weights xcg1 xcg2 xcg3 xcgdat ...
           xcgdatummom
