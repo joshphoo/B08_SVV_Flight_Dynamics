@@ -118,7 +118,7 @@ e = 1/(pi*A*Fit_CL2_CD(1));
 CD0 = Fit_CL2_CD(2);
 
 % Corrected C_D with input: CD0 & e
-C_D_corr = CD0 + (CL_alpha*(alpha_array-alpha0)).^2/(pi*A*e);
+C_D_corr = CD0 + ((CL_alpha/(180/pi))*(alpha_array-alpha0)).^2/(pi*A*e);
 
 %----------------------- Range
 M_end = round(M(end),2,'significant');
@@ -208,29 +208,13 @@ C_m_delta = -(1.0 /((delta_e_SCG(2)-delta_e_SCG(1))*0.0174533))*C_N*(((massbalan
 F_e_red = F_e.*(W_s./(W_ET));
 
 %---------------------------------- Elevator Trime Curve CONTINUED
-T_ET_inter = sum(Thrustdata,2)
-size(Thrustdata,1)
-T_ET = T_ET_inter(7:end-((size(Thrustdata,1)/2)+2))
-% T_ET = [sum(Thrustdata(7,:)),
-%     sum(Thrustdata(8,:)),
-%     sum(Thrustdata(9,:)),
-%     sum(Thrustdata(10,:)),
-%     sum(Thrustdata(11,:)),
-%     sum(Thrustdata(12,:))];
-%,sum(Thrustdata(13,:)) eruit gehaald, omdat de lengte bij elevator trim
-%een lengte heeft van 6
+T_ET_inter = sum(Thrustdata,2);
+T_ET = T_ET_inter(7:end-((size(Thrustdata,1)/2)+2));
 
-Ts2_inter = Thrustdata(:,1)
-Ts2 = Ts2_inter(((size(Thrustdata,1)/2)+7):end-2)
 
-% Ts2 = [Thrustdata(22),
-%     Thrustdata(23),
-%     Thrustdata(24),
-%     Thrustdata(25),
-%     Thrustdata(26),
-%     Thrustdata(27)];
-%,Thrustdata(28) eruit gehaald, omdat de lengte bij elevator trim
-%een lengte heeft van 6
+Ts2_inter = Thrustdata(:,1);
+Ts2 = Ts2_inter(((size(Thrustdata,1)/2)+7):end-2);
+
 
 %Dimensionless thrust coefficient T_c
 Tc2 = T_ET./(0.5*rho_ET.*V_t_ET.^2*pi*Radius_Engine^2);
