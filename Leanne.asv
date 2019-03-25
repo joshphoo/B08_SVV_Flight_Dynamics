@@ -369,19 +369,15 @@ figure(1)
 subplot(2,2,1);
 hold on;
 plot(ts1,ys1(:,1));
-legend('measured','calculated');
 subplot(2,2,2);
 hold on;
 plot(ts1,ys1(:,2));
-legend('measured','calculated');
 subplot(2,2,3)
 hold on;
 plot(ts1,ys1(:,3));
-legend('measured','calculated');
 subplot(2,2,4)
 hold on;
 plot(ts1,ys1(:,4));
-legend('measured','calculated');
 
 figure(2)
 subplot(2,2,1);
@@ -399,7 +395,6 @@ legend('measured','calculated');
 subplot(2,2,4)
 hold on;
 plot(ts2,ys2(:,4));
-legend('measured','calculated');
 
 figure(3)
 subplot(2,2,1);
