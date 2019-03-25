@@ -302,8 +302,9 @@ B_eig = -2*muc_s2*KY2*CZa - (2*muc_s2+CZq)*Cmadot - (2*muc_s2-CZadot)*Cmq;
 C_eig = CZa*Cmq - (2*muc_s2+CZq)*Cma;
 eig_value_1_s2 = (-B_eig+sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c;
 eig_value_2_s2 = (-B_eig-sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c;
-T_half_ampl = log(0.5)*c/real(eig_value_1);
-damp_ratio = -real(eig_value_1)/sqrt(real(eig_value_1)^2-imag(eig_value_1)^2);
+T_half = log(0.5)/eig_value_1_s2
+%damp_ratio = -real(eig_value_1)/sqrt(real(eig_value_1)^2-imag(eig_value_1)^2);
+period = 2*pi/imag(eig_value_1_s2)/V0
 
 %% Dutch Roll
 % input
@@ -332,6 +333,8 @@ ya1(:,4) = ya1(:,4) + r;
 eig_value_a1_1 = (2*(Cnr+2*KZ2*CYb)+sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
 eig_value_a1_2 = (2*(Cnr+2*KZ2*CYb)-sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
 
+T_half = log(0.5)*b/real(eig_value_a1_s1)/V0
+period = 2*pi*b/imag(eig_value_1_s2)/V0
 %% Dutch Roll Damped
 % input
 hp0    = flightdata.Dadc1_alt.data(motion.idx4)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
@@ -490,6 +493,7 @@ fprintf( 'Eigenvalue Short Period'), disp(eig_value_2_s2);
 fprintf( 'Eigenvalue Phugoid'), disp(eig_value_1_s1);
 fprintf( 'Eigenvalue Phugoid'), disp(eig_value_2_s1);
 fprintf( 'Symmetric: Numerical Eigenvalues'), disp(eig_s1);
+
 
 fprintf( 'Asymmetric: Analytical Eigenvalues'), disp(0);
 fprintf( 'Eigenvalue Aperiodic Roll'), disp(eig_value_a3_1);
