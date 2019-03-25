@@ -1,68 +1,25 @@
 %close all;
 %clear;
-    
-% aerodynamic properties
-% e      = 0.8;           % Oswald factor [ ]
-% CD0    = 0.04;          % Zero lift drag coefficient [ ]
-% CLa    = 5.084;         % Slope of CL-alpha curve [ ]
-% 
-% % Longitudinal stability
-% Cma    = -0.5626;           % longitudinal stabilty [ ]
-% Cmde   = -1.1642;           % elevator effectiveness [ ]
-% 
-% % Aircraft geometry
-% S      = 30.00;	          % wing area [m^2]
-% Sh     = 0.2*S;           % stabiliser area [m^2]
-% Sh_S   = Sh/S;	          % [ ]
-% lh     = 0.71*5.968;      % tail length [m]
-% c      = 2.0569;          % mean aerodynamic cord [m]
-% lh_c   = lh/c;	          % [ ]
-% b      = 15.911;          % wing span [m]
-% bh     = 5.791;	          % stabilser span [m]
-% A      = b^2/S;           % wing aspect ratio [ ]
-% Ah     = bh^2/Sh;         % stabiliser aspect ratio [ ]
-% Vh_V   = 1;               % [ ]
-% ih     = -2*pi/180;       % stabiliser angle of incidence [rad]
-% 
-% % Constant values concerning atmosphere and gravity
-% rho0   = 1.2250;          % air density at sea level [kg/m^3] 
-% lambda = -0.0065;         % temperature gradient in ISA [K/m]
-% Temp0  = 288.15;          % temperature at sea level in ISA [K]
-% R      = 287.05;          % specific gas constant [m^2/sec^2K]
-% g      = 9.81;            % [m/sec^2] (gravity constant)
-% gamma  = 1.4;             % air ratio specific heats 
-% p0     = 101325;          % sea level pressure [Pa]
-% 
-% %rho    = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   % [kg/m^3]  (air density)
-% %W      = m*g;                                                   % [N]       (aircraft weight)
-% 
-% % Constant values concerning aircraft inertia
-%muc    = m/(rho*S*c);
-%mub    = m/(rho*S*b);
+
+% Constant values concerning aircraft inertia
 KX2    = 0.019;
 KZ2    = 0.042;
 KXZ    = 0.002;
 KY2    = 1.25*1.114;
-% 
-% % Aerodynamic constants
+ 
+% Aerodynamic constants
 Cmac   = 0;                     % Moment coefficient about the aerodynamic centre [ ]
 CNwa   = CLa;   		        % Wing normal force slope [ ]
 CNha   = 2*pi*Ah/(Ah+2);        % Stabiliser normal force slope [ ]
 depsda = 4/(A+2);               % Downwash gradient [ ]
-% 
-% % Lift and drag coefficient
-% %CL = 2*W/(rho*V0^2*S);               % Lift coefficient [ ]
-% %CD = CD0 + (CLa*alpha0)^2/(pi*A*e);  % Drag coefficient [ ]
-% 
-% % Stabiblity derivatives
-%CX0    = W*sin(th0)/(0.5*rho*V0^2*S);
+ 
+% Stabiblity derivatives
 CXu    = -0.02792;
 CXa    = -0.47966;
 CXadot = +0.08330;
 CXq    = -0.28170;
 CXde   = -0.03728;
 
-%CZ0    = -W*cos(th0)/(0.5*rho*V0^2*S);
 CZu    = -0.37616;
 CZa    = -5.74340;
 CZadot = -0.00350;
@@ -92,8 +49,6 @@ Cnp    =  -0.0602;
 Cnr    =  -0.2061;
 Cnda   =  -0.0120;
 Cndr   =  -0.0939;
-
-
 
 
 %% New!!!!!!!!!!
@@ -415,79 +370,79 @@ ya4(:,4) = ya4(:,4) + r;
 
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
 
-%% Plotten
-figure(1)
-subplot(2,2,1);
-hold on;
-plot(ts1,ys1(:,1));
-subplot(2,2,2);
-hold on;
-plot(ts1,ys1(:,2));
-subplot(2,2,3)
-hold on;
-plot(ts1,ys1(:,3));
-subplot(2,2,4)
-hold on;
-plot(ts1,ys1(:,4));
-
-figure(2)
-subplot(2,2,1);
-hold on;
-plot(ts2,ys2(:,1));
-subplot(2,2,2);
-hold on;
-plot(ts2,ys2(:,2));
-subplot(2,2,3)
-hold on;
-plot(ts2,ys2(:,3));
-subplot(2,2,4)
-hold on;
-plot(ts2,ys2(:,4));
-
-figure(3)
-subplot(2,2,1);
-hold on;
-plot(ta1,ya1(:,2));
-subplot(2,2,2);
-hold on;
-plot(ta1,ya1(:,3));
-subplot(2,2,3)
-hold on;
-plot(ta1,ya1(:,4));
-
-figure(4)
-subplot(2,2,1);
-hold on;
-plot(ta2,ya2(:,2));
-subplot(2,2,2);
-hold on;
-plot(ta2,ya2(:,3));
-subplot(2,2,3)
-hold on;
-plot(ta2,ya2(:,4));
-
-figure(5)
-subplot(2,2,1);
-hold on;
-plot(ta3,ya3(:,2));
-subplot(2,2,2);
-hold on;
-plot(ta3,ya3(:,3));
-subplot(2,2,3)
-hold on;
-plot(ta3,ya3(:,4));
-
-figure(6)
-subplot(2,2,1);
-hold on;
-plot(ta4,ya4(:,2));
-subplot(2,2,2);
-hold on;
-plot(ta4,ya4(:,3));
-subplot(2,2,3)
-hold on;
-plot(ta4,ya4(:,4));
-hold off;
+% %% Plotten
+% figure(1)
+% subplot(2,2,1);
+% hold on;
+% plot(ts1,ys1(:,1));
+% subplot(2,2,2);
+% hold on;
+% plot(ts1,ys1(:,2));
+% subplot(2,2,3)
+% hold on;
+% plot(ts1,ys1(:,3));
+% subplot(2,2,4)
+% hold on;
+% plot(ts1,ys1(:,4));
+% 
+% figure(2)
+% subplot(2,2,1);
+% hold on;
+% plot(ts2,ys2(:,1));
+% subplot(2,2,2);
+% hold on;
+% plot(ts2,ys2(:,2));
+% subplot(2,2,3)
+% hold on;
+% plot(ts2,ys2(:,3));
+% subplot(2,2,4)
+% hold on;
+% plot(ts2,ys2(:,4));
+% 
+% figure(3)
+% subplot(2,2,1);
+% hold on;
+% plot(ta1,ya1(:,2));
+% subplot(2,2,2);
+% hold on;
+% plot(ta1,ya1(:,3));
+% subplot(2,2,3)
+% hold on;
+% plot(ta1,ya1(:,4));
+% 
+% figure(4)
+% subplot(2,2,1);
+% hold on;
+% plot(ta2,ya2(:,2));
+% subplot(2,2,2);
+% hold on;
+% plot(ta2,ya2(:,3));
+% subplot(2,2,3)
+% hold on;
+% plot(ta2,ya2(:,4));
+% 
+% figure(5)
+% subplot(2,2,1);
+% hold on;
+% plot(ta3,ya3(:,2));
+% subplot(2,2,2);
+% hold on;
+% plot(ta3,ya3(:,3));
+% subplot(2,2,3)
+% hold on;
+% plot(ta3,ya3(:,4));
+% 
+% figure(6)
+% subplot(2,2,1);
+% hold on;
+% plot(ta4,ya4(:,2));
+% subplot(2,2,2);
+% hold on;
+% plot(ta4,ya4(:,3));
+% subplot(2,2,3)
+% hold on;
+% plot(ta4,ya4(:,4));
+% hold off;
 
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);
 fprintf( 'Eigenvalue Short Period'), disp(eig_value_1_s2);
@@ -505,23 +460,26 @@ fprintf( 'Eigenvalue Spiral'), disp(eig_value_a4_1);
 fprintf( 'Asymmetric: Numerical Eigenvalues'), disp(eig_a1);
 
 
-% vmax = [];
-% vmin = [];
-% for i = 1:length(ys1(:,1))
-%     if i ~= 1 & i~= length(ys1(:,1))
-%         if ys1(i,1) > ys1(i+1,1) & ys1(i,1) > ys1(i-1,1)
-%         vmax = [vmax;find(ys1(:,1) == ys1(i,1))];
-%         elseif ys1(i,1) < ys1(i+1,1) & ys1(i,1) < ys1(i-1,1)
-%         vmin = [vmin;find(ys1(:,1) == ys1(i,1))];
-%         end  
-%     end
-% end
-% vmaxi = vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end);
-% vmax = ys1(vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end),1);
-% vmini = vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end);
-% vmin = ys1(vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end),1);
-% vn = ys1(vmini(1):vmaxi(end),1);
-% plot(1:length(vn),vn)
+vmax = [];
+vmin = [];
+for i = 1:length(ys1(:,1))
+    if i ~= 1 & i~= length(ys1(:,1))
+        if ys1(i,1) > ys1(i+1,1) & ys1(i,1) > ys1(i-1,1)
+        vmax = [vmax;find(ys1(:,1) == ys1(i,1))];
+        elseif ys1(i,1) < ys1(i+1,1) & ys1(i,1) < ys1(i-1,1)
+        vmin = [vmin;find(ys1(:,1) == ys1(i,1))];
+        end  
+    end
+end
+vmaxi = vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end);
+vmax = ys1(vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end),1);
+vmini = vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end);
+vmin = ys1(vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end),1);
+vn = ys1(vmini(1):vmaxi(end),1);
+vmax = vmax-median(vn);
+vmin = vmin-median(vn);
+plot(1:length(vn),vn)
+vmaxc = vmax/vmax(1);
 
 %% Functions
 function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
