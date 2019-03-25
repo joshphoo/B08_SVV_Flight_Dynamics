@@ -1,4 +1,6 @@
 %-------------------EXCELL DATA READER-------------------------------------
+%-------------------Read flightdata----------------------------------------
+load('matlab.mat')
 %-------------------Reading Stationary Data--------------------------------
 filename = fullfile('REFERENCE_Post_Flight_Datasheet_Flight.xlsx');
 x1range = 'A28:J33';
@@ -61,4 +63,28 @@ excel_data_reader.Fused2 = xlsread(filename,excel_data_reader.x3range3);
 excel_data_reader.x4range4 = 'L75:L76';
 excel_data_reader.Fused3 = xlsread(filename,excel_data_reader.x4range4);
 
+%------------------For graphs
+motion.t1 = 0*3600 + 53*60 + 56;
+motion.t2 = 1*3600 + 0*60 + 33;
+motion.t3 = 1*3600 + 1*60 + 57;
+motion.t4 = 1*3600 + 2*60 + 47;
+motion.t5 = 0*3600 + 59*60 + 10;
+motion.t6 = 1*3600 + 5*60 + 38;
 
+motion.idx1 = find(flightdata.time.data==motion.t1-10);               % Starting time
+motion.idxe1 = find(flightdata.time.data==motion.t1+210);              %temporary end time
+
+motion.idx2 = find(flightdata.time.data==motion.t2);            % Starting time
+motion.idxe2 = find(flightdata.time.data==motion.t2+50);              %temporary end time
+
+motion.idx3 = find(flightdata.time.data==motion.t3);               % Starting time
+motion.idxe3 = find(flightdata.time.data==motion.t3+19);              %temporary end time
+
+motion.idx4 = find(flightdata.time.data==motion.t4);               % Starting time
+motion.idxe4 = find(flightdata.time.data==motion.t4+45);              %temporary end time
+
+motion.idx5 = find(flightdata.time.data==motion.t5);               % Starting time
+motion.idxe5 = find(flightdata.time.data==motion.t5+50);              %temporary end time
+
+motion.idx6 = find(flightdata.time.data==motion.t6);               % Starting time
+motion.idxe6 = find(flightdata.time.data==motion.t6+160);              %temporary end time

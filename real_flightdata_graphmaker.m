@@ -103,7 +103,7 @@ refmotion(3) = figure(3);
 title('Dutch roll')
 subplot(2,2,1)
 xa = flightdata.time.data(motion.idx3:motion.idxe3)-flightdata.time.data(motion.idx3);
-ya1 = (pi/180).*flightdata.Ahrs1_Roll.data(motion.idx3:motion.idxe3);
+ya1 = -(pi/180).*flightdata.Ahrs1_Roll.data(motion.idx3:motion.idxe3);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
 xlabel('time(s)')
@@ -111,14 +111,14 @@ ylabel('rad')
 
 
 subplot(2,2,2)
-ya2 = (pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx3:motion.idxe3);
+ya2 = -(pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx3:motion.idxe3);
 plot(xa,ya2)                                        % Roll rate against time
 title('Roll rate')
 xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,3)
-ya3 = (pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx3:motion.idxe3);             
+ya3 = -(pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx3:motion.idxe3);             
 plot(xa,ya3)                                        % Yaw rate against time
 title('Yaw rate')
 xlabel('time(s)')
@@ -145,21 +145,21 @@ refmotion(4) = figure(4);
 title('Yaw damped Dutch roll')
 subplot(2,2,1)
 xa = flightdata.time.data(motion.idx4:motion.idxe4)-flightdata.time.data(motion.idx4);
-ya1 = (pi/180).*flightdata.Ahrs1_Roll.data(motion.idx4:motion.idxe4);
+ya1 = -(pi/180).*flightdata.Ahrs1_Roll.data(motion.idx4:motion.idxe4);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
 xlabel('time(s)')
 ylabel('rad')
 
 subplot(2,2,2)
-ya2 = (pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx4:motion.idxe4);
+ya2 = -(pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx4:motion.idxe4);
 plot(xa,ya2)                                        % Roll rate against time
 title('Roll rate')
 xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,3)
-ya3 = (pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx4:motion.idxe4);             
+ya3 = -(pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx4:motion.idxe4);             
 plot(xa,ya3)                                        % Yaw rate against time
 title('Yaw rate')
 xlabel('time(s)')
@@ -186,21 +186,21 @@ refmotion(5) = figure(5);
 title('Aperiodic Roll')
 subplot(2,2,1)
 xa = flightdata.time.data(motion.idx5:motion.idxe5)-flightdata.time.data(motion.idx5);
-ya1 = (pi/180).*flightdata.Ahrs1_Roll.data(motion.idx5:motion.idxe5);
+ya1 = -(pi/180).*flightdata.Ahrs1_Roll.data(motion.idx5:motion.idxe5);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
 xlabel('time(s)')
 ylabel('rad')
 
 subplot(2,2,2)
-ya2 = (pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx5:motion.idxe5);
+ya2 = -(pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx5:motion.idxe5);
 plot(xa,ya2)                                        % Roll rate against time
 title('Roll rate')
 xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,3)
-ya3 = (pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx5:motion.idxe5);             
+ya3 = -(pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx5:motion.idxe5);             
 plot(xa,ya3)                                        % Yaw against time
 title('Yaw rate')
 xlabel('time(s)')
@@ -228,21 +228,21 @@ refmotion(6) = figure(6);
 title('Spiral')
 subplot(2,2,1)
 xa = flightdata.time.data(motion.idx6:motion.idxe6)-flightdata.time.data(motion.idx6);
-ya1 = (pi/180).*flightdata.Ahrs1_Roll.data(motion.idx6:motion.idxe6);
+ya1 = -(pi/180).*flightdata.Ahrs1_Roll.data(motion.idx6:motion.idxe6);
 plot(xa,ya1)                                        % Roll against time
 title('Roll')
 xlabel('time(s)')
 ylabel('rad')
 
 subplot(2,2,2)
-ya2 = (pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx6:motion.idxe6);
+ya2 = -(pi/180).*flightdata.Ahrs1_bRollRate.data(motion.idx6:motion.idxe6);
 plot(xa,ya2)                                        % Roll rate against time
 title('Roll rate')
 xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,3)
-ya3 = (pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx6:motion.idxe6);            
+ya3 = -(pi/180).*flightdata.Ahrs1_bYawRate.data(motion.idx6:motion.idxe6);            
 plot(xa,ya3)                                        % Yaw rate against time
 title('Yaw rate')
 xlabel('time(s)')

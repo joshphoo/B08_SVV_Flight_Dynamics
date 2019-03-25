@@ -12,7 +12,6 @@ clearvars
 %! ZORG DAT JE DE JUISTE EXCELL_DATA_READER.M EN FLIGHTDATA_GRAPHMAKER.M  ! 
 %! GEBRUIKT: REAL VOOR WERKELIJKE TESTVLUCHT, REF VOOR REFERENTIEDATA.    !
 %! COMMENT DE ANDERE(NIET DELETEN)                                        !
-%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 %----------------------------PROGRAM---------------------------------------
