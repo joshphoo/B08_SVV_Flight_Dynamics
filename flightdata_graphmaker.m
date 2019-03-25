@@ -11,7 +11,7 @@ load('matlab.mat', 'flightdata')
 % t = flightdata.time.data;                           % time(s)
 % 
 % M = flightdata.Dadc1_mach.data;                     % Mach number(-)
-motion.t1 = 0*3600 + 53*60 + 56;
+motion.t1 = 0*3600 + 53*60 + 59;
 motion.t2 = 1*3600 + 0*60 + 33;
 motion.t3 = 1*3600 + 1*60 + 57;
 motion.t4 = 1*3600 + 2*60 + 47;
