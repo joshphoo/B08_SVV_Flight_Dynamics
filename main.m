@@ -13,9 +13,11 @@ run('excell_data_reader_ref.m')
 run('machnumber.m')
 %----------------------Obtain the Mass Balance-----------------------------
 run('MassBalance.m')
-%----------------------Obtain Engine Data-------------------------------------
+%----------------------Obtain Engine Data----------------------------------
 run('Engine_part.m')
-% %----------------------Obtain Aerodynamic coefficients---------------------
-% run('Aerodynamic_Coefficients.m')
-% %----------------------Run Flightdata Graphmaker---------------------------
-% run('flightdata_graphmaker.m')
+% %----------------------Obtain Aerodynamic coefficients-------------------
+run('Aerodynamic_Coefficients.m')
+% %----------------------Run Flightdata Graphmaker-------------------------
+run('flightdata_graphmaker.m')
+% %----------------------Run Eigenmotions----------------------------------
+run('Leanne.m')
