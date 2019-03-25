@@ -2,13 +2,7 @@ OEW = 9165.0*0.45359237; %kg
 OEWarm = 292.18*0.0254; %m
 blockfuel = 2750; % block fuel veranderen bij real data
 %-------------------Reading Stationary Data--------------------------------
-excel_data_reader.weights = xlsread(filename,excel_data_reader.x1range1);
-excel_data_reader.x2range2 = 'I28:I33';
-excel_data_reader.Fused1 = xlsread(filename,excel_data_reader.x2range2);
-excel_data_reader.x3range3 = 'L59:L64'; % naar flight data -> verander naar L64
-excel_data_reader.Fused2 = xlsread(filename,excel_data_reader.x3range3);
-excel_data_reader.x4range4 = 'L75:L76';
-excel_data_reader.Fused3 = xlsread(filename,excel_data_reader.x4range4);
+
 %-------------------Put The Data In array----------------------------------
 
 xcgdat = [131, 131, 170, 214, 214, 251, 251, 288, 288]'; %inch
