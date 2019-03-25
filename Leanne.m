@@ -438,6 +438,15 @@ hold on;
 plot(ta4,ya4(:,4));
 hold off;
 
+savefig(refmotion,'referencemotions.fig')
+saveas(refmotion(1),'referencemotions1Phugoid.png')
+saveas(refmotion(2),'referencemotions2ShortPeriod.png')
+saveas(refmotion(3),'referencemotions3Droll.png')
+saveas(refmotion(4),'referencemotions4YDDroll.png')
+saveas(refmotion(5),'referencemotions5Aroll.png')
+saveas(refmotion(5),'referencemotions6spiral.png')
+
+
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);
 fprintf( 'Eigenvalue Short Period'), disp(eig_value_1_s2);
 fprintf( 'Eigenvalue Short Period'), disp(eig_value_2_s2);

@@ -96,14 +96,8 @@ CL_alpha = (Fit_CL_alpha(1))*(180/pi); % [1/rad]
 alpha0 = -Fit_CL_alpha(2)/(Fit_CL_alpha(1)); % [deg]
 
 %---------------------------------- CD-alpha curve
-Thrust = [
-    sum(Thrustdata(1,:)),
-    sum(Thrustdata(2,:)),
-    sum(Thrustdata(3,:)),
-    sum(Thrustdata(4,:)),
-    sum(Thrustdata(5,:)),
-    sum(Thrustdata(6,:))
-    ]; % N
+
+Thrust = sum(Thrustdata(1:6,1:2),2);
 C_D = Thrust./(0.5*rho.*V_t.^2*S);
 C_D = C_D.';
 C_L2 = C_L.^2; %CL^2
@@ -125,17 +119,17 @@ M_end = round(M(end),2,'significant');
 M_first = round(M(1),2,'significant');
 M_Range = [M_end M_first];
 
-mu_ref = 1.716*10^-5 
-S_suther = 110.4
-C1 = 1.458*10^-6
+mu_ref = 1.716*10^-5 ;
+S_suther = 110.4;
+C1 = 1.458*10^-6;
 
-mu = (C1*T.^(1.5))./(T+S_suther)
-Re = (rho.*V_t*c)./mu
+mu = (C1*T.^(1.5))./(T+S_suther);
+Re = (rho.*V_t*c)./mu;
 
-Re_end = Re(end)
-Re_first = Re(1)
+Re_end = Re(end);
+Re_first = Re(1);
 
-Re_Range = [Re_end Re_first]
+Re_Range = [Re_end Re_first];
 
 %------------------------ Stationary Measurements Elevator Trim Curve
 %Everything that ends on _ET = Elevator Trim
@@ -357,3 +351,13 @@ Cma = C_m_alpha;
 Cmde = C_m_delta;
 
 %clearvars -except alpha0 C_m_alpha C_m_delta CL_alpha e
+clearvars a a_ET a_SCG alpha0 slpha_array alpha_array_ET ...
+    alpha_SCG ands bh blockfuel C1 C_D C_D_corr C_L C_L2 ...
+    C_m_alpha C_m_delta C_N CD0 CL-alpha CmTc delta_e delta_e_red ...
+    delta_e_SCG e excel_data_reader F_e F_e_red Fit_C_m_alpha Fit_CL2_CD ...
+    Fit_CL-alpha gamma hp0 hp0_ET hp0_SCG ih lh lh_c M M_end ...
+    M_ET M_first M_Range M_SCG mu mu_ref p p0 p_ET p_SCG Radius_Engine ...
+    Re Re_end Re_first Re_Range rho rho_ET rho_SCG S_suther Sh ...
+    Sh_S T T1 T2 T3 T_ET T_ET_inter T_m T_m_ET T_m_SCG T_SCG Tc2 Tcs2 ...
+    Thrust Thrustdata Ts2 Ts2_inter V_e V_e_ET V_e_red V_t ...
+    V_t_ET V_t_SCG Vc Vc_ET Vc_SCG Vh_V W W_ET W_s W_SCG x x2 yfit yfit2
