@@ -276,7 +276,6 @@ C_eig_s1 = CZ0*(Cmu*CZa-CZu*Cma);
 eig_value_1_s1 = (-B_eig_s1+sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)*V0/c;
 eig_value_2_s1 = (-B_eig_s1-sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)*V0/c;
 
-
 %% Short Period
 % input
 hp0    = flightdata.Dadc1_alt.data(motion.idx2)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
@@ -302,9 +301,6 @@ B_eig = -2*muc_s2*KY2*CZa - (2*muc_s2+CZq)*Cmadot - (2*muc_s2-CZadot)*Cmq;
 C_eig = CZa*Cmq - (2*muc_s2+CZq)*Cma;
 eig_value_1_s2 = (-B_eig+sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c;
 eig_value_2_s2 = (-B_eig-sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c;
-T_half = log(0.5)/eig_value_1_s2
-%damp_ratio = -real(eig_value_1)/sqrt(real(eig_value_1)^2-imag(eig_value_1)^2);
-period = 2*pi/imag(eig_value_1_s2)/V0
 
 %% Dutch Roll
 % input
@@ -333,8 +329,6 @@ ya1(:,4) = ya1(:,4) + r;
 eig_value_a1_1 = (2*(Cnr+2*KZ2*CYb)+sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
 eig_value_a1_2 = (2*(Cnr+2*KZ2*CYb)-sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
 
-T_half = log(0.5)*b/real(eig_value_a1_1)
-period = 2*pi*b/imag(eig_value_a1_s2)/V0
 %% Dutch Roll Damped
 % input
 hp0    = flightdata.Dadc1_alt.data(motion.idx4)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
@@ -412,7 +406,9 @@ ya4(:,3) = ya4(:,3) + p;
 ya4(:,4) = ya4(:,4) + r;
 
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
-
+fprintf('Spiral')
+T_half = log(0.5)*b/real(eig_value_a4_1)
+period = 2*pi*b/imag(eig_value_a4_1)/V0
 %% Plotten
 figure(1)
 subplot(2,2,1);
