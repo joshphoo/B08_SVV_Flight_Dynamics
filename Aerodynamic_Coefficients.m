@@ -352,4 +352,8 @@ legend('C_L-C_D','C_L-C_D_{corr}')
 xlabel('C_D [-]')
 ylabel('C_L [-]')
 
+CLa = CL_alpha;
+Cma = C_m_alpha;
+Cmde = C_m_delta;
+
 %clearvars -except alpha0 C_m_alpha C_m_delta CL_alpha e
