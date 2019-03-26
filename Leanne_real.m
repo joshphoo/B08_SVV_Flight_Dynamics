@@ -371,51 +371,51 @@ ya4(:,4) = ya4(:,4) + r;
 
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
 
-% % Plotten
-% figure(1)
-% subplot(2,2,1);
-% hold on;
-% plot(ts1,ys1(:,1));
-% legend({'measured','calculated'},'Location','northeast');
-% legend('boxoff');
-% 
-% subplot(2,2,2);
-% hold on;
-% plot(ts1,ys1(:,2));
-% legend({'measured','calculated'},'Location','northeast');
-% legend('boxoff');
-% subplot(2,2,3)
-% hold on;
-% plot(ts1,ys1(:,3));
-% legend({'measured','calculated'},'Location','northeast');
-% legend('boxoff');
-% subplot(2,2,4)
-% hold on;
-% plot(ts1,ys1(:,4));
-% legend({'measured','calculated'},'Location','southeast');
-% legend('boxoff');
-% 
-% figure(2)
-% subplot(2,2,1);
-% hold on;
-% plot(ts2,ys2(:,1));
-% legend({'measured','calculated'},'Location','northeast');
-% legend('boxoff');
-% subplot(2,2,2);
-% hold on;
-% plot(ts2,ys2(:,2));
-% legend({'measured','calculated'},'Location','east');
-% legend('boxoff');
-% subplot(2,2,3)
-% hold on;
-% plot(ts2,ys2(:,3));
-% legend({'measured','calculated'},'Location','south');
-% legend('boxoff');
-% subplot(2,2,4)
-% hold on;
-% plot(ts2,ys2(:,4));
-% legend({'measured','calculated'},'Location','northeast');
-% legend('boxoff');
+% Plotten
+figure(1)
+subplot(2,2,1);
+hold on;
+plot(ts1,ys1(:,1));
+legend({'measured','calculated'},'Location','northeast');
+legend('boxoff');
+
+subplot(2,2,2);
+hold on;
+plot(ts1,ys1(:,2));
+legend({'measured','calculated'},'Location','northeast');
+legend('boxoff');
+subplot(2,2,3)
+hold on;
+plot(ts1,ys1(:,3));
+legend({'measured','calculated'},'Location','northeast');
+legend('boxoff');
+subplot(2,2,4)
+hold on;
+plot(ts1,ys1(:,4));
+legend({'measured','calculated'},'Location','southeast');
+legend('boxoff');
+
+figure(2)
+subplot(2,2,1);
+hold on;
+plot(ts2,ys2(:,1));
+legend({'measured','calculated'},'Location','northeast');
+legend('boxoff');
+subplot(2,2,2);
+hold on;
+plot(ts2,ys2(:,2));
+legend({'measured','calculated'},'Location','east');
+legend('boxoff');
+subplot(2,2,3)
+hold on;
+plot(ts2,ys2(:,3));
+legend({'measured','calculated'},'Location','south');
+legend('boxoff');
+subplot(2,2,4)
+hold on;
+plot(ts2,ys2(:,4));
+legend({'measured','calculated'},'Location','northeast');
+legend('boxoff');
 
 figure(3)
 subplot(2,2,1);

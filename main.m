@@ -32,5 +32,5 @@ run('Aerodynamic_Coefficients.m')
 % run('flightdata_graphmaker.m')
 run('real_flightdata_graphmaker.m')     %Enige verschil is dat deze een min heeft voor de asym. angles
 % %----------------------Run Eigenmotions----------------------------------
-% run('Leanne.m')
-run('Leanne_real.m')
+run('Leanne.m')
+%run('Leanne_real.m')
