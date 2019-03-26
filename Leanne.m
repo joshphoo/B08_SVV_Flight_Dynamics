@@ -457,13 +457,13 @@ plot(ta4,ya4(:,4));
 legend('measured','calculated');
 hold off;
 
-savefig(refmotion,'realreferencemotions.fig')
-saveas(refmotion(1),'realreferencemotions1Phugoid.png')
-saveas(refmotion(2),'realreferencemotions2ShortPeriod.png')
-saveas(refmotion(3),'realreferencemotions3Droll.png')
-saveas(refmotion(4),'realreferencemotions4YDDroll.png')
-saveas(refmotion(5),'realreferencemotions5Aroll.png')
-saveas(refmotion(5),'realreferencemotions6spiral.png')
+savefig(refmotion,'refmotions.fig')
+saveas(refmotion(1),'refmotions1Phugoid.png')
+saveas(refmotion(2),'refmotions2ShortPeriod.png')
+saveas(refmotion(3),'refmotions3Droll.png')
+saveas(refmotion(4),'refmotions4YDDroll.png')
+saveas(refmotion(5),'refmotions5Aroll.png')
+saveas(refmotion(5),'refmotions6spiral.png')
 
 
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);

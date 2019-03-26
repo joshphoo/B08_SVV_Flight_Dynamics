@@ -80,7 +80,7 @@ motion.idxe2 = find(flightdata.time.data==motion.t2+50);              %temporary
 motion.idx3 = find(flightdata.time.data==motion.t3);               % Starting time
 motion.idxe3 = find(flightdata.time.data==motion.t3+19);              %temporary end time
 
-motion.idx4 = find(flightdata.time.data==motion.t4);               % Starting time
+motion.idx4 = find(flightdata.time.data==motion.t4+12);               % Starting time
 motion.idxe4 = find(flightdata.time.data==motion.t4+45);              %temporary end time
 
 motion.idx5 = find(flightdata.time.data==motion.t5);               % Starting time
