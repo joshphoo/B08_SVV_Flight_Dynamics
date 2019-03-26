@@ -38,7 +38,7 @@ T2(:,10) = T2(:,10).*0.000125998;
 T2(:,11) = T2(:,11).*0.000125998;
 
 
-INPUT2 = T2(:,[4,5,13,10,11]);
+INPUT2 = T2(:,[4,5,13,10,11])
 %This formats the input for thurst.exe correct
 
 %-------------------Dataset 3

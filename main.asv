@@ -1,5 +1,5 @@
 % +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-% |                         Kut-Simulatie main.m                          | 
+% |                             Simulatie main.m                          | 
 % |                                 2019                                  | 
 % |                             Brakke Willy                              | 
 % +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -29,7 +29,8 @@ run('Engine_part.m')
 % %----------------------Obtain Aerodynamic coefficients-------------------
 run('Aerodynamic_Coefficients.m')
 % %----------------------Run Flightdata Graphmaker-------------------------
-run('flightdata_graphmaker.m')
+% run('flightdata_graphmaker.m')
 run('real_flightdata_graphmaker.m')     %Enige verschil is dat deze een min heeft voor de asym. angles
 % %----------------------Run Eigenmotions----------------------------------
-run('Leanne.m')
+% run('Leanne.m')
+run('Leanne_real.m')
