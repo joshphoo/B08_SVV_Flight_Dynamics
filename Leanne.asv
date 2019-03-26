@@ -374,17 +374,17 @@ legend('boxoff');
 subplot(2,2,2);
 hold on;
 plot(ts1,ys1(:,2));
-legend({'measured','calculated'},'Location','northeast');
+legend({'measured','calculated'},'Location','east');
 legend('boxoff');
 subplot(2,2,3)
 hold on;
 plot(ts1,ys1(:,3));
-legend({'measured','calculated'},'Location','northeast');
+legend({'measured','calculated'},'Location','east');
 legend('boxoff');
 subplot(2,2,4)
 hold on;
 plot(ts1,ys1(:,4));
-legend({'measured','calculated'},'Location','southeast');
+legend({'measured','calculated'},'Location','east');
 legend('boxoff');
 
 figure(2)
@@ -406,7 +406,7 @@ legend('boxoff');
 subplot(2,2,4)
 hold on;
 plot(ts2,ys2(:,4));
-legend({'measured','calculated'},'Location','northeast');
+legend({'measured','calculated'},'Location','east');
 legend('boxoff');
 
 figure(3)

@@ -130,7 +130,8 @@ plot(xa,ya4)
 hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx3:motion.idxe3);
 plot(xa,ya5)
-legend('delta a','delta r')
+legend({'delta a','delta r'},'Location','southeast')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
@@ -171,7 +172,8 @@ plot(xa,ya4)
 hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx4:motion.idxe4);
 plot(xa,ya5)
-legend('delta a','delta r')
+legend({'delta a','delta r'},'Location','southeast')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
@@ -212,7 +214,8 @@ plot(xa,ya4)
 hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx5:motion.idxe5);
 plot(xa,ya5)
-legend('delta a','delta r')
+legend({'delta a','delta r'},'Location','northwest')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
@@ -254,7 +257,8 @@ plot(xa,ya4)
 hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx6:motion.idxe6);
 plot(xa,ya5)
-legend('delta a','delta r')
+legend({'delta a','delta r'},'Location','east')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')

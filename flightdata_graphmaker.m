@@ -131,6 +131,7 @@ hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx3:motion.idxe3);
 plot(xa,ya5)
 legend('delta a','delta r')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
@@ -172,6 +173,7 @@ hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx4:motion.idxe4);
 plot(xa,ya5)
 legend('delta a','delta r')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
@@ -213,6 +215,7 @@ hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx5:motion.idxe5);
 plot(xa,ya5)
 legend('delta a','delta r')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
@@ -255,6 +258,7 @@ hold on
 ya5 = (pi/180).*flightdata.delta_r.data(motion.idx6:motion.idxe6);
 plot(xa,ya5)
 legend('delta a','delta r')
+legend('boxoff');
 hold off
 title('control input')
 xlabel('time(s)')
