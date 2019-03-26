@@ -125,10 +125,10 @@ xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,4)
-ya4 = flightdata.delta_a.data(motion.idx3:motion.idxe3);   % control input
+ya4 = (pi/180).*flightdata.delta_a.data(motion.idx3:motion.idxe3);   % control input
 plot(xa,ya4)
 hold on
-ya5 = flightdata.delta_r.data(motion.idx3:motion.idxe3);
+ya5 = (pi/180).*flightdata.delta_r.data(motion.idx3:motion.idxe3);
 plot(xa,ya5)
 legend('delta a','delta r')
 hold off
@@ -166,10 +166,10 @@ xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,4)
-ya4 = flightdata.delta_a.data(motion.idx4:motion.idxe4);   % control input
+ya4 = (pi/180).*flightdata.delta_a.data(motion.idx4:motion.idxe4);   % control input
 plot(xa,ya4)
 hold on
-ya5 = flightdata.delta_r.data(motion.idx4:motion.idxe4);
+ya5 = (pi/180).*flightdata.delta_r.data(motion.idx4:motion.idxe4);
 plot(xa,ya5)
 legend('delta a','delta r')
 hold off
@@ -207,10 +207,10 @@ xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,4)
-ya4 = flightdata.delta_a.data(motion.idx5:motion.idxe5);   % control input
+ya4 = (pi/180).*flightdata.delta_a.data(motion.idx5:motion.idxe5);   % control input
 plot(xa,ya4)
 hold on
-ya5 = flightdata.delta_r.data(motion.idx5:motion.idxe5);
+ya5 = (pi/180).*flightdata.delta_r.data(motion.idx5:motion.idxe5);
 plot(xa,ya5)
 legend('delta a','delta r')
 hold off
@@ -249,10 +249,10 @@ xlabel('time(s)')
 ylabel('rad/s')
 
 subplot(2,2,4)
-ya4 = flightdata.delta_a.data(motion.idx6:motion.idxe6);   % control input
+ya4 = (pi/180).*flightdata.delta_a.data(motion.idx6:motion.idxe6);   % control input
 plot(xa,ya4)
 hold on
-ya5 = flightdata.delta_r.data(motion.idx6:motion.idxe6);
+ya5 = (pi/180).*flightdata.delta_r.data(motion.idx6:motion.idxe6);
 plot(xa,ya5)
 legend('delta a','delta r')
 hold off
