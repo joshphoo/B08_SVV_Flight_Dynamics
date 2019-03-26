@@ -18,8 +18,8 @@ clearvars
 %----------------------------PROGRAM---------------------------------------
 
 %----------------------Read Excell Data------------------------------------
-run('excell_data_reader_ref.m')
-% run('excell_data_reader_real.m')
+% run('excell_data_reader_ref.m')
+run('excell_data_reader_real.m')
 %----------------------Calculate Mach number-------------------------------
 run('machnumber.m')
 %----------------------Obtain the Mass Balance-----------------------------
@@ -29,7 +29,7 @@ run('Engine_part.m')
 % %----------------------Obtain Aerodynamic coefficients-------------------
 run('Aerodynamic_Coefficients.m')
 % %----------------------Run Flightdata Graphmaker-------------------------
-run('flightdata_graphmaker.m')
-% run('real_flightdata_graphmaker.m')     %Enige verschil is dat deze een min heeft voor de asym. angles
+% run('flightdata_graphmaker.m')
+run('real_flightdata_graphmaker.m')     %Enige verschil is dat deze een min heeft voor de asym. angles
 % %----------------------Run Eigenmotions----------------------------------
 run('Leanne.m')
