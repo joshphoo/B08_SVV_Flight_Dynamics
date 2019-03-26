@@ -214,7 +214,6 @@ V0     = flightdata.Dadc1_tas.data(motion.idx1)*0.514444;          % true airspe
 alpha0 = flightdata.vane_AOA.data(motion.idx1)/180*pi();    % angle of attack in the stationary flight condition [rad]
 th0    = flightdata.Ahrs1_Pitch.data(motion.idx1)/180*pi();       	  % pitch angle in the stationary flight condition [rad]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx1)+flightdata.lh_engine_FU.data(motion.idx1))*0.453592;           % mass [kg]
-
 t = flightdata.time.data(motion.idx1:motion.idxe1);
 t = t-t(1);
 de = (flightdata.delta_e.data(motion.idx1:motion.idxe1)-(flightdata.delta_e.data(motion.idx1)))/180*pi();
@@ -458,13 +457,13 @@ plot(ta4,ya4(:,4));
 legend('measured','calculated');
 hold off;
 
-savefig(refmotion,'referencemotions.fig')
-saveas(refmotion(1),'referencemotions1Phugoid.png')
-saveas(refmotion(2),'referencemotions2ShortPeriod.png')
-saveas(refmotion(3),'referencemotions3Droll.png')
-saveas(refmotion(4),'referencemotions4YDDroll.png')
-saveas(refmotion(5),'referencemotions5Aroll.png')
-saveas(refmotion(5),'referencemotions6spiral.png')
+savefig(refmotion,'realreferencemotions.fig')
+saveas(refmotion(1),'realreferencemotions1Phugoid.png')
+saveas(refmotion(2),'realreferencemotions2ShortPeriod.png')
+saveas(refmotion(3),'realreferencemotions3Droll.png')
+saveas(refmotion(4),'realreferencemotions4YDDroll.png')
+saveas(refmotion(5),'realreferencemotions5Aroll.png')
+saveas(refmotion(5),'realreferencemotions6spiral.png')
 
 
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);
