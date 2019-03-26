@@ -364,79 +364,108 @@ ya4(:,4) = ya4(:,4) + r;
 
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
 
-% %% Plotten
-% figure(1)
-% subplot(2,2,1);
-% hold on;
-% plot(ts1,ys1(:,1));
-% subplot(2,2,2);
-% hold on;
-% plot(ts1,ys1(:,2));
-% subplot(2,2,3)
-% hold on;
-% plot(ts1,ys1(:,3));
-% subplot(2,2,4)
-% hold on;
-% plot(ts1,ys1(:,4));
-% 
-% figure(2)
-% subplot(2,2,1);
-% hold on;
-% plot(ts2,ys2(:,1));
-% subplot(2,2,2);
-% hold on;
-% plot(ts2,ys2(:,2));
-% subplot(2,2,3)
-% hold on;
-% plot(ts2,ys2(:,3));
-% subplot(2,2,4)
-% hold on;
-% plot(ts2,ys2(:,4));
-% 
-% figure(3)
-% subplot(2,2,1);
-% hold on;
-% plot(ta1,ya1(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta1,ya1(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta1,ya1(:,4));
-% 
-% figure(4)
-% subplot(2,2,1);
-% hold on;
-% plot(ta2,ya2(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta2,ya2(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta2,ya2(:,4));
-% 
-% figure(5)
-% subplot(2,2,1);
-% hold on;
-% plot(ta3,ya3(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta3,ya3(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta3,ya3(:,4));
-% 
-% figure(6)
-% subplot(2,2,1);
-% hold on;
-% plot(ta4,ya4(:,2));
-% subplot(2,2,2);
-% hold on;
-% plot(ta4,ya4(:,3));
-% subplot(2,2,3)
-% hold on;
-% plot(ta4,ya4(:,4));
-% hold off;
+% % Plotten
+figure(1)
+subplot(2,2,1);
+hold on;
+plot(ts1,ys1(:,1));
+legend('measured','calculated');
+subplot(2,2,2);
+hold on;
+plot(ts1,ys1(:,2));
+legend('measured','calculated');
+subplot(2,2,3)
+hold on;
+plot(ts1,ys1(:,3));
+legend('measured','calculated');
+subplot(2,2,4)
+hold on;
+plot(ts1,ys1(:,4));
+legend('measured','calculated');
+
+figure(2)
+subplot(2,2,1);
+hold on;
+plot(ts2,ys2(:,1));
+legend('measured','calculated');
+subplot(2,2,2);
+hold on;
+plot(ts2,ys2(:,2));
+legend('measured','calculated');
+subplot(2,2,3)
+hold on;
+plot(ts2,ys2(:,3));
+legend('measured','calculated');
+subplot(2,2,4)
+hold on;
+plot(ts2,ys2(:,4));
+legend('measured','calculated');
+
+figure(3)
+subplot(2,2,1);
+hold on;
+plot(ta1,ya1(:,2));
+legend('measured','calculated');
+subplot(2,2,2);
+hold on;
+plot(ta1,ya1(:,3));
+legend('measured','calculated');
+subplot(2,2,3)
+hold on;
+plot(ta1,ya1(:,4));
+legend('measured','calculated');
+
+figure(4)
+subplot(2,2,1);
+hold on;
+plot(ta2,ya2(:,2));
+legend('measured','calculated');
+subplot(2,2,2);
+hold on;
+plot(ta2,ya2(:,3));
+legend('measured','calculated');
+subplot(2,2,3)
+hold on;
+plot(ta2,ya2(:,4));
+legend('measured','calculated');
+
+figure(5)
+subplot(2,2,1);
+hold on;
+plot(ta3,ya3(:,2));
+legend('measured','calculated');
+subplot(2,2,2);
+hold on;
+plot(ta3,ya3(:,3));
+legend('measured','calculated');
+subplot(2,2,3)
+hold on;
+plot(ta3,ya3(:,4));
+legend('measured','calculated');
+
+figure(6)
+subplot(2,2,1);
+hold on;
+plot(ta4,ya4(:,2));
+legend('measured','calculated');
+subplot(2,2,2);
+hold on;
+plot(ta4,ya4(:,3));
+legend('measured','calculated');
+subplot(2,2,3)
+hold on;
+plot(ta4,ya4(:,4));
+legend('measured','calculated');
+hold off;
+
+savefig(refmotion,'referencemotions.fig')
+saveas(refmotion(1),'referencemotions1Phugoid.png')
+saveas(refmotion(2),'referencemotions2ShortPeriod.png')
+saveas(refmotion(3),'referencemotions3Droll.png')
+saveas(refmotion(4),'referencemotions4YDDroll.png')
+saveas(refmotion(5),'referencemotions5Aroll.png')
+saveas(refmotion(5),'referencemotions6spiral.png')
+
 
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);
 fprintf( 'Eigenvalue Short Period'), disp(eig_value_1_s2);
@@ -454,26 +483,179 @@ fprintf( 'Eigenvalue Spiral'), disp(eig_value_a4_1);
 fprintf( 'Asymmetric: Numerical Eigenvalues'), disp(eig_a1);
 
 
-vmax = [];
-vmin = [];
-for i = 1:length(ys1(:,1))
-    if i ~= 1 & i~= length(ys1(:,1))
-        if ys1(i,1) > ys1(i+1,1) & ys1(i,1) > ys1(i-1,1)
-        vmax = [vmax;find(ys1(:,1) == ys1(i,1))];
-        elseif ys1(i,1) < ys1(i+1,1) & ys1(i,1) < ys1(i-1,1)
-        vmin = [vmin;find(ys1(:,1) == ys1(i,1))];
-        end  
-    end
-end
-vmaxi = vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end);
-vmax = ys1(vmax(find(ys1(vmax,1)==max(ys1(vmax,1))):end),1);
-vmini = vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end);
-vmin = ys1(vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end),1);
-vn = ys1(vmini(1):vmaxi(end),1);
-vmax = vmax-median(vn);
-vmin = vmin-median(vn);
-plot(1:length(vn),vn)
-vmaxc = vmax/vmax(1);
+% ys1_1n = [];
+% ys1_1n(:,1) = ys1(find(ys1(:,1) == min(ys1(:,1))):end,1)-mean(ys1(:,2));
+% idx0 = [];
+% for i = 1:length(ys1_1n(:,1))
+%     if i ~= 1
+%         if sign(ys1_1n(i,1))+sign(ys1_1n(i-1,1)) == 0
+%             idx0 = [idx0 ; find(ys1_1n(:,1) == ys1_1n(i,1))];
+%         end
+%     end
+% end
+% figure(1)
+% P = [];
+% for i = 3:length(idx0)
+% P(i-2) = (idx0(i)-idx0(i-2))/10;
+% end
+% ys1_max = 0;
+% for j = 1:(length(idx0)-1)/2
+%     ys1_max(j) = max(ys1_1n(idx0(2*j-1):idx0(2*j),1));
+%     max_idx(j) = find(ys1_1n(:,1) == max(ys1_1n(idx0(2*j-1):idx0(2*j),1)));
+% end
+% ys1_maxc = ys1_max/ys1_max(1)
+% 
+% ys1_min = 0;
+% ys1_min(1) = ys1_1n(1);
+% min_idx(1) = 1;
+% for j = 1:(length(idx0)-1)/2
+%     ys1_min(j+1) = min(ys1_1n(idx0(2*j):idx0(2*j+1),1));
+%     min_idx(j+1) = find(ys1_1n(:,1) == min(ys1_1n(idx0(2*j):idx0(2*j+1),1)))
+% end
+% ys1_minc = ys1_min/ys1_min(1)
+% 
+% 
+% for i = 1:length(ys1_maxc)
+% if ys1_maxc(i) < 0.5
+%     half = ((0.5-ys1_maxc(i))*max_idx(i-1) + (ys1_maxc(i-1)-0.5)*max_idx(i))/(ys1_maxc(i-1)-ys1_maxc(i))/10
+%     break
+% end
+% end
+% 
+% for i = 1:length(ys1_minc)
+% if ys1_minc(i) < 0.5
+%     half = ((0.5-ys1_minc(i))*min_idx(i-1) + (ys1_minc(i-1)-0.5)*min_idx(i))/(ys1_minc(i-1)-ys1_minc(i))/10
+%     break
+% end
+% end
+% 
+% Pavg = mean(P);
+% plot(1:length(ys1_1n(:,1)),ys1_1n(:,1))
+
+
+% ya1_1n = [];
+% ya1_1n(:,2) = ya1(:,2)-mean(ya1(:,2));
+% idx0 = [];
+% for i = 1:length(ya1_1n(:,1))
+%     if i ~= 1
+%         if sign(ya1_1n(i,1))+sign(ya1_1n(i-1,1)) == 0
+%             idx0 = [idx0 ; find(ya1_1n(:,1) == ya1_1n(i,1))];
+%         end
+%     end
+% end
+
+% P = [];
+% for i = 3:length(idx0)
+% P(i-2) = (idx0(i)-idx0(i-2))/10;
+% end
+% ys3_max = 0;
+% for j = 1:(length(idx0)-1)/2
+%     ys3_max(j) = max(ys3_1n(idx0(2*j-1):idx0(2*j),1));
+%     max_idx(j) = find(ys3_1n(:,1) == max(ys3_1n(idx0(2*j-1):idx0(2*j),1)));
+% end
+% ys3_maxc = ys3_max/ys3_max(1)
+% 
+% ys3_min = 0;
+% ys3_min(1) = ys3_1n(1);
+% min_idx(1) = 1;
+% for j = 1:(length(idx0)-1)/2
+%     ys3_min(j+1) = min(ys3_1n(idx0(2*j):idx0(2*j+1),1));
+%     min_idx(j+1) = find(ys3_1n(:,1) == min(ys3_1n(idx0(2*j):idx0(2*j+1),1)))
+% end
+% ys3_minc = ys3_min/ys3_min(1)
+% 
+% 
+% for i = 1:length(ys3_maxc)
+% if ys3_maxc(i) < 0.5
+%     half2 = ((0.5-ys3_maxc(i))*max_idx(i-1) + (ys3_maxc(i-1)-0.5)*max_idx(i))/(ys3_maxc(i-1)-ys3_maxc(i))/10
+%     break
+% end
+% end
+% 
+% for i = 1:length(ys3_minc)
+% if ys3_minc(i) < 0.5
+%     half2 = ((0.5-ys3_minc(i))*min_idx(i-1) + (ys3_minc(i-1)-0.5)*min_idx(i))/(ys3_minc(i-1)-ys3_minc(i))/10
+%     break
+% end
+% end
+% 
+% Pavg = mean(P);
+% plot(1:length(ya1_1n(:,1)),ya1_1n(:,1))
+
+
+% thalf = [];
+% for h = 1:2
+% vmax = [];
+% vmin = [];
+% vmaxi = [];
+% vmini = []
+% vn = [];
+% vmaxc = [];
+% vminc = [];
+% for i = 1:length(ys1(:,h))
+%     if i ~= 1 & i~= length(ys1(:,h))
+%         if ys1(i,h) > ys1(i+1,h) & ys1(i,h) > ys1(i-1,h) & median(ys1(:,h) < ys1(i,h))
+%         vmax = [vmax;find(ys1(:,h) == ys1(i,h))];
+%         elseif ys1(i,h) < ys1(i+1,h) & ys1(i,h) < ys1(i-1,h) & median(ys1(:,h) > ys1(i,h))
+%         vmin = [vmin;find(ys1(:,h) == ys1(i,h))];
+%         end  
+%     end
+% end
+% vmaxi = vmax(find(ys1(vmax,h)==max(ys1(vmax,h))):end);
+% vmax = ys1(vmax(find(ys1(vmax,h)==max(ys1(vmax,h))):end),h);
+% vmini = vmin(find(ys1(vmin,h)==min(ys1(vmin,h))):end);
+% vmin = ys1(vmin(find(ys1(vmin,h)==min(ys1(vmin,h))):end),h);
+% 
+% for i = 1:length(vmaxi)
+%     if i~= 1
+%         if abs(vmaxi(i)-vmaxi(i-1)) < 100
+%         if vmax(i) > vmax(i-1)
+%             vmax(i-1) = 0;
+%             vmaxi(i-1) = 0;
+%         else
+%             vmax(i) = 0;
+%             vmaxi(i) = 0;
+%             if i~= length(vmaxi)
+%                 if abs(vmaxi(i+1)-vmaxi(i-1)) < 100
+%                      if vmax(i+1) > vmax(i-1)
+%                           %vmax(i-1) = 0;
+%                           %vmaxi(i-1) = 0;
+%                      else
+%                           %vmax(i+1) = 0;
+%                           %vmaxi(i+1) = 0;
+%                      end
+%                 end
+%             end
+%         end
+%         end
+%     end
+% end
+% 
+% % vmaxi = vmaxi(vmaxi~=0);
+% % vmax = vmax(vmax~=0);
+% vn = ys1(vmini(1):vmaxi(end),h);
+% %vmax = vmax-median(vn);
+% vmin = vmin-median(vn);
+% vn = vn-mean(vn);
+% figure(h)
+% plot(1:length(vn),vn)
+% vmaxc = vmax/vmax(1);
+% vminc = vmin/vmin(1);
+% 
+% for i = 1:length(vmaxc)
+% if vmaxc(i) < 0.5
+%     thalf(h,1) = ((0.5-vmaxc(i))*vmaxi(i-1)+(vmaxc(i-1)-0.5)*vmaxi(i))/(vmaxc(i-1)-vmaxc(i))/10
+%     break
+% end
+% end
+% 
+% for i = 1:length(vminc)
+% if vminc(i) < 0.5
+%     thalf2(h) = ((0.5-vminc(i))*vmini(i-1)+(vminc(i-1)-0.5)*vmini(i))/(vminc(i-1)-vminc(i))/10
+%     break
+% end
+% end
+% end
 
 %% Functions
 function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)

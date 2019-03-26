@@ -1,6 +1,5 @@
 %close all;
 %clear;
-    
 
 % Constant values concerning aircraft inertia
 KX2    = 0.019;
@@ -50,8 +49,6 @@ Cnp    =  -0.0602;
 Cnr    =  -0.2061;
 Cnda   =  -0.0120;
 Cndr   =  -0.0939;
-
-
 
 
 %% New!!!!!!!!!!
@@ -236,7 +233,6 @@ C_eig_s1 = CZ0*(Cmu*CZa-CZu*Cma);
 eig_value_1_s1 = (-B_eig_s1+sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)*V0/c;
 eig_value_2_s1 = (-B_eig_s1-sqrt(4*A_eig_s1*C_eig_s1-B_eig_s1^2)*1i)/(2*A_eig_s1)*V0/c;
 
-
 %% Short Period
 % input
 hp0    = flightdata.Dadc1_alt.data(motion.idx2)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
@@ -262,9 +258,6 @@ B_eig = -2*muc_s2*KY2*CZa - (2*muc_s2+CZq)*Cmadot - (2*muc_s2-CZadot)*Cmq;
 C_eig = CZa*Cmq - (2*muc_s2+CZq)*Cma;
 eig_value_1_s2 = (-B_eig+sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c;
 eig_value_2_s2 = (-B_eig-sqrt(4*A_eig*C_eig-B_eig^2)*1i)/(2*A_eig)*V0/c;
-T_half = log(0.5)/eig_value_1_s2;
-%damp_ratio = -real(eig_value_1)/sqrt(real(eig_value_1)^2-imag(eig_value_1)^2);
-period = 2*pi/imag(eig_value_1_s2)/V0;
 
 %% Dutch Roll
 % input
@@ -293,8 +286,6 @@ ya1(:,4) = ya1(:,4) + r;
 eig_value_a1_1 = (2*(Cnr+2*KZ2*CYb)+sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
 eig_value_a1_2 = (2*(Cnr+2*KZ2*CYb)-sqrt(64*KZ2*(4*mub*Cnb+CYb*Cnr)-4*(Cnr+2*KZ2*CYb)^2)*1i)/(16*mub*KZ2)*V0/b;
 
-T_half = log(0.5)*b/real(eig_value_a1_1);
-period = 2*pi*b/imag(eig_value_a1_1)/V0;
 %% Dutch Roll Damped
 % input
 hp0    = flightdata.Dadc1_alt.data(motion.idx4)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
@@ -392,12 +383,15 @@ figure(2)
 subplot(2,2,1);
 hold on;
 plot(ts2,ys2(:,1));
+legend('measured','calculated');
 subplot(2,2,2);
 hold on;
 plot(ts2,ys2(:,2));
+legend('measured','calculated');
 subplot(2,2,3)
 hold on;
 plot(ts2,ys2(:,3));
+legend('measured','calculated');
 subplot(2,2,4)
 hold on;
 plot(ts2,ys2(:,4));
@@ -406,46 +400,67 @@ figure(3)
 subplot(2,2,1);
 hold on;
 plot(ta1,ya1(:,2));
+legend('measured','calculated');
 subplot(2,2,2);
 hold on;
 plot(ta1,ya1(:,3));
+legend('measured','calculated');
 subplot(2,2,3)
 hold on;
 plot(ta1,ya1(:,4));
+legend('measured','calculated');
 
 figure(4)
 subplot(2,2,1);
 hold on;
 plot(ta2,ya2(:,2));
+legend('measured','calculated');
 subplot(2,2,2);
 hold on;
 plot(ta2,ya2(:,3));
+legend('measured','calculated');
 subplot(2,2,3)
 hold on;
 plot(ta2,ya2(:,4));
+legend('measured','calculated');
 
 figure(5)
 subplot(2,2,1);
 hold on;
 plot(ta3,ya3(:,2));
+legend('measured','calculated');
 subplot(2,2,2);
 hold on;
 plot(ta3,ya3(:,3));
+legend('measured','calculated');
 subplot(2,2,3)
 hold on;
 plot(ta3,ya3(:,4));
+legend('measured','calculated');
 
 figure(6)
 subplot(2,2,1);
 hold on;
 plot(ta4,ya4(:,2));
+legend('measured','calculated');
 subplot(2,2,2);
 hold on;
 plot(ta4,ya4(:,3));
+legend('measured','calculated');
 subplot(2,2,3)
 hold on;
 plot(ta4,ya4(:,4));
+legend('measured','calculated');
 hold off;
+
+savefig(refmotion,'referencemotions.fig')
+saveas(refmotion(1),'referencemotions1Phugoid.png')
+saveas(refmotion(2),'referencemotions2ShortPeriod.png')
+saveas(refmotion(3),'referencemotions3Droll.png')
+saveas(refmotion(4),'referencemotions4YDDroll.png')
+saveas(refmotion(5),'referencemotions5Aroll.png')
+saveas(refmotion(5),'referencemotions6spiral.png')
+
 
 fprintf( 'Symmetric: Analytical Eigenvalues'), disp(0);
 fprintf( 'Eigenvalue Short Period'), disp(eig_value_1_s2);
@@ -479,8 +494,15 @@ fprintf( 'Asymmetric: Numerical Eigenvalues'), disp(eig_a1);
 % vmini = vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end);
 % vmin = ys1(vmin(find(ys1(vmin,1)==min(ys1(vmin,1))):end),1);
 % vn = ys1(vmini(1):vmaxi(end),1);
+% vmax = vmax-median(vn);
+% vmin = vmin-median(vn);
 % plot(1:length(vn),vn)
-
+% vmaxc = vmax/vmax(1);
+% for i = 1:length(vmaxc)
+% if vmaxc(i) < 0.5
+%     thalf = ((0.5-vmaxc(i))*vmini(i-1)+(vmaxc(i-1)-0.5)*vmini(i))/(vmaxc(i-1)-vmaxc(i))
+% end
+% end
 %% Functions
 function [sys_s,eig_symmetric,muc,CZ0] = ss_s(V0,hp0,m,rho0,lambda,Temp0,g,R,S,c,CZadot,Cmadot,KY2,CXu,CXa,CXq,CZu,CZa,CZq,Cmu,Cma,Cmq,CXde,CZde,Cmde,C,D,th0)
     rho = rho0*((1+(lambda*hp0/Temp0)))^(-((g/(lambda*R))+1));   
