@@ -14,21 +14,29 @@ CNha   = 2*pi*Ah/(Ah+2);        % Stabiliser normal force slope [ ]
 depsda = 4/(A+2);               % Downwash gradient [ ]
  
 % Stabiblity derivatives
-CXu    = -0.02792;
-CXa    = -0.47966;
+CXu    = -0.15; %aangepast
+CXa    = 0.0; %aangepast
+CZu    = -0.6; %aangepast
+CZa    = -6; %aangepast
+Cmu    = +0.060; %aangepast
+
 CXadot = +0.08330;
 CXq    = -0.28170;
 CXde   = -0.03728;
 
-CZu    = -0.37616;
-CZa    = -5.74340;
+
 CZadot = -0.00350;
 CZq    = -5.66290;
 CZde   = -0.69612;
 
-Cmu    = +0.06990;
+
 Cmadot = +0.17800;
 Cmq    = -8.79415;
+
+Cnr    =  -0.21;
+Clp    = -0.61;
+Cnb    =  +0.12;
+Clr    = +0.24;
 
 CYb    = -0.7500;
 CYbdot =  0     ;
@@ -38,15 +46,15 @@ CYda   = -0.0400;
 CYdr   = +0.2300;
 
 Clb    = -0.10260;
-Clp    = -0.71085;
-Clr    = +0.23760;
+
+
 Clda   = -0.23088;
 Cldr   = +0.03440;
 
-Cnb    =  +0.1348;
+
 Cnbdot =   0     ;
 Cnp    =  -0.0602;
-Cnr    =  -0.2061;
+
 Cnda   =  -0.0120;
 Cndr   =  -0.0939;
 
@@ -314,9 +322,9 @@ ya2(:,4) = ya2(:,4) + r;
 hp0    = flightdata.Dadc1_alt.data(motion.idx5)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx5)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx5)+flightdata.lh_engine_FU.data(motion.idx5))*0.453592;           % mass [kg]
-phi0   = flightdata.Ahrs1_Roll.data(motion.idx5)/180*pi();          % mass [kg]
-p      = (pi/180)*flightdata.Ahrs1_bRollRate.data(motion.idx5);
-r      = (pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx5);
+phi0   = - flightdata.Ahrs1_Roll.data(motion.idx5)/180*pi();          % mass [kg]
+p      = -(pi/180)*flightdata.Ahrs1_bRollRate.data(motion.idx5);
+r      = -(pi/180)*flightdata.Ahrs1_bYawRate.data(motion.idx5);
 
 
 t = flightdata.time.data(motion.idx5:motion.idxe5);
@@ -341,9 +349,9 @@ eig_value_a3_1 = Clp/(4*mub*KX2)*V0/b;
 hp0    = flightdata.Dadc1_alt.data(motion.idx6)*0.3048;      	  % pressure altitude in the stationary flight condition [m]
 V0     = flightdata.Dadc1_tas.data(motion.idx6)*0.514444;          % true airspeed in the stationary flight condition [m/sec]
 m      = m_max-(flightdata.rh_engine_FU.data(motion.idx6)+flightdata.lh_engine_FU.data(motion.idx6))*0.453592;           % mass [kg]
-phi0   = flightdata.Ahrs1_Roll.data(motion.idx6)/180*pi();          % mass [kg]
-p      = (pi/180)*(flightdata.Ahrs1_bRollRate.data(motion.idx6));
-r      = (pi/180)*(flightdata.Ahrs1_bYawRate.data(motion.idx6));
+phi0   = -flightdata.Ahrs1_Roll.data(motion.idx6)/180*pi();          % mass [kg]
+p      = -(pi/180)*(flightdata.Ahrs1_bRollRate.data(motion.idx6));
+r      = -(pi/180)*(flightdata.Ahrs1_bYawRate.data(motion.idx6));
 
 
 t = flightdata.time.data(motion.idx6:motion.idxe6);
@@ -364,50 +372,50 @@ ya4(:,4) = ya4(:,4) + r;
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
 
 % % Plotten
-figure(1)
-subplot(2,2,1);
-hold on;
-plot(ts1,ys1(:,1));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
-
-subplot(2,2,2);
-hold on;
-plot(ts1,ys1(:,2));
-legend({'measured','calculated'},'Location','east');
-legend('boxoff');
-subplot(2,2,3)
-hold on;
-plot(ts1,ys1(:,3));
-legend({'measured','calculated'},'Location','east');
-legend('boxoff');
-subplot(2,2,4)
-hold on;
-plot(ts1,ys1(:,4));
-legend({'measured','calculated'},'Location','east');
-legend('boxoff');
-
-figure(2)
-subplot(2,2,1);
-hold on;
-plot(ts2,ys2(:,1));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
-subplot(2,2,2);
-hold on;
-plot(ts2,ys2(:,2));
-legend({'measured','calculated'},'Location','east');
-legend('boxoff');
-subplot(2,2,3)
-hold on;
-plot(ts2,ys2(:,3));
-legend({'measured','calculated'},'Location','south');
-legend('boxoff');
-subplot(2,2,4)
-hold on;
-plot(ts2,ys2(:,4));
-legend({'measured','calculated'},'Location','east');
-legend('boxoff');
+% figure(1)
+% subplot(2,2,1);
+% hold on;
+% plot(ts1,ys1(:,1));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% 
+% subplot(2,2,2);
+% hold on;
+% plot(ts1,ys1(:,2));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% subplot(2,2,3)
+% hold on;
+% plot(ts1,ys1(:,3));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% subplot(2,2,4)
+% hold on;
+% plot(ts1,ys1(:,4));
+% legend({'measured','calculated'},'Location','southeast');
+% legend('boxoff');
+% 
+% figure(2)
+% subplot(2,2,1);
+% hold on;
+% plot(ts2,ys2(:,1));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% subplot(2,2,2);
+% hold on;
+% plot(ts2,ys2(:,2));
+% legend({'measured','calculated'},'Location','east');
+% legend('boxoff');
+% subplot(2,2,3)
+% hold on;
+% plot(ts2,ys2(:,3));
+% legend({'measured','calculated'},'Location','south');
+% legend('boxoff');
+% subplot(2,2,4)
+% hold on;
+% plot(ts2,ys2(:,4));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
 
 figure(3)
 subplot(2,2,1);

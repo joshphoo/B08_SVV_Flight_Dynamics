@@ -14,21 +14,29 @@ CNha   = 2*pi*Ah/(Ah+2);        % Stabiliser normal force slope [ ]
 depsda = 4/(A+2);               % Downwash gradient [ ]
  
 % Stabiblity derivatives
-CXu    = -0.02792;
-CXa    = -0.47966;
+CXu    = -0.1; %aangepast
+CXa    = 0.0; %aangepast
+CZu    = -0.6; %aangepast
+CZa    = -6; %aangepast
+Cmu    = +0.060; %aangepast
+
 CXadot = +0.08330;
 CXq    = -0.28170;
 CXde   = -0.03728;
 
-CZu    = -0.37616;
-CZa    = -5.74340;
+
 CZadot = -0.00350;
 CZq    = -5.66290;
 CZde   = -0.69612;
 
-Cmu    = +0.06990;
+
 Cmadot = +0.17800;
 Cmq    = -8.79415;
+
+Cnr    =  -0.25;
+Clp    = -0.55;
+Cnb    =  +0.14;
+Clr    = +0.21;
 
 CYb    = -0.7500;
 CYbdot =  0     ;
@@ -38,15 +46,15 @@ CYda   = -0.0400;
 CYdr   = +0.2300;
 
 Clb    = -0.10260;
-Clp    = -0.71085;
-Clr    = +0.23760;
+
+
 Clda   = -0.23088;
 Cldr   = +0.03440;
 
-Cnb    =  +0.1348;
+
 Cnbdot =   0     ;
 Cnp    =  -0.0602;
-Cnr    =  -0.2061;
+
 Cnda   =  -0.0120;
 Cndr   =  -0.0939;
 
@@ -364,50 +372,50 @@ ya4(:,4) = ya4(:,4) + r;
 eig_value_a4_1 = (2*CL*(Clb*Cnr-Cnb*Clr))/(Clp*(CYb*Cnr+4*mub*Cnb)-Cnp*(CYb*Clr+4*mub*Clb))*V0/b;
 
 % % Plotten
-figure(1)
-subplot(2,2,1);
-hold on;
-plot(ts1,ys1(:,1));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
-
-subplot(2,2,2);
-hold on;
-plot(ts1,ys1(:,2));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
-subplot(2,2,3)
-hold on;
-plot(ts1,ys1(:,3));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
-subplot(2,2,4)
-hold on;
-plot(ts1,ys1(:,4));
-legend({'measured','calculated'},'Location','southeast');
-legend('boxoff');
-
-figure(2)
-subplot(2,2,1);
-hold on;
-plot(ts2,ys2(:,1));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
-subplot(2,2,2);
-hold on;
-plot(ts2,ys2(:,2));
-legend({'measured','calculated'},'Location','east');
-legend('boxoff');
-subplot(2,2,3)
-hold on;
-plot(ts2,ys2(:,3));
-legend({'measured','calculated'},'Location','south');
-legend('boxoff');
-subplot(2,2,4)
-hold on;
-plot(ts2,ys2(:,4));
-legend({'measured','calculated'},'Location','northeast');
-legend('boxoff');
+% figure(1)
+% subplot(2,2,1);
+% hold on;
+% plot(ts1,ys1(:,1));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% 
+% subplot(2,2,2);
+% hold on;
+% plot(ts1,ys1(:,2));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% subplot(2,2,3)
+% hold on;
+% plot(ts1,ys1(:,3));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% subplot(2,2,4)
+% hold on;
+% plot(ts1,ys1(:,4));
+% legend({'measured','calculated'},'Location','southeast');
+% legend('boxoff');
+% 
+% figure(2)
+% subplot(2,2,1);
+% hold on;
+% plot(ts2,ys2(:,1));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
+% subplot(2,2,2);
+% hold on;
+% plot(ts2,ys2(:,2));
+% legend({'measured','calculated'},'Location','east');
+% legend('boxoff');
+% subplot(2,2,3)
+% hold on;
+% plot(ts2,ys2(:,3));
+% legend({'measured','calculated'},'Location','south');
+% legend('boxoff');
+% subplot(2,2,4)
+% hold on;
+% plot(ts2,ys2(:,4));
+% legend({'measured','calculated'},'Location','northeast');
+% legend('boxoff');
 
 figure(3)
 subplot(2,2,1);
